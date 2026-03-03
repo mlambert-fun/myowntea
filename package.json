@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "@prisma/internals": "^7.3.0"
+  },
+  "prisma": {
+    "schema": "backend/prisma/schema.prisma"
+  }
+}

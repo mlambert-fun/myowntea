@@ -58,7 +58,7 @@ export function HowItWorks() {
   return (
     <section 
       ref={sectionRef}
-      className="relative w-full bg-[#FAF8F3] py-24 overflow-hidden"
+      className="relative w-full bg-[#F5F1E8] py-24 overflow-hidden"
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">

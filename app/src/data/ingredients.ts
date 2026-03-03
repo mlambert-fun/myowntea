@@ -1,12 +1,19 @@
 export interface Ingredient {
   id: string;
   name: string;
-  category: 'base' | 'flower' | 'fruit' | 'plant' | 'aroma';
+  category: 'base' | 'flower' | 'fruit' | 'vegetal' | 'aroma';
   description: string;
   benefits: string[];
   intensity: 1 | 2 | 3 | 4 | 5;
   color: string;
   image: string;
+  basePrice?: number;
+  dayMoments?: string[] | null;
+  infusionTime?: string | null;
+  dosage?: string | null;
+  temperature?: string | null;
+  preparation?: string | null;
+  origin?: string | null;
 }
 
 export interface Category {
@@ -36,15 +43,15 @@ export const categories: Category[] = [
     icon: 'Apple'
   },
   {
-    id: 'plant',
-    name: 'Plantes & Herbes',
+    id: 'vegetal',
+    name: 'Plantes',
     description: 'Les vertus naturelles des plantes médicinales',
     icon: 'Sprout'
   },
   {
     id: 'aroma',
-    name: 'Arômes',
-    description: 'Finalisez avec des notes parfumées uniques',
+    name: 'Arômes Naturels',
+    description: 'Finalisez avec des notes parfumées uniques, 100% naturelles, certifiées BIO',
     icon: 'Sparkles'
   }
 ];
@@ -256,11 +263,11 @@ export const ingredients: Ingredient[] = [
     image: 'https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=400&h=400&fit=crop'
   },
 
-  // Plantes & Herbes
+  // Plantes
   {
     id: 'mint',
     name: 'Menthe Poivrée',
-    category: 'plant',
+    category: 'vegetal',
     description: 'Feuilles de menthe fraîche et intense',
     benefits: ['Digestion', 'Fraîcheur', 'Vivacité'],
     intensity: 4,
@@ -270,7 +277,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 'verbena',
     name: 'Verveine Odorante',
-    category: 'plant',
+    category: 'vegetal',
     description: 'Verveine citronnée et apaisante',
     benefits: ['Relaxation', 'Digestion', 'Sommeil'],
     intensity: 2,
@@ -280,7 +287,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 'ginger',
     name: 'Gingembre Frais',
-    category: 'plant',
+    category: 'vegetal',
     description: 'Racine de gingembre piquante et tonifiante',
     benefits: ['Énergie', 'Immunité', 'Chaleur'],
     intensity: 5,
@@ -290,7 +297,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 'lemongrass',
     name: 'Citronnelle',
-    category: 'plant',
+    category: 'vegetal',
     description: 'Herbe citronnée rafraîchissante',
     benefits: ['Digestion', 'Détox', 'Fraîcheur'],
     intensity: 3,
@@ -300,7 +307,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 'cinnamon',
     name: 'Cannelle Ceylan',
-    category: 'plant',
+    category: 'vegetal',
     description: 'Écorce de cannelle chaude et épicée',
     benefits: ['Chaleur', 'Confort', 'Gourmandise'],
     intensity: 4,
@@ -310,7 +317,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 'licorice',
     name: 'Réglisse Douce',
-    category: 'plant',
+    category: 'vegetal',
     description: 'Racine de réglisse sucrée et caractéristique',
     benefits: ['Gorge', 'Douceur', 'Confort'],
     intensity: 3,
@@ -320,7 +327,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 'sage',
     name: 'Sauge Officinale',
-    category: 'plant',
+    category: 'vegetal',
     description: 'Feuilles de sauge aux vertus purifiantes',
     benefits: ['Mémoire', 'Concentration', 'Clarté'],
     intensity: 3,
@@ -330,7 +337,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 'thyme',
     name: 'Thym Commun',
-    category: 'plant',
+    category: 'vegetal',
     description: 'Thym aromatique aux propriétés antiseptiques',
     benefits: ['Immunité', 'Respiration', 'Force'],
     intensity: 4,

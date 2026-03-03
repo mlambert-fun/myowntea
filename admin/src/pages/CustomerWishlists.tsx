@@ -1,0 +1,131 @@
+﻿import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import Layout from '../components/Layout';
+import { api } from '../api/client';
+
+interface WishlistIngredient {
+  id: string;
+  name: string;
+  color: string;
+  category: string;
+}
+
+interface WishlistCreation {
+  id: string;
+  createdAt: string;
+  name: string;
+  ingredientIds: string[];
+  ingredients: WishlistIngredient[];
+  base?: { colors?: Array<{ hex: string }> };
+  blendColor?: string;
+  priceCents: number;
+}
+
+interface CustomerSummary {
+  id: string;
+  email?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+}
+
+interface CustomerWishlistsResponse {
+  customer: CustomerSummary;
+  wishlists: WishlistCreation[];
+}
+
+export default function CustomerWishlists() {
+  const { id } = useParams();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [customer, setCustomer] = useState<CustomerSummary | null>(null);
+  const [wishlists, setWishlists] = useState<WishlistCreation[]>([]);
+
+  useEffect(() => {
+    if (!id) return;
+    void loadCustomerWishlists(id);
+  }, [id]);
+
+  async function loadCustomerWishlists(customerId: string) {
+    try {
+      setLoading(true);
+      const data = (await api.getCustomerWishlists(customerId)) as CustomerWishlistsResponse;
+      setCustomer(data?.customer || null);
+      setWishlists(Array.isArray(data?.wishlists) ? data.wishlists : []);
+      setError(null);
+    } catch (err) {
+      console.error('Failed to load customer wishlists', err);
+      setError('Impossible de charger les wishlists du client.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const customerName = [customer?.firstName, customer?.lastName].filter(Boolean).join(' ').trim();
+
+  return (
+    <Layout>
+      <div className="admin-page admin-page-premium-lite">
+        <div className="admin-header" style={{ alignItems: 'flex-start' }}>
+          <div>
+            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <Link to="/customers" className="admin-link-inline">
+                Retour aux clients
+              </Link>
+              {id ? (
+                <Link to={`/customers/${id}`} className="admin-link-inline">
+                  Retour au dossier client
+                </Link>
+              ) : null}
+            </div>
+            <h1 className="admin-title" style={{ marginTop: '0.5rem' }}>
+              Wishlists client
+            </h1>
+            <p className="admin-subtitle">
+              {customerName || customer?.email || 'Client'} - {wishlists.length} wishlist{wishlists.length > 1 ? 's' : ''}
+            </p>
+          </div>
+        </div>
+
+        {loading && <p>Chargement...</p>}
+        {!loading && error && <p>{error}</p>}
+
+        {!loading && !error && (
+          <div className="admin-card">
+            <h2 className="admin-card-title">Liste des wishlists</h2>
+            {wishlists.length === 0 ? (
+              <p className="admin-muted">Aucune wishlist pour ce client.</p>
+            ) : (
+              <div className="admin-table-wrapper">
+                <table className="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Cr?ation</th>
+                      <th>Ingredients</th>
+                      <th>Prix</th>
+                      <th>Cr?? le</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {wishlists.map((wishlist) => (
+                      <tr key={wishlist.id}>
+                        <td>{wishlist.name || 'Ma cr?ation'}</td>
+                        <td>
+                          {wishlist.ingredients?.length
+                            ? wishlist.ingredients.map((ingredient) => ingredient.name).join(', ')
+                            : '?'}
+                        </td>
+                        <td>{(wishlist.priceCents / 100).toFixed(2)} ?</td>
+                        <td>{wishlist.createdAt ? new Date(wishlist.createdAt).toLocaleString('fr-FR') : '?'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </Layout>
+  );
+}
+

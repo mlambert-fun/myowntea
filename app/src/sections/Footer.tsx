@@ -1,9 +1,43 @@
-import { Leaf, Instagram, Facebook, Mail, MapPin, Phone } from 'lucide-react';
+﻿import { Leaf, Instagram, TikTok, Facebook, Mail, MapPin, Phone } from 'lucide-react';
+import { PRIMARY_NAV_LINKS } from '@/lib/navigation-links';
 
-export function Footer() {
+type FooterProps = {
+  hideMainSection?: boolean;
+  hideNewsletterSection?: boolean;
+};
+
+export function Footer({ hideMainSection = false, hideNewsletterSection = false }: FooterProps) {
+  const year = new Date().getFullYear();
+  const navigateToSection = (href: string) => {
+    if (href.startsWith('/')) {
+      if (window.location.pathname === '/' && href.startsWith('/?scroll=')) {
+        const anchor = href.replace('/?scroll=', '#');
+        const element = document.querySelector(anchor);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+          return;
+        }
+      }
+      window.location.assign(href);
+      return;
+    }
+
+    if (window.location.pathname !== '/') {
+      const anchor = href.startsWith('#') ? href.replace('#', '') : href;
+      window.location.assign(`/?scroll=${anchor}`);
+      return;
+    }
+
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <footer className="w-full bg-[var(--sage-deep)] text-[var(--cream-apothecary)]">
       {/* Main Footer */}
+      {!hideMainSection && (
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
@@ -12,27 +46,33 @@ export function Footer() {
               <div className="w-10 h-10 rounded-full bg-[var(--gold-antique)] flex items-center justify-center">
                 <Leaf className="w-5 h-5 text-[var(--sage-deep)]" />
               </div>
-              <span className="font-display text-xl">L'Atelier des Arômes</span>
+              <span className="font-display text-xl">My Own Tea</span>
             </div>
             <p className="text-[var(--cream-apothecary)]/70 text-sm leading-relaxed mb-6">
-              Créez votre thé signature à partir d'ingrédients bio soigneusement sélectionnés. 
+              Créez votre thé signature à partir d'ingrédients bio soigneusement sélectionnés.
               Une expérience unique de mélange personnalisé.
             </p>
             <div className="flex gap-3">
               <a 
-                href="#" 
+                href="https://www.instagram.com/myown_tea/" 
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[var(--gold-antique)] transition-colors"
               >
                 <Instagram className="w-5 h-5" />
               </a>
               <a 
-                href="#" 
+                href="https://www.tiktok.com/@myowntea" 
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[var(--gold-antique)] transition-colors"
+              >
+                <TikTok className="w-5 h-5 scale-125 -translate-x-px translate-y-[0.2rem]" strokeWidth={2.2} />
+              </a>
+              <a 
+                href="https://www.facebook.com/my.own.tea.fr" 
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[var(--gold-antique)] transition-colors"
               >
                 <Facebook className="w-5 h-5" />
               </a>
               <a 
-                href="#" 
+                href="mailto:contact@myowntea.com" 
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[var(--gold-antique)] transition-colors"
               >
                 <Mail className="w-5 h-5" />
@@ -44,21 +84,13 @@ export function Footer() {
           <div>
             <h4 className="font-display text-lg mb-6">Navigation</h4>
             <ul className="space-y-3">
-              {[
-                { label: 'Créer mon mélange', href: '#creator' },
-                { label: 'Nos ingrédients', href: '#gallery' },
-                { label: 'Comment ça marche', href: '#how-it-works' },
-                { label: 'Témoignages', href: '#testimonials' },
-                { label: 'Nos thés prêts', href: '#' }
-              ].map(link => (
+              {PRIMARY_NAV_LINKS.map((link) => (
                 <li key={link.label}>
                   <a 
                     href={link.href}
                     onClick={(e) => {
-                      if (link.href.startsWith('#') && link.href !== '#') {
-                        e.preventDefault();
-                        document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
-                      }
+                      e.preventDefault();
+                      navigateToSection(link.href);
                     }}
                     className="text-[var(--cream-apothecary)]/70 hover:text-[var(--gold-antique)] transition-colors text-sm"
                   >
@@ -112,15 +144,17 @@ export function Footer() {
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-[var(--gold-antique)] flex-shrink-0" />
                 <span className="text-[var(--cream-apothecary)]/70 text-sm">
-                  bonjour@atelier-aromes.fr
+                  contact@myowntea.com
                 </span>
               </li>
             </ul>
           </div>
         </div>
       </div>
+      )}
 
       {/* Newsletter */}
+      {!hideNewsletterSection && (
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -143,26 +177,34 @@ export function Footer() {
           </div>
         </div>
       </div>
+      )}
 
       {/* Bottom Bar */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-[var(--cream-apothecary)]/50 text-sm">
-              © 2024 L'Atelier des Arômes. Tous droits réservés.
+              © {year} My Own Tea
             </p>
             <div className="flex items-center gap-6">
               <span className="text-[var(--cream-apothecary)]/50 text-sm">
                 Paiement sécurisé
               </span>
-              <div className="flex gap-2">
-                {['Visa', 'MC', 'Amex'].map(card => (
-                  <div 
-                    key={card}
-                    className="w-10 h-6 bg-white/10 rounded flex items-center justify-center text-xs text-[var(--cream-apothecary)]/50"
-                  >
-                    {card}
-                  </div>
+              <div className="flex gap-2 items-center">
+                {[
+                  { id: 'visa', src: '/assets/footer/visa.png', alt: 'Visa' },
+                  { id: 'mastercard', src: '/assets/footer/mastercard.png', alt: 'Mastercard' },
+                  { id: 'paypal', src: '/assets/footer/paypal.png', alt: 'PayPal' },
+                  { id: 'applepay', src: '/assets/footer/applepay.png', alt: 'Apple Pay' },
+                  { id: 'googlepay', src: '/assets/footer/googlepay.png', alt: 'Google Pay' }
+                ].map(card => (
+                  <img
+                    key={card.id}
+                    src={card.src}
+                    alt={card.alt}
+                    loading="lazy"
+                    className="w-10 h-6 object-contain rounded-[12%]"
+                  />
                 ))}
               </div>
             </div>
@@ -172,3 +214,5 @@ export function Footer() {
     </footer>
   );
 }
+
+

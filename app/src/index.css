@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+@import url('leaflet/dist/leaflet.css');
 
 @tailwind base;
 @tailwind components;
@@ -27,7 +28,7 @@
     --ring: 43 42% 59%;
     --radius: 0.5rem;
     
-    --sage-deep: #2D3E36;
+    --sage-deep: #414C16;
     --gold-antique: #C9A962;
     --cream-apothecary: #F5F1E8;
     --green-moss: #4A5D4E;
@@ -99,6 +100,17 @@
   .input-elegant {
     @apply bg-[var(--white-warm)] border border-[#E5E0D5] rounded-lg px-5 py-4 transition-all duration-300 outline-none;
   }
+
+  select.input-elegant {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 2.75rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M6 8l4 4 4-4' stroke='%23414C16' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1rem 1rem;
+  }
   
   .input-elegant:focus {
     @apply border-[var(--gold-antique)];
@@ -120,6 +132,10 @@
 }
 
 @layer utilities {
+  .cursor-close-cross {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'><rect width='24' height='24' rx='12' fill='%23F3F1EE'/><line x1='8' y1='8' x2='16' y2='16' stroke='%23414C16' stroke-width='2' stroke-linecap='round'/><line x1='16' y1='8' x2='8' y2='16' stroke='%23414C16' stroke-width='2' stroke-linecap='round'/></svg>") 12 12, pointer;
+  }
+
   .animation-float {
     animation: float 8s ease-in-out infinite;
   }
