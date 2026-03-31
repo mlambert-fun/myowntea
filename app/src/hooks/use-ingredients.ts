@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { api, type Ingredient as APIIngredient } from '../api/client';
+import { t } from '@/lib/i18n';
 
 // Adapter pour transformer les ingrédients de l'API vers le format attendu par l'UI
 export interface Ingredient {
@@ -73,7 +74,13 @@ function adaptIngredient(apiIngredient: APIIngredient): Ingredient {
   };
 }
 
-export function useIngredients() {
+export function useIngredients({
+  refreshOnFocus = true,
+  refreshIntervalMs = 20000,
+}: {
+  refreshOnFocus?: boolean;
+  refreshIntervalMs?: number | null;
+} = {}) {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -98,7 +105,9 @@ export function useIngredients() {
         setError(null);
       } catch (err) {
         if (!isMounted) return;
-        setError(err instanceof Error ? err.message : 'Failed to load ingredients');
+        setError(err instanceof Error && err.message.trim()
+          ? err.message
+          : t('app.lib.api_errors.failed_load_ingredients'));
       } finally {
         if (showLoading && isMounted) setLoading(false);
       }
@@ -107,18 +116,28 @@ export function useIngredients() {
     loadIngredients(true);
 
     const handleFocus = () => loadIngredients(false);
-    window.addEventListener('focus', handleFocus);
 
-    const refreshInterval = window.setInterval(() => {
-      loadIngredients(false);
-    }, 20000);
+    if (refreshOnFocus) {
+      window.addEventListener('focus', handleFocus);
+    }
+
+    const refreshInterval =
+      typeof refreshIntervalMs === 'number' && refreshIntervalMs > 0
+        ? window.setInterval(() => {
+            loadIngredients(false);
+          }, refreshIntervalMs)
+        : null;
 
     return () => {
       isMounted = false;
-      window.removeEventListener('focus', handleFocus);
-      window.clearInterval(refreshInterval);
+      if (refreshOnFocus) {
+        window.removeEventListener('focus', handleFocus);
+      }
+      if (refreshInterval !== null) {
+        window.clearInterval(refreshInterval);
+      }
     };
-  }, []);
+  }, [refreshIntervalMs, refreshOnFocus]);
 
   return { ingredients, loading, error };
 }

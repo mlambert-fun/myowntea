@@ -20,6 +20,8 @@ import Packs from './pages/Packs';
 import SubscriptionPlans from './pages/SubscriptionPlans';
 import AutomationJobs from './pages/AutomationJobs';
 import Emails from './pages/Emails';
+import RedirectRules from './pages/RedirectRules';
+import Translations from './pages/Translations';
 import { Toast } from './components/Toast';
 
 function App() {
@@ -66,6 +68,8 @@ function App() {
         <Route path="/subscription-plans" element={<SubscriptionPlans />} />
         <Route path="/automation-jobs" element={<AutomationJobs />} />
         <Route path="/emails" element={<Emails />} />
+        <Route path="/redirect-rules" element={<RedirectRules />} />
+        <Route path="/translations" element={<Translations />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

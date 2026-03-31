@@ -1,4 +1,5 @@
 import { X } from 'lucide-react';
+import { t } from "@/lib/i18n";
 
 interface CartDrawerHeaderProps {
   title: string;
@@ -12,7 +13,7 @@ export function CartDrawerHeader({ title, onClose }: CartDrawerHeaderProps) {
       <button
         type="button"
         onClick={onClose}
-        aria-label="Fermer"
+        aria-label={t("app.components.cart_drawer.cart_drawer.close")}
         className="rounded-full p-2 text-[var(--sage-deep)]/70 hover:text-[var(--sage-deep)] hover:bg-[#F3F1EE] transition"
       >
         <X className="w-4 h-4" />

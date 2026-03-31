@@ -47,6 +47,7 @@ model Customer {
   id            String   @id @default(cuid())
   userId        String?  @unique
   email         String?  @unique
+  stripeCustomerId String? @unique
   passwordHash  String?
   googleId      String?  @unique
   authProvider  AuthProvider @default(PASSWORD)
@@ -337,6 +338,7 @@ model Order {
   paymentMethod   String?  // e.g., "stripe", "paypal"
   paymentStatus   String   @default("pending") // "pending", "completed", "failed"
   stripeSessionId String?
+  stripeInvoiceId String?  @unique
   cartId          String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
@@ -442,7 +444,11 @@ model Product {
   type        String   @default("ACCESSORY")
   title       String
   slug        String   @unique
+  sku         String?  @unique
   description String?
+  additionalDetails String? @db.Text
+  tags        String[] @default([])
+  ranking     Int      @default(0)
   priceCents  Int      @default(0)
   stockQty    Int?
   images      String[] @default([])
@@ -487,6 +493,7 @@ model ProductVariant {
   priceCents  Int
   stockQty    Int?
   imageUrl    String?
+  images      String[] @default([])
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -568,17 +575,33 @@ model SubscriptionPlan {
 model Subscription {
   id                    String   @id @default(cuid())
   customerId            String
-  planId                String
+  planId                String?
+  kind                  String   @default("PLAN")
+  title                 String?
   status                String
   stripeSubscriptionId  String
+  stripePriceId         String?
+  currency              String   @default("EUR")
+  interval              String   @default("month")
+  intervalCount         Int      @default(1)
+  unitPriceCents        Int      @default(0)
+  shippingCents         Int      @default(0)
+  discountPercent       Int      @default(0)
+  blendListingId        String?
+  blendFormat           String?
+  snapshot              Json?
+  currentPeriodEnd      DateTime?
+  cancelAtPeriodEnd     Boolean  @default(false)
+  cancelledAt           DateTime?
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
 
   customer              Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
-  plan                  SubscriptionPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  plan                  SubscriptionPlan? @relation(fields: [planId], references: [id], onDelete: Cascade)
 
   @@index([customerId])
   @@index([planId])
+  @@index([kind])
   @@unique([stripeSubscriptionId])
 }
 
@@ -641,6 +664,15 @@ model ShipmentEvent {
 enum ProviderType {
   PAYMENT
   SHIPPING
+}
+
+enum TranslatableEntityType {
+  INGREDIENT
+  PRODUCT
+  PRODUCT_OPTION
+  PRODUCT_OPTION_VALUE
+  BLEND
+  BLEND_LISTING
 }
 
 model PaymentProvider {
@@ -751,7 +783,16 @@ model StoreSettings {
   id                        String   @id @default("default")
   freeShippingThresholdCents Int     @default(4500)
   defaultShippingCents      Int      @default(590)
+  frHomeShippingCents       Int      @default(550)
+  frRelayShippingCents      Int      @default(460)
+  beHomeShippingCents       Int      @default(900)
+  beRelayShippingCents      Int      @default(550)
+  europeShippingCents       Int      @default(750)
+  internationalShippingCents Int     @default(1590)
   currency                  String   @default("EUR")
+  shopAddress               String   @default("34 Place du Général de Gaulle, 59800 Lille, France")
+  shopPhone                 String   @default("+33 642 80 08 27")
+  contactEmail              String   @default("contact@myowntea.fr")
   createdAt                 DateTime @default(now())
   updatedAt                 DateTime @updatedAt
 }
@@ -794,4 +835,19 @@ model OrderDiscountApplication {
   @@index([orderId])
   @@index([orderItemId])
   @@index([discountId])
+}
+
+model EntityTranslation {
+  id         String                @id @default(cuid())
+  entityType TranslatableEntityType
+  entityId   String
+  field      String
+  locale     String
+  value      Json
+  createdAt  DateTime              @default(now())
+  updatedAt  DateTime              @updatedAt
+
+  @@unique([entityType, entityId, field, locale], map: "EntityTranslation_entity_field_locale_key")
+  @@index([entityType, entityId], map: "EntityTranslation_entity_idx")
+  @@index([entityType, locale], map: "EntityTranslation_entity_locale_idx")
 }

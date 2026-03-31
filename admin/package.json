@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 3001",
-    "build": "tsc && vite build",
+    "build": "npm run i18n:check && tsc && vite build",
+    "i18n:check": "node ../scripts/check_no_hardcoded_i18n.mjs admin",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -14,6 +14,8 @@ interface AuthContextValue {
     lastName?: string;
     birthDate?: string | null;
     phoneE164?: string | null;
+    marketingEmailsOptIn?: boolean;
+    reminderEmailsOptIn?: boolean;
   }) => Promise<void>;
   logout: () => Promise<void>;
   ensureGuestSession: () => Promise<void>;
@@ -81,6 +83,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     lastName?: string;
     birthDate?: string | null;
     phoneE164?: string | null;
+    marketingEmailsOptIn?: boolean;
+    reminderEmailsOptIn?: boolean;
   }) => {
     await api.register(payload);
     await loadMe();

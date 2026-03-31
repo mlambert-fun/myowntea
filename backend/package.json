@@ -5,8 +5,11 @@
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
+    "db:restore:local": "node scripts/restore_local.mjs",
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "npm run i18n:check && tsc",
+    "i18n:check": "node ../scripts/check_no_hardcoded_i18n.mjs backend",
+    "db:backup:local": "node scripts/backup_local.mjs",
     "start": "node dist/index.js",
     "db:backup:railway": "node scripts/backup_railway.mjs",
     "prisma:generate": "prisma generate",

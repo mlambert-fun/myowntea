@@ -1,6 +1,16 @@
 {
+  "scripts": {
+    "db:backup:local": "npm --prefix backend run db:backup:local",
+    "db:restore:local": "npm --prefix backend run db:restore:local --",
+    "dev:stack": "powershell -ExecutionPolicy Bypass -File scripts/launchlocalservers.ps1",
+    "dev:stack:external": "powershell -ExecutionPolicy Bypass -File scripts/launchlocalservers.ps1 -ExternalWindows",
+    "i18n:check": "node scripts/check_no_hardcoded_i18n.mjs",
+    "i18n:extract": "node scripts/extract-fr-locale.mjs",
+    "i18n:split": "node scripts/split_locales_by_target.mjs"
+  },
   "devDependencies": {
-    "@prisma/internals": "^7.3.0"
+    "@prisma/internals": "^7.3.0",
+    "sharp-cli": "^5.2.0"
   },
   "prisma": {
     "schema": "backend/prisma/schema.prisma"

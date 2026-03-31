@@ -82,6 +82,77 @@ export interface EmailMetricsResponse {
   }>;
 }
 
+export type RedirectMatchType = 'EXACT' | 'PREFIX' | 'REGEX';
+
+export interface RedirectRule {
+  id: string;
+  name: string;
+  description?: string | null;
+  sourcePath: string;
+  matchType: RedirectMatchType;
+  targetPath: string;
+  statusCode: 301 | 302;
+  isActive: boolean;
+  priority: number;
+  countryCodes: string[];
+  locales: string[];
+  abTestPercent: number;
+  abTestTargetPath?: string | null;
+  startAt?: string | null;
+  endAt?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+
+export interface RedirectResolveResult {
+  matched: boolean;
+  targetPath?: string;
+  statusCode?: 301 | 302;
+  abVariantApplied?: boolean;
+  rule?: {
+    id: string;
+    name: string;
+    matchType: RedirectMatchType;
+    sourcePath: string;
+  };
+}
+
+export type TranslatableEntityType =
+  | 'INGREDIENT'
+  | 'PRODUCT'
+  | 'PRODUCT_OPTION'
+  | 'PRODUCT_OPTION_VALUE'
+  | 'BLEND'
+  | 'BLEND_LISTING';
+
+export interface TranslationConfigEntry {
+  entityType: TranslatableEntityType;
+  fields: string[];
+}
+
+export interface TranslationConfigResponse {
+  entities: TranslationConfigEntry[];
+}
+
+export interface EntityTranslationRow {
+  id: string;
+  entityType: TranslatableEntityType;
+  entityId: string;
+  field: string;
+  locale: string;
+  value: unknown;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface EntityTranslationsResponse {
+  page: number;
+  pageSize: number;
+  totalCount: number;
+  totalPages: number;
+  items: EntityTranslationRow[];
+}
+
 export const api = {
   // Auth
   async login(email: string, password: string): Promise<AuthResponse> {
@@ -630,6 +701,156 @@ export const api = {
       body: JSON.stringify(data),
     });
     return res.json();
+  },
+
+  // Redirect rules (admin)
+  async getRedirectRules(token: string): Promise<RedirectRule[]> {
+    const res = await fetch(`${API_URL}/api/admin/redirect-rules`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const body = await res.json().catch(() => null);
+    if (!res.ok) {
+      throw new Error(body?.error || 'Failed to fetch redirect rules');
+    }
+    return Array.isArray(body) ? (body as RedirectRule[]) : [];
+  },
+
+  async createRedirectRule(data: Partial<RedirectRule>, token: string): Promise<RedirectRule> {
+    const res = await fetch(`${API_URL}/api/admin/redirect-rules`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json().catch(() => null);
+    if (!res.ok) {
+      throw new Error(body?.error || 'Failed to create redirect rule');
+    }
+    return body as RedirectRule;
+  },
+
+  async updateRedirectRule(id: string, data: Partial<RedirectRule>, token: string): Promise<RedirectRule> {
+    const res = await fetch(`${API_URL}/api/admin/redirect-rules/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+    const body = await res.json().catch(() => null);
+    if (!res.ok) {
+      throw new Error(body?.error || 'Failed to update redirect rule');
+    }
+    return body as RedirectRule;
+  },
+
+  async deleteRedirectRule(id: string, token: string): Promise<void> {
+    const res = await fetch(`${API_URL}/api/admin/redirect-rules/${id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok && res.status !== 204) {
+      const body = await res.json().catch(() => null);
+      throw new Error(body?.error || 'Failed to delete redirect rule');
+    }
+  },
+
+  async resolveRedirectRule(params: {
+    path: string;
+    locale?: string;
+    countryCode?: string;
+    seed?: string;
+  }): Promise<RedirectResolveResult> {
+    const query = new URLSearchParams();
+    query.set('path', params.path);
+    if (params.locale) query.set('locale', params.locale);
+    if (params.countryCode) query.set('countryCode', params.countryCode);
+    if (params.seed) query.set('seed', params.seed);
+    const res = await fetch(`${API_URL}/api/redirects/resolve?${query.toString()}`);
+    const body = await res.json().catch(() => null);
+    if (!res.ok) {
+      throw new Error(body?.error || 'Failed to resolve redirect');
+    }
+    return body as RedirectResolveResult;
+  },
+
+  // Business translations (admin)
+  async getTranslationsConfig(token: string): Promise<TranslationConfigResponse> {
+    const res = await fetch(`${API_URL}/api/admin/translations/config`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const body = await res.json().catch(() => null);
+    if (!res.ok) {
+      throw new Error(body?.error || 'Failed to fetch translation config');
+    }
+    return body as TranslationConfigResponse;
+  },
+
+  async getTranslations(
+    params: {
+      entityType?: TranslatableEntityType | '';
+      entityId?: string;
+      locale?: string;
+      field?: string;
+      page?: number;
+      pageSize?: number;
+    },
+    token: string
+  ): Promise<EntityTranslationsResponse> {
+    const query = new URLSearchParams();
+    if (params.entityType) query.set('entityType', params.entityType);
+    if (params.entityId) query.set('entityId', params.entityId);
+    if (params.locale) query.set('locale', params.locale);
+    if (params.field) query.set('field', params.field);
+    if (params.page) query.set('page', String(params.page));
+    if (params.pageSize) query.set('pageSize', String(params.pageSize));
+    const suffix = query.toString() ? `?${query.toString()}` : '';
+    const res = await fetch(`${API_URL}/api/admin/translations${suffix}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const body = await res.json().catch(() => null);
+    if (!res.ok) {
+      throw new Error(body?.error || 'Failed to fetch translations');
+    }
+    return body as EntityTranslationsResponse;
+  },
+
+  async upsertTranslations(
+    payload: {
+      entityType: TranslatableEntityType;
+      entityId: string;
+      locale: string;
+      values: Record<string, unknown>;
+    },
+    token: string
+  ): Promise<{ ok: boolean; count: number; items: EntityTranslationRow[] }> {
+    const res = await fetch(`${API_URL}/api/admin/translations/upsert`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(payload),
+    });
+    const body = await res.json().catch(() => null);
+    if (!res.ok) {
+      throw new Error(body?.error || 'Failed to upsert translation');
+    }
+    return body as { ok: boolean; count: number; items: EntityTranslationRow[] };
+  },
+
+  async deleteTranslation(id: string, token: string): Promise<void> {
+    const res = await fetch(`${API_URL}/api/admin/translations/${id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok && res.status !== 204) {
+      const body = await res.json().catch(() => null);
+      throw new Error(body?.error || 'Failed to delete translation');
+    }
   },
 
   // Automation jobs (admin)

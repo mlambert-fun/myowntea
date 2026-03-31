@@ -1,8 +1,8 @@
+import { t } from "@/lib/i18n";
 export const PRIMARY_NAV_LINKS = [
-  { label: 'Créer', href: '#creator' },
-  { label: 'Comment ça marche', href: '#how-it-works' },
-  { label: 'Créations', href: '#topcreations' },
-  { label: 'Accessoires', href: '/?scroll=accessoires' },
-  { label: 'Témoignages', href: '#testimonials' },
+    { label: t("app.lib.navigation_links.create"), href: '#creator' },
+    { label: t("app.lib.navigation_links.comment_marche"), href: '#how-it-works' },
+    { label: t("app.lib.navigation_links.blends"), href: '#topcreations' },
+    { label: 'Accessoires', href: '/?a=accessoires' },
+    { label: t("app.lib.navigation_links.temoignages"), href: '#testimonials' },
 ] as const;
-

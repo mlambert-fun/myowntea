@@ -142,6 +142,8 @@ vite.config.ts.timestamp-*
 backend/media/
 media/
 backend/backups/
+backend/.postgres/
+.local-archives/
 
 .tmp_boxtal_php_library/
 
