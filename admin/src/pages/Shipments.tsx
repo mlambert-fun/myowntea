@@ -28,11 +28,10 @@ export default function Shipments() {
     const [shipments, setShipments] = useState<Shipment[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const token = localStorage.getItem('adminToken') || '';
     const load = async () => {
         try {
             setLoading(true);
-            const data = await api.getShipments(token);
+            const data = await api.getShipments();
             setShipments(Array.isArray(data) ? data : []);
         }
         catch (e) {
@@ -57,7 +56,7 @@ export default function Shipments() {
               <path d="M20 12a8 8 0 1 1-2.34-5.66" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               <path d="M20 4v5h-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            Actualiser
+            {t("admin.pages.shipments.refresh")}
           </button>
         </div>
 
@@ -70,12 +69,12 @@ export default function Shipments() {
             <thead>
               <tr>
                 <th>{t("admin.pages.shipments.order")}</th>
-                <th>Client</th>
-                <th>Offre</th>
-                <th>Statut</th>
-                <th>Tracking</th>
+                <th>{t("admin.pages.shipments.customer")}</th>
+                <th>{t("admin.pages.shipments.offer")}</th>
+                <th>{t("admin.pages.shipments.status")}</th>
+                <th>{t("admin.pages.shipments.tracking")}</th>
                 <th>{t("admin.pages.shipments.label")}</th>
-                <th>Actions</th>
+                <th>{t("admin.pages.shipments.actions")}</th>
               </tr>
             </thead>
             <tbody>
@@ -102,7 +101,7 @@ export default function Shipments() {
                   <td>
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
                       <button className="admin-icon-button admin-btn-secondary" title={t("admin.pages.shipments.rafraichir_label")} aria-label={`Rafraîchir l'étiquette pour ${shipment.order?.orderNumber || t("admin.pages.shipments.shipment")}`} onClick={async () => {
-                await api.refreshShipmentLabel(shipment.id, token);
+                await api.refreshShipmentLabel(shipment.id);
                 load();
             }}>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -111,7 +110,7 @@ export default function Shipments() {
                         </svg>
                       </button>
                       <button className="admin-icon-button admin-btn-secondary" title={t("admin.pages.shipments.rafraichir_tracking")} aria-label={`Rafraîchir le suivi pour ${shipment.order?.orderNumber || t("admin.pages.shipments.shipment")}`} onClick={async () => {
-                await api.refreshShipmentTracking(shipment.id, token);
+                await api.refreshShipmentTracking(shipment.id);
                 load();
             }}>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">

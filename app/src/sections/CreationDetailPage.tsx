@@ -309,8 +309,30 @@ export default function CreationDetailPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <PageBreadcrumb />
           <div className="bg-white rounded-3xl shadow overflow-hidden grid md:grid-cols-2">
-            <div className="h-72 md:h-full bg-[var(--cream-apothecary)] flex items-start justify-center overflow-hidden">
-              {coverImageUrl ? (<img src={coverImageUrl} alt={listing.title} className="w-full h-full object-cover object-top"/>) : (<div className="text-[var(--sage-deep)]/70">{t("app.sections.creation_detail_page.blend_artisanale")}</div>)}
+            <div className="flex flex-col">
+              <div className="h-72 bg-[var(--cream-apothecary)] flex items-start justify-center overflow-hidden md:h-auto">
+                {coverImageUrl ? (<img src={coverImageUrl} alt={listing.title} className="w-full h-full object-cover object-top md:h-auto"/>) : (<div className="text-[var(--sage-deep)]/70">{t("app.sections.creation_detail_page.blend_artisanale")}</div>)}
+              </div>
+              <div className="border-t border-[#EEE6D8] p-6">
+                <div className="rounded-2xl border border-[#EEE6D8] bg-white p-4">
+                  <h4 className="font-medium text-[var(--sage-deep)] mb-3">{t("app.sections.creation_detail_page.ingredients")}</h4>
+                  {orderedIngredients.length > 0 ? (<div className="mt-3 grid grid-cols-4 gap-2">
+                      {orderedIngredients.map((entry: any, index: number) => {
+                  const ingredient = entry.ingredient || entry;
+                  const ingredientName = ingredient?.name || entry.name || t("app.sections.creation_detail_page.ingredient_2");
+                  const ingredientImage = ingredient?.image || '/assets/misc/ingredient_placeholder.png';
+                  return (<div key={`${listing.id}-ingredient-thumb-${ingredient?.id || entry.ingredientId || index}`} className="flex flex-col items-center text-center">
+                            <div className="h-12 w-12 overflow-hidden rounded-lg bg-[var(--cream-apothecary)]">
+                              <img src={ingredientImage} alt={ingredientName} className="h-full w-full object-cover"/>
+                            </div>
+                            <span className="mt-1 min-h-[1.5rem] text-[10px] leading-3 text-[var(--sage-deep)]/70 line-clamp-2">
+                              {ingredientName}
+                            </span>
+                          </div>);
+              })}
+                    </div>) : (<div className="text-sm text-[var(--sage-deep)]/70">{t("app.sections.creation_detail_page.none_ingredient")}</div>)}
+                </div>
+              </div>
             </div>
             <div className="p-8 flex flex-col gap-4">
               <div className="flex items-start justify-between gap-4">
@@ -326,24 +348,6 @@ export default function CreationDetailPage() {
                 <span className="shrink-0 whitespace-nowrap font-display text-[2rem] text-[var(--gold-antique)]">
                   {(blendPriceCents / 100).toFixed(2)} €
                 </span>
-              </div>
-              <div className="bg-white rounded-2xl border border-[#EEE6D8] p-4">
-                <div className="text-sm font-medium text-[var(--sage-deep)] mb-2">{t("app.sections.creation_detail_page.ingredients")}</div>
-                {orderedIngredients.length > 0 ? (<div className="mt-3 grid grid-cols-4 gap-2">
-                    {orderedIngredients.map((entry: any, index: number) => {
-                const ingredient = entry.ingredient || entry;
-                const ingredientName = ingredient?.name || entry.name || t("app.sections.creation_detail_page.ingredient_2");
-                const ingredientImage = ingredient?.image || '/assets/misc/ingredient_placeholder.png';
-                return (<div key={`${listing.id}-ingredient-thumb-${ingredient?.id || entry.ingredientId || index}`} className="flex flex-col items-center text-center">
-                          <div className="h-12 w-12 overflow-hidden rounded-lg bg-[var(--cream-apothecary)]">
-                            <img src={ingredientImage} alt={ingredientName} className="h-full w-full object-cover"/>
-                          </div>
-                          <span className="mt-1 min-h-[1.5rem] text-[10px] leading-3 text-[var(--sage-deep)]/70 line-clamp-2">
-                            {ingredientName}
-                          </span>
-                        </div>);
-            })}
-                  </div>) : (<div className="text-sm text-[var(--sage-deep)]/70">{t("app.sections.creation_detail_page.none_ingredient")}</div>)}
               </div>
               {showPreparation && (<div>
                   {preparationMetrics.length > 0 && (<div className="mb-4">

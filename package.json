@@ -1,12 +1,16 @@
 {
   "scripts": {
+    "build": "npm --prefix backend run build && npm --prefix app run build && npm --prefix admin run build",
     "db:backup:local": "npm --prefix backend run db:backup:local",
     "db:restore:local": "npm --prefix backend run db:restore:local --",
+    "ci": "npm --prefix backend run lint && npm --prefix admin run lint && node scripts/check_repo_hygiene.mjs && node scripts/check_locale_encoding.mjs && npm --prefix backend run build && npm --prefix app run build && npm --prefix admin run build && npm --prefix backend run test:dist",
     "dev:stack": "powershell -ExecutionPolicy Bypass -File scripts/launchlocalservers.ps1",
     "dev:stack:external": "powershell -ExecutionPolicy Bypass -File scripts/launchlocalservers.ps1 -ExternalWindows",
     "i18n:check": "node scripts/check_no_hardcoded_i18n.mjs",
     "i18n:extract": "node scripts/extract-fr-locale.mjs",
-    "i18n:split": "node scripts/split_locales_by_target.mjs"
+    "i18n:split": "node scripts/split_locales_by_target.mjs",
+    "lint": "npm --prefix backend run lint && npm --prefix admin run lint && node scripts/check_repo_hygiene.mjs && node scripts/check_locale_encoding.mjs",
+    "test": "npm --prefix backend run test"
   },
   "devDependencies": {
     "@prisma/internals": "^7.3.0",

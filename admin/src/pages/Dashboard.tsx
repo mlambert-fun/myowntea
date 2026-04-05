@@ -91,7 +91,6 @@ function normalizeCode(value: string | null | undefined): string {
     return String(value || '').trim().toUpperCase();
 }
 export default function Dashboard() {
-    const token = localStorage.getItem('adminToken') || '';
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [lastUpdatedAt, setLastUpdatedAt] = useState<string | null>(null);
@@ -107,10 +106,10 @@ export default function Dashboard() {
         setError(null);
         const settled = await Promise.allSettled([
             api.getIngredients(),
-            api.getOrders(token),
-            api.getShipments(token),
-            api.getAutomationJobs(token),
-            api.getEmailMetrics(30, token),
+            api.getOrders(),
+            api.getShipments(),
+            api.getAutomationJobs(),
+            api.getEmailMetrics(30),
             api.getCustomers(),
             api.getCarts(),
         ]);

@@ -7,6 +7,7 @@
     "dev": "vite --port 3001",
     "build": "npm run i18n:check && tsc && vite build",
     "i18n:check": "node ../scripts/check_no_hardcoded_i18n.mjs admin",
+    "lint": "npm run i18n:check && tsc --noEmit && node ../scripts/check_admin_session_auth.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -16,8 +17,8 @@
     "zod": "3.23.8"
   },
   "devDependencies": {
-    "@types/react": "18.2.45",
-    "@types/react-dom": "18.2.18",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "4.2.1",
     "typescript": "5.3.3",
     "vite": "5.0.8"

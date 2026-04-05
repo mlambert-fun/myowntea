@@ -33,8 +33,7 @@ export default function Products() {
         if (!window.confirm(t("admin.pages.products.delete_product")))
             return;
         try {
-            const token = localStorage.getItem('adminToken') || '';
-            await api.deleteProduct(productId, token);
+            await api.deleteProduct(productId);
             setProducts((prev) => prev.filter((item) => item.id !== productId));
         }
         catch (error) {

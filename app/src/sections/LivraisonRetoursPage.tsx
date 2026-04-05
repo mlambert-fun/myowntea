@@ -1,37 +1,60 @@
 import { InfoPageLayout } from './InfoPageLayout';
+import { useStoreSettings } from '@/context/StoreSettingsContext';
 import { t } from "@/lib/i18n";
 export default function LivraisonRetoursPage() {
-    return (<InfoPageLayout title={t("app.sections.livraison_retours_page.shipping_retours")} intro={t("app.sections.livraison_retours_page.retrouvez_ici_modalites")} updatedAt="03/03/2026" sections={[
+    const { settings } = useStoreSettings();
+    return (<InfoPageLayout title={t("app.sections.livraison_retours_page.shipping_retours")} intro={t("app.sections.livraison_retours_page.intro")} updatedAt="01/04/2026" sections={[
             {
-                title: t("app.sections.livraison_retours_page.modes_shipping"),
+                title: t("app.sections.livraison_retours_page.delivery_zones_title"),
                 paragraphs: [
-                    t("app.sections.livraison_retours_page.nous_proposons_shipping"),
-                    t("app.sections.livraison_retours_page.options_affichees_checkout"),
+                    t("app.sections.livraison_retours_page.delivery_zones_p1"),
+                    t("app.sections.livraison_retours_page.delivery_zones_p2"),
                 ],
                 bullets: [
-                    t("app.sections.livraison_retours_page.home_delivery_tracking"),
-                    t("app.sections.livraison_retours_page.pickup_point_choice"),
-                    t("app.sections.livraison_retours_page.confirmation_shipment_envoyee"),
+                    t("app.sections.livraison_retours_page.delivery_zones_b1"),
+                    t("app.sections.livraison_retours_page.delivery_zones_b2"),
+                    t("app.sections.livraison_retours_page.delivery_zones_b3"),
                 ],
             },
             {
-                title: t("app.sections.livraison_retours_page.delais_indicatifs"),
+                title: t("app.sections.livraison_retours_page.lead_times_title"),
+                paragraphs: [t("app.sections.livraison_retours_page.lead_times_p1")],
                 bullets: [
-                    t("app.sections.livraison_retours_page.preparation_atelier_jours"),
-                    t("app.sections.livraison_retours_page.transit_france_metropolitan"),
-                    t("app.sections.livraison_retours_page.tracking_peut_consulte"),
+                    t("app.sections.livraison_retours_page.lead_times_b1"),
+                    t("app.sections.livraison_retours_page.lead_times_b2"),
+                    t("app.sections.livraison_retours_page.lead_times_b3"),
+                    t("app.sections.livraison_retours_page.lead_times_b4"),
                 ],
             },
             {
-                title: t("app.sections.livraison_retours_page.retours_reclamations"),
+                title: t("app.sections.livraison_retours_page.tracking_title"),
                 paragraphs: [
-                    t("app.sections.livraison_retours_page.accessoires_products_standards"),
-                    t("app.sections.livraison_retours_page.blends_personnalisees_melanges"),
+                    t("app.sections.livraison_retours_page.tracking_p1"),
                 ],
                 bullets: [
-                    t("app.sections.livraison_retours_page.contactez_nous_page"),
-                    t("app.sections.livraison_retours_page.equipe_vous_confirme"),
-                    t("app.sections.livraison_retours_page.remboursement_declenche_apres"),
+                    t("app.sections.livraison_retours_page.tracking_b1"),
+                    t("app.sections.livraison_retours_page.tracking_b2"),
+                    t("app.sections.livraison_retours_page.tracking_b3"),
+                ],
+            },
+            {
+                title: t("app.sections.livraison_retours_page.returns_title"),
+                paragraphs: [
+                    t("app.sections.livraison_retours_page.returns_p1"),
+                    t("app.sections.livraison_retours_page.returns_p2"),
+                ],
+                bullets: [
+                    t("app.sections.livraison_retours_page.returns_b1"),
+                    t("app.sections.livraison_retours_page.returns_b2"),
+                ],
+            },
+            {
+                title: t("app.sections.livraison_retours_page.claims_title"),
+                paragraphs: [t("app.sections.livraison_retours_page.claims_p1", undefined, { contactEmail: settings.contactEmail })],
+                bullets: [
+                    t("app.sections.livraison_retours_page.claims_b1"),
+                    t("app.sections.livraison_retours_page.claims_b2"),
+                    t("app.sections.livraison_retours_page.claims_b3"),
                 ],
             },
         ]}/>);

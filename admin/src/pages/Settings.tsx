@@ -23,7 +23,6 @@ export default function Settings() {
         internationalShippingCents: '1590',
         currency: 'EUR',
     });
-    const token = localStorage.getItem('adminToken') || '';
 
     useEffect(() => {
         void loadSettings();
@@ -70,7 +69,7 @@ export default function Settings() {
                 europeShippingCents: Number(formData.europeShippingCents),
                 internationalShippingCents: Number(formData.internationalShippingCents),
                 currency: formData.currency,
-            }, token);
+            });
             void loadSettings();
         }
         catch (error) {

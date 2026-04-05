@@ -23,13 +23,12 @@ interface Order {
 export default function Orders() {
     const [orders, setOrders] = useState<Order[]>([]);
     const [updatingId, setUpdatingId] = useState<string | null>(null);
-    const token = localStorage.getItem('adminToken') || '';
     useEffect(() => {
         void loadOrders();
     }, []);
     async function loadOrders() {
         try {
-            const data = await api.getOrders(token);
+            const data = await api.getOrders();
             setOrders(Array.isArray(data) ? data : []);
         }
         catch (error) {
@@ -39,7 +38,7 @@ export default function Orders() {
     async function updateStatus(orderId: string, newStatus: string) {
         try {
             setUpdatingId(orderId);
-            await api.updateOrderStatus(orderId, newStatus, token);
+            await api.updateOrderStatus(orderId, newStatus);
             showToast(t("admin.pages.orders.status_order_mis"), 'success');
             await loadOrders();
         }
@@ -61,7 +60,7 @@ export default function Orders() {
         REFUNDED: '#f97316',
     };
     const statusLabels: Record<string, string> = {
-        PENDING: 'En attente',
+        PENDING: t("admin.pages.orders.pending"),
         CONFIRMED: t("admin.pages.orders.confirmed"),
         PROCESSING: t("admin.pages.orders.preparation"),
         SHIPPED: t("admin.pages.orders.shipped"),
@@ -73,7 +72,7 @@ export default function Orders() {
       <div className="admin-page admin-page-premium-lite">
         <div className="admin-header">
           <div>
-            <h1 className="admin-title">Commandes</h1>
+            <h1 className="admin-title">{t("admin.pages.orders.title")}</h1>
             <p className="admin-subtitle">{t("admin.pages.orders.tracking_management_orders")}</p>
           </div>
         </div>
@@ -84,12 +83,12 @@ export default function Orders() {
             <thead>
               <tr>
                 <th>{t("admin.pages.orders.order")}</th>
-                <th>Client</th>
-                <th>Montant</th>
+                <th>{t("admin.pages.orders.customer")}</th>
+                <th>{t("admin.pages.orders.amount")}</th>
                 <th>{t("admin.pages.orders.payment")}</th>
-                <th>Statut</th>
-                <th>Date</th>
-                <th>Actions</th>
+                <th>{t("admin.pages.orders.status")}</th>
+                <th>{t("admin.pages.orders.date")}</th>
+                <th>{t("admin.pages.orders.actions")}</th>
               </tr>
             </thead>
             <tbody>
@@ -124,7 +123,7 @@ export default function Orders() {
                     <td>{order.paymentStatus || '-'}</td>
                     <td>
                       <span className="admin-badge" style={{ background: statusColors[order.status] || '#666' }}>
-                        {order.status}
+                        {statusLabels[order.status] || order.status}
                       </span>
                     </td>
                     <td>{new Date(order.createdAt).toLocaleDateString('fr-FR')}</td>
@@ -144,4 +143,3 @@ export default function Orders() {
       </div>
     </Layout>);
 }
-

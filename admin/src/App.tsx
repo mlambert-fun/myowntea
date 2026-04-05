@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Ingredients from './pages/Ingredients';
 import Products from './pages/Products';
@@ -23,29 +23,48 @@ import Emails from './pages/Emails';
 import RedirectRules from './pages/RedirectRules';
 import Translations from './pages/Translations';
 import { Toast } from './components/Toast';
+import LoginPage from './pages/Login';
+import { AdminAuthProvider, useAdminAuth } from './auth';
+import { t } from './lib/i18n';
 
-function App() {
-  // Check if token is in URL params (from login redirect)
-  const params = new URLSearchParams(window.location.search);
-  const tokenFromUrl = params.get('token');
-  
-  if (tokenFromUrl) {
-    localStorage.setItem('adminToken', tokenFromUrl);
-    // Remove token from URL for security
-    window.history.replaceState({}, document.title, window.location.pathname);
+function AdminLoadingScreen() {
+  return (
+    <div className="admin-auth-screen">
+      <div className="admin-auth-card admin-auth-card-loading">
+        <p className="admin-auth-eyebrow">My Own Tea</p>
+        <h1 className="admin-auth-title">{t('admin.pages.login.loading_session_title')}</h1>
+        <p className="admin-auth-subtitle">{t('admin.pages.login.loading_session_subtitle')}</p>
+      </div>
+    </div>
+  );
+}
+
+function ProtectedAdminRoutes() {
+  const { user, loading } = useAdminAuth();
+  const location = useLocation();
+
+  if (loading) {
+    return <AdminLoadingScreen />;
   }
-  
-  const token = localStorage.getItem('adminToken');
-  
-  if (!token) {
-    window.location.href = 'http://localhost:5000/';
-    return null;
+
+  if (!user) {
+    return <Navigate to="/login" replace state={{ from: location.pathname }} />;
+  }
+
+  return <Outlet />;
+}
+
+function AppRoutes() {
+  const { user, loading } = useAdminAuth();
+
+  if (loading) {
+    return <AdminLoadingScreen />;
   }
 
   return (
-    <BrowserRouter>
-      <Toast />
-      <Routes>
+    <Routes>
+      <Route path="/login" element={user ? <Navigate to="/" replace /> : <LoginPage />} />
+      <Route element={<ProtectedAdminRoutes />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/ingredients" element={<Ingredients />} />
         <Route path="/products" element={<Products />} />
@@ -71,8 +90,19 @@ function App() {
         <Route path="/redirect-rules" element={<RedirectRules />} />
         <Route path="/translations" element={<Translations />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+      </Route>
+      <Route path="*" element={<Navigate to={user ? '/' : '/login'} replace />} />
+    </Routes>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AdminAuthProvider>
+        <Toast />
+        <AppRoutes />
+      </AdminAuthProvider>
     </BrowserRouter>
   );
 }

@@ -18,7 +18,6 @@ const statusColorByCode: Record<string, string> = {
     ERROR: '#b91c1c',
 };
 export default function AutomationJobs() {
-    const token = localStorage.getItem('adminToken') || '';
     const [jobs, setJobs] = useState<AutomationJobConfig[]>([]);
     const [draftMinutesById, setDraftMinutesById] = useState<Record<string, string>>({});
     const [loading, setLoading] = useState(false);
@@ -29,7 +28,7 @@ export default function AutomationJobs() {
         try {
             setLoading(true);
             setError(null);
-            const data = await api.getAutomationJobs(token);
+            const data = await api.getAutomationJobs();
             setJobs(Array.isArray(data) ? data : []);
             setDraftMinutesById((prev) => {
                 const next = { ...prev };
@@ -54,7 +53,7 @@ export default function AutomationJobs() {
     async function handleToggle(job: AutomationJobConfig, enabled: boolean) {
         try {
             setSavingId(job.id);
-            await api.updateAutomationJob(job.id, { enabled }, token);
+            await api.updateAutomationJob(job.id, { enabled });
             showToast(t("admin.pages.automation_jobs.configuration_job_update"), 'success');
             await loadJobs();
         }
@@ -74,7 +73,7 @@ export default function AutomationJobs() {
         }
         try {
             setSavingId(job.id);
-            await api.updateAutomationJob(job.id, { intervalMinutes: Math.round(parsed) }, token);
+            await api.updateAutomationJob(job.id, { intervalMinutes: Math.round(parsed) });
             showToast(t("admin.pages.automation_jobs.frequency_job_update"), 'success');
             await loadJobs();
         }
@@ -88,7 +87,7 @@ export default function AutomationJobs() {
     async function handleRunNow(job: AutomationJobConfig) {
         try {
             setRunningId(job.id);
-            const payload = await api.runAutomationJob(job.id, token);
+            const payload = await api.runAutomationJob(job.id);
             showToast(payload.result.message || t("admin.pages.automation_jobs.job_execute"), payload.result.status === 'ERROR' ? 'error' : 'success');
             await loadJobs();
         }

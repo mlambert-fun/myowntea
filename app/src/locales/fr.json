@@ -8,14 +8,13 @@
     ],
     "grouping": "by_file_page_or_section",
     "keyStyle": "readable_english_1_to_3_words",
-    "totalGroups": 62,
-    "totalStrings": 1168,
+    "totalGroups": 61,
+    "totalStrings": 1147,
     "note": "Extraction automatique des textes français en dur (candidats) avec correction mojibake.",
     "runtimeScope": "app"
   },
   "sections": {
     "app.context.blend_context": {
-      "_source": "app/src/context/BlendContext.tsx",
       "failed_add_blend": "Impossible d'ajouter cette création à votre wishlist.",
       "failed_add_product": "Impossible d'ajouter cet accessoire à votre wishlist.",
       "failed_calculer_discounts": "Impossible de calculer les réductions.",
@@ -24,34 +23,28 @@
       "my_blend": "Ma création",
       "my_melange": "Mon mélange",
       "blend_bien_summer": "Votre création a bien été ajoutée à votre wishlist.",
-      "product_bien_summer": "Votre accessoire a bien été ajouté à votre wishlist."
+      "product_bien_summer": "Votre accessoire a bien été ajouté à votre wishlist.",
+      "_source": "app/src/context/BlendContext.tsx"
     },
     "app.components.accessories_grid": {
-      "_source": "app/src/components/AccessoriesGrid.tsx",
       "add_cart": "Ajouter au panier",
       "close": "Fermer",
       "from_price": "À partir de {{price}} €",
       "view_details": "Voir détails",
-      "view_details_2": "Voir le détail"
+      "view_details_2": "Voir le détail",
+      "_source": "app/src/components/AccessoriesGrid.tsx"
     },
     "app.components.account.account_layout": {
-      "_source": "app/src/components/account/AccountLayout.tsx",
       "logout": "Déconnexion",
       "my_addresses": "Mes adresses",
       "my_orders": "Mes commandes",
       "my_informations": "Mes informations",
       "dashboard": "Tableau de bord",
       "my_subscriptions": "Mes abonnements",
-      "my_wishlist": "Ma wishlist"
+      "my_wishlist": "Ma wishlist",
+      "_source": "app/src/components/account/AccountLayout.tsx"
     },
     "app.components.subscriptions.blend_subscription_card": {
-      "_source": "app/src/components/subscriptions/BlendPurchaseSelector.tsx",
-      "kicker": "Mon rituel My Own Tea",
-      "title": "Recevez cette création au bon rythme",
-      "description": "Un abonnement simple, premium et réservé aux créations My Own Tea. Vous choisissez votre cadence, nous relançons votre rituel sans friction.",
-      "from": "À partir de",
-      "shipping_note": "La livraison standard est calculée au moment de la souscription selon votre adresse par défaut.",
-      "cadence": "Cadence",
       "one_time_title": "Achat unique",
       "one_time_description": "Ajoutez cette création à votre panier au prix habituel.",
       "subscription_title": "Abonnement",
@@ -64,25 +57,18 @@
       "interval_one_month": "1 mois",
       "interval_two_months": "2 mois",
       "interval_three_months": "3 mois",
-      "monthly": "Tous les mois",
-      "every_two_months": "Tous les 2 mois",
-      "every_three_months": "Tous les 3 mois",
       "benefit_discount": "-10% sur votre création à chaque échéance.",
-      "benefit_creation_only": "Uniquement sur les créations existantes et celles composées dans l’atelier.",
-      "benefit_address": "Expédition vers votre adresse de livraison par défaut.",
       "benefit_without_commitment": "Sans engagement.",
       "benefit_manage": "Modifiez ou arrêtez votre abonnement depuis votre compte client.",
-      "portal_note": "Paiement, carte bancaire, annulation et factures se gèrent ensuite depuis votre compte client sécurisé.",
-      "cta": "Activer mon rituel",
       "cta_add_to_cart": "Ajouter au panier",
       "cta_subscribe": "S'abonner",
       "loading": "Redirection...",
       "login_required": "Connectez-vous pour activer un abonnement sur une création.",
       "creation_invalid": "Cette création n’est pas encore prête pour l’abonnement.",
-      "failed_session": "Impossible de lancer la souscription pour cette création."
+      "failed_session": "Impossible de lancer la souscription pour cette création.",
+      "_source": "app/src/components/subscriptions/BlendPurchaseSelector.tsx"
     },
     "app.components.account.address_form": {
-      "_source": "app/src/components/account/AddressForm.tsx",
       "address": "Adresse *",
       "address_requise": "Adresse requise",
       "belgium": "Belgique",
@@ -90,7 +76,6 @@
       "searching": "Recherche...",
       "title": "Civilité *",
       "complement_entreprise": "Complément / entreprise",
-      "addressform_label": "DE",
       "france": "France",
       "macedoine_nord": "Macedoine du Nord",
       "numero_voie_voirie": "Numéro de voie et voirie",
@@ -98,10 +83,10 @@
       "first_name_required": "Prénom requis",
       "phone_portable": "Téléphone portable *",
       "utiliser_comme_address": "Utiliser comme adresse de facturation par défaut",
-      "utiliser_comme_address_2": "Utiliser comme adresse de livraison par défaut"
+      "utiliser_comme_address_2": "Utiliser comme adresse de livraison par défaut",
+      "_source": "app/src/components/account/AddressForm.tsx"
     },
     "app.components.account.orders_table": {
-      "_source": "app/src/components/account/OrdersTable.tsx",
       "action": "Action",
       "canceled": "Annulée",
       "none_order_moment": "Aucune commande pour le moment.",
@@ -114,52 +99,51 @@
       "view": "Voir",
       "shipped": "Expédiée",
       "delivered": "Livrée",
-      "refunded": "Remboursée"
+      "refunded": "Remboursée",
+      "_source": "app/src/components/account/OrdersTable.tsx"
     },
     "app.components.cart_drawer.cart_drawer": {
-      "_source": "app/src/components/cart-drawer/CartDrawer.tsx",
       "cart_count": "Votre panier ({{count}})",
       "close": "Fermer",
       "creation_added": "{{name}} ajoutée au panier",
       "felicitations_vous_beneficiez": "Félicitations, vous bénéficiez de la livraison offerte !",
       "remaining_for_free_shipping": "Plus que {{amount}} € pour profiter de la livraison offerte",
       "shipping_offerte_achat": "Livraison offerte dès 45 € d'achat",
-      "cart": "Votre panier"
+      "cart": "Votre panier",
+      "_source": "app/src/components/cart-drawer/CartDrawer.tsx"
     },
     "app.components.cart_drawer.cart_drawer_accessories": {
-      "_source": "app/src/components/cart-drawer/CartDrawerAccessories.tsx",
       "add": "Ajouter",
-      "none_accessoire_available": "Aucun accessoire disponible pour le moment",
       "loading_accessoires": "Chargement des accessoires...",
-      "accessoires_uniques_accompagner": "Des accessoires uniques pour accompagner votre dégustation"
+      "accessoires_uniques_accompagner": "Des accessoires uniques pour accompagner votre dégustation",
+      "_source": "app/src/components/cart-drawer/CartDrawerAccessories.tsx"
     },
     "app.components.cart_drawer.cart_drawer_actions": {
-      "_source": "app/src/components/cart-drawer/CartDrawerActions.tsx",
       "create_new_melange": "Créer un nouveau mélange",
-      "finaliser_my_order": "Finaliser ma commande"
+      "finaliser_my_order": "Finaliser ma commande",
+      "_source": "app/src/components/cart-drawer/CartDrawerActions.tsx"
     },
     "app.components.cart_drawer.cart_drawer_items": {
-      "_source": "app/src/components/cart-drawer/CartDrawerItems.tsx",
       "augmenter_quantity": "Augmenter la quantité",
       "diminuer_quantity": "Diminuer la quantité",
       "delete": "Supprimer",
-      "cart_empty": "Votre panier est vide."
+      "cart_empty": "Votre panier est vide.",
+      "_source": "app/src/components/cart-drawer/CartDrawerItems.tsx"
     },
     "app.components.creation.creation_ingredients_list": {
-      "_source": "app/src/components/creation/CreationIngredientsList.tsx",
-      "select_ingredients_commencer": "Sélectionnez vos ingrédients pour commencer"
+      "select_ingredients_commencer": "Sélectionnez vos ingrédients pour commencer",
+      "_source": "app/src/components/creation/CreationIngredientsList.tsx"
     },
     "app.components.locale.locale_market_prompt": {
-      "_source": "app/src/components/locale/LocaleMarketPrompt.tsx",
       "belgium": "Belgique",
       "choisissez_locale_country": "Choisissez votre langue et votre pays",
       "french_belgium": "Français (Belgique)",
       "french_france": "Français (France)",
       "france": "France",
-      "nous_utiliserons_choice": "Nous utiliserons ce choix pour personnaliser votre expérience. Vous pourrez le modifier plus tard."
+      "nous_utiliserons_choice": "Nous utiliserons ce choix pour personnaliser votre expérience. Vous pourrez le modifier plus tard.",
+      "_source": "app/src/components/locale/LocaleMarketPrompt.tsx"
     },
     "app.components.login_drawer.account_drawer": {
-      "_source": "app/src/components/login-drawer/AccountDrawer.tsx",
       "close": "Fermer",
       "continue_with_google": "Continuer avec Google",
       "customer": "Client",
@@ -171,10 +155,10 @@
       "my_account": "Mon compte",
       "my_subscriptions": "Mes abonnements",
       "my_wishlist": "Ma wishlist",
-      "subscriptions_offer": "Abonnement (-10%)"
+      "subscriptions_offer": "Abonnement (-10%)",
+      "_source": "app/src/components/login-drawer/AccountDrawer.tsx"
     },
     "app.components.login_drawer.login_drawer": {
-      "_source": "app/src/components/login-drawer/LoginDrawer.tsx",
       "accedez_espace_customer": "Accédez à votre espace client.",
       "close": "Fermer",
       "login": "Connexion",
@@ -182,14 +166,13 @@
       "login_2": "Connexion...",
       "continue_with_google": "Continuer avec Google",
       "create_account": "Créer un compte",
-      "email": "email",
       "email_2": "Email",
       "password": "Mot de passe",
       "password_oublie": "Mot de passe oublié ?",
-      "pas_encore_account": "Pas encore de compte ?"
+      "pas_encore_account": "Pas encore de compte ?",
+      "_source": "app/src/components/login-drawer/LoginDrawer.tsx"
     },
     "app.components.routing.page_breadcrumb": {
-      "_source": "app/src/components/routing/PageBreadcrumb.tsx",
       "accessories": "Accessoires",
       "addresses": "Adresses",
       "terms_general": "Conditions générales",
@@ -213,10 +196,10 @@
       "new_password": "Nouveau mot de passe",
       "login_error": "Erreur de connexion",
       "cart": "Panier",
-      "politique_privacy": "Politique de confidentialité"
+      "politique_privacy": "Politique de confidentialité",
+      "_source": "app/src/components/routing/PageBreadcrumb.tsx"
     },
     "app.components.shipping_info_accordion": {
-      "_source": "app/src/components/ShippingInfoAccordion.tsx",
       "belgium": "Belgique",
       "france_metropolitan": "France metropolitaine",
       "home_price_be": "Domicile : 9,00 EUR",
@@ -225,23 +208,19 @@
       "relay_price_be": "Point relais : 5,50 EUR",
       "relay_price_fr": "Point relais : 4,50 EUR",
       "shipping_fiable": "Livraison fiable avec",
-      "shipping_offerte_eur": "Livraison offerte des 45 € d'achat."
-    },
-    "app.components.ui.sidebar": {
-      "_source": "app/src/components/ui/sidebar.tsx",
-      "affiche_barre_laterale": "Affiche la barre latérale mobile."
+      "shipping_offerte_eur": "Livraison offerte des 45 € d'achat.",
+      "_source": "app/src/components/ShippingInfoAccordion.tsx"
     },
     "app.components.wishlist_drawer.wishlist_drawer": {
-      "_source": "app/src/components/wishlist-drawer/WishlistDrawer.tsx",
       "add_cart": "Ajouter au panier",
       "none_ingredient": "Aucun ingrédient",
       "loading_wishlist": "Chargement de votre wishlist...",
       "delete": "Supprimer",
       "wishlist": "Votre wishlist",
-      "wishlist_empty": "Votre wishlist est vide."
+      "wishlist_empty": "Votre wishlist est vide.",
+      "_source": "app/src/components/wishlist-drawer/WishlistDrawer.tsx"
     },
     "app.data.ingredients": {
-      "_source": "app/src/data/ingredients.ts",
       "aromes_naturels": "Arômes Naturels",
       "bergamote_calabre": "Bergamote de Calabre",
       "bien": "Bien-être",
@@ -263,7 +242,7 @@
       "evasion": "Évasion",
       "feuilles_menthe_fraiche": "Feuilles de menthe fraîche et intense",
       "feuilles_sauge_vertus": "Feuilles de sauge aux vertus purifiantes",
-      "finalisez_notes_parfumees": "Finalisez avec des notes parfumées uniques, 100% naturelles, certifiées BIO. Jusqu'à 2 arômes par création.",
+      "finalisez_notes_parfumees": "Finalisez avec une note parfumée 100% bio & naturelle pour sublimer le goût. Jusqu'à 2 arômes par création.",
       "fleurs_bleues_delicates": "Fleurs bleues délicates aux vertus apaisantes",
       "fleurs_hibiscus_acidulees": "Fleurs d'hibiscus acidulées et rafraîchissantes",
       "fleurs_camomille_douces": "Fleurs de camomille douces et apaisantes",
@@ -319,71 +298,71 @@
       "vitamine": "Vitaminé",
       "vitamine_2": "Vitaminé C",
       "vivacite": "Vivacité",
-      "zeste_citron_fees": "Zeste de citron frais et tonifiant"
+      "zeste_citron_fees": "Zeste de citron frais et tonifiant",
+      "_source": "app/src/data/ingredients.ts"
     },
     "app.lib.ingredient_order": {
-      "_source": "app/src/lib/ingredient-order.ts",
-      "tea": "thé"
+      "tea": "thé",
+      "_source": "app/src/lib/ingredient-order.ts"
     },
     "app.lib.navigation_links": {
-      "_source": "app/src/lib/navigation-links.ts",
       "comment_marche": "Comment ça marche",
       "blends": "Créations",
       "create": "Créer",
-      "temoignages": "Témoignages"
+      "temoignages": "Témoignages",
+      "_source": "app/src/lib/navigation-links.ts"
     },
     "app.lib.api_errors": {
-      "_source": "app/src/api/client.ts",
       "network_error": "Erreur réseau. Merci de vérifier votre connexion puis de réessayer.",
       "request_failed": "La requête a échoué.",
       "server_error": "Une erreur serveur est survenue.",
       "resource_not_found": "Ressource introuvable.",
       "access_denied": "Accès refusé.",
       "not_authenticated": "Vous devez être connecté.",
-      "missing_required_fields": "Champs requis manquants.",
-      "email_password_required": "Email et mot de passe requis.",
       "invalid_credentials": "Identifiants invalides.",
+      "invalid_email_format": "Adresse email invalide.",
+      "email_required": "Email requis.",
+      "generic_error": "Une erreur est survenue.",
+      "country_not_supported": "La livraison n'est pas disponible pour ce pays.",
+      "allowed_countries": "Pays autorisés :",
+      "stripe_publishable_key_missing": "Clé publique Stripe manquante (VITE_STRIPE_PUBLISHABLE_KEY).",
+      "failed_load_ingredients": "Impossible de charger les ingrédients.",
+      "_source": "app/src/api/client.ts",
+      "email_password_required": "Email et mot de passe requis.",
       "login_failed": "Échec de la connexion.",
-      "registration_failed": "Échec de l'inscription.",
+      "missing_required_fields": "Champs requis manquants.",
       "password_too_short": "Le mot de passe est trop court.",
-      "password_min_length": "Le mot de passe doit contenir au moins 8 caractères.",
       "invalid_salutation": "Civilité invalide.",
       "invalid_birth_date": "Date de naissance invalide.",
       "invalid_phone_format": "Format de téléphone invalide.",
-      "invalid_email_format": "Adresse email invalide.",
+      "registration_failed": "Échec de l'inscription.",
       "failed_process_forgot_password_request": "Impossible de traiter la demande de réinitialisation.",
       "token_required": "Le token est requis.",
       "failed_validate_reset_token": "Impossible de valider le lien de réinitialisation.",
       "token_new_password_required": "Le token et le nouveau mot de passe sont requis.",
+      "password_min_length": "Le mot de passe doit contenir au moins 8 caractères.",
       "invalid_or_expired_reset_token": "Lien de réinitialisation invalide ou expiré.",
       "failed_reset_password": "Impossible de réinitialiser le mot de passe.",
       "current_password_required": "Mot de passe actuel requis.",
       "invalid_password": "Mot de passe invalide.",
       "password_update_not_available": "La mise à jour du mot de passe n'est pas disponible pour ce compte.",
-      "email_required": "Email requis.",
       "customer_not_found": "Client introuvable.",
       "failed_update_email": "Impossible de mettre à jour l'email.",
       "failed_update_password": "Impossible de mettre à jour le mot de passe.",
-      "failed_fetch_profile": "Impossible de récupérer le profil.",
-      "generic_error": "Une erreur est survenue.",
-      "country_not_supported": "La livraison n'est pas disponible pour ce pays.",
-      "allowed_countries": "Pays autorisés :",
-      "stripe_publishable_key_missing": "Clé publique Stripe manquante (VITE_STRIPE_PUBLISHABLE_KEY).",
-      "failed_load_ingredients": "Impossible de charger les ingrédients."
+      "failed_fetch_profile": "Impossible de récupérer le profil."
     },
     "app.sections.accessories_home": {
-      "_source": "app/src/sections/AccessoriesHome.tsx",
       "essentiels_sublimer": "Des essentiels pour sublimer",
       "your_ritual": "Votre Rituel",
       "retrouvez_selection_accessoires": "Retrouvez une sélection d’accessoires pour accompagner vos créations.",
-      "view_all_accessoires": "Voir tous les accessoires"
+      "view_all_accessoires": "Voir tous les accessoires",
+      "_source": "app/src/sections/AccessoriesHome.tsx"
     },
     "app.sections.accessories_page": {
-      "_source": "app/src/sections/AccessoriesPage.tsx",
-      "completez_degustation_essentiels": "Complétez votre dégustation avec nos essentiels."
+      "completez_degustation_essentiels": "Complétez votre dégustation avec nos essentiels.",
+      "_source": "app/src/sections/AccessoriesPage.tsx"
     },
     "app.sections.accessory_detail_page": {
-      "_source": "app/src/sections/AccessoryDetailPage.tsx",
       "add_cart": "Ajouter au panier",
       "choose_your": "Choisissez votre",
       "close": "Fermer",
@@ -400,10 +379,10 @@
       "ouvrir_galerie": "Ouvrir la galerie",
       "purchase_suffix": "d'achat",
       "view_more": "Voir +",
-      "view_less": "Voir -"
+      "view_less": "Voir -",
+      "_source": "app/src/sections/AccessoryDetailPage.tsx"
     },
     "app.sections.account.account_address_book": {
-      "_source": "app/src/sections/account/AccountAddressBook.tsx",
       "add": "Ajouter",
       "add_billing_address": "Ajouter cette adresse",
       "add_shipping_address": "Ajouter cette adresse",
@@ -420,10 +399,10 @@
       "my_addresses_supplementaires": "Mes adresses supplémentaires",
       "mettre_day": "Mettre à jour",
       "edit": "Modifier",
-      "delete": "Supprimer"
+      "delete": "Supprimer",
+      "_source": "app/src/sections/account/AccountAddressBook.tsx"
     },
     "app.sections.account.account_dashboard": {
-      "_source": "app/src/sections/account/AccountDashboard.tsx",
       "address_billing": "Adresse de facturation",
       "address_shipping": "Adresse de livraison",
       "add_new_address": "Ajouter une nouvelle adresse",
@@ -443,10 +422,10 @@
       "contact_cta": "Contact",
       "first_name": "Prénom :",
       "view_all_my": "Voir toutes mes commandes",
-      "addresses_shipping_billing": "Vos adresses de livraison et de facturation par défaut."
+      "addresses_shipping_billing": "Vos adresses de livraison et de facturation par défaut.",
+      "_source": "app/src/sections/account/AccountDashboard.tsx"
     },
     "app.sections.account.account_subscriptions": {
-      "_source": "app/src/sections/account/AccountSubscriptions.tsx",
       "kicker": "Mes rituels",
       "title": "Mes abonnements My Own Tea",
       "description": "Gérez ici votre carte, vos prochaines échéances et vos factures, depuis votre compte.",
@@ -469,7 +448,6 @@
       "shipping_mode": "Mode de livraison",
       "shipping_mode_home": "Domicile",
       "shipping_mode_relay": "Point relais",
-      "delivery_destination": "Destination",
       "default_address_label": "Adresse par défaut",
       "relay_destination_fallback": "Point relais mémorisé",
       "next_billing": "Prochaine échéance",
@@ -502,7 +480,6 @@
       "invoice_paid": "Réglé :",
       "invoice_number": "Facture n° {{number}}",
       "invoice_pdf": "Télécharger la facture",
-      "invoice_hosted": "Ouvrir la facture",
       "cancel_cta": "Annuler à échéance",
       "cancel_loading": "Annulation...",
       "reactivate_cta": "Réactiver",
@@ -512,6 +489,7 @@
       "failed_load": "Impossible de charger vos abonnements.",
       "failed_cancel": "Impossible d'annuler cet abonnement.",
       "failed_reactivate": "Impossible de réactiver cet abonnement.",
+      "_source": "app/src/sections/account/AccountSubscriptions.tsx",
       "status_active": "Actif",
       "status_trialing": "Actif",
       "status_canceled": "Annulé",
@@ -526,13 +504,11 @@
       "invoice_status_uncollectible": "Irrécouvrable"
     },
     "app.sections.account.account_edit": {
-      "_source": "app/src/sections/account/AccountEdit.tsx",
       "changer_my_email": "Changer mon email",
       "changer_my_password": "Changer mon mot de passe",
       "title": "Civilité *",
       "confirmer_new_password": "Confirmer le nouveau mot de passe *",
       "date_naissance": "Date de naissance",
-      "email": "email",
       "email_2": "Email",
       "email_invalid": "Email invalide",
       "gere_emails_marketing": "Gère tes emails marketing. Les emails transactionnels restent actifs.",
@@ -551,10 +527,10 @@
       "first_name": "Prénom *",
       "first_name_required": "Prénom requis",
       "reminders": "Relances et rappels",
-      "phone": "Téléphone"
+      "phone": "Téléphone",
+      "_source": "app/src/sections/account/AccountEdit.tsx"
     },
     "app.sections.account.account_invoice": {
-      "_source": "app/src/sections/account/AccountInvoice.tsx",
       "address_indisponible": "Adresse indisponible",
       "canceled": "Annulé",
       "canceled_2": "Annulée",
@@ -609,10 +585,10 @@
       "subscription_cadence": "Abonnement : {{cadence}}",
       "total_incl_tax": "Total TTC",
       "status_order": "Statut commande",
-      "status_payment": "Statut de paiement :"
+      "status_payment": "Statut de paiement :",
+      "_source": "app/src/sections/account/AccountInvoice.tsx"
     },
     "app.sections.account.account_order_detail": {
-      "_source": "app/src/sections/account/AccountOrderDetail.tsx",
       "address_billing": "Adresse de facturation",
       "address_shipping": "Adresse de livraison",
       "address_indisponible": "Adresse indisponible",
@@ -625,7 +601,6 @@
       "home_delivery": "Domicile",
       "information_unavailable": "Information indisponible",
       "item": "Article",
-      "items": "Articles",
       "order": "Commande",
       "order_not_found": "Commande introuvable.",
       "confirmed": "Confirmée",
@@ -652,25 +627,25 @@
       "reference_tracking_carrier": "Référence et suivi transporteur :",
       "refund": "Remboursé",
       "refunded": "Remboursée",
-      "suivre_parcel": "Suivre le colis"
+      "suivre_parcel": "Suivre le colis",
+      "_source": "app/src/sections/account/AccountOrderDetail.tsx"
     },
     "app.sections.account.account_orders": {
-      "_source": "app/src/sections/account/AccountOrders.tsx",
       "none_order_trouvee": "Aucune commande trouvée.",
       "my_orders": "Mes commandes",
       "prev": "Précédent",
       "resultats_page": "Résultats par page",
       "retrouvez_history_complet": "Retrouvez l'historique complet de vos commandes.",
-      "view_order": "Voir la commande"
+      "view_order": "Voir la commande",
+      "_source": "app/src/sections/account/AccountOrders.tsx"
     },
     "app.sections.account_page": {
-      "_source": "app/src/sections/AccountPage.tsx",
       "email": "Email:",
       "my_account": "Mon compte",
-      "first_name": "Prénom:"
+      "first_name": "Prénom:",
+      "_source": "app/src/sections/AccountPage.tsx"
     },
     "app.sections.cart": {
-      "_source": "app/src/sections/Cart.tsx",
       "calcul": "Calcul...",
       "confirmation_step": "3. Confirmation",
       "estimee": "(estimée)",
@@ -684,7 +659,6 @@
       "loading_cart": "Chargement du panier",
       "code_applique": "Code appliqué:",
       "code_non_applique": "Code non appliqué:",
-      "continue_create": "Continuer à créer",
       "create_my_melange": "Créer Mon Mélange",
       "create_melange_unique": "Créez un mélange unique et ajoutez-le ici pour le commander plus tard.",
       "entrez_code": "Entrez votre code",
@@ -702,28 +676,21 @@
       "recuperation_articles_cours": "Récupération de vos articles en cours...",
       "seuil_france": "Seuil France:",
       "please_separer_abonnements": "Veuillez séparer les abonnements des autres articles pour le paiement.",
-      "please_vous_connecter": "Veuillez vous connecter pour acheter des accessoires ou des abonnements.",
+      "please_vous_connecter": "Veuillez vous connecter pour continuer avec un abonnement.",
       "secure_payment_full": "Paiement 100% sécurisé",
       "cart_2": "Votre Panier",
-      "cart_empty": "Votre panier est vide"
+      "cart_empty": "Votre panier est vide",
+      "_source": "app/src/sections/Cart.tsx"
     },
     "app.sections.cart_page": {
-      "_source": "app/src/sections/CartPage.tsx",
       "cart_accessories_title": "Ajoutez l’accessoire idéal pour sublimer votre dégustation.",
       "cart_creations_title": "Emportez une création inspirée par la communauté.",
       "from_price": "À partir de",
-      "easy_returns": "Retours faciles sous 14 jours",
-      "secure_3d": "3D Secure & chiffrement",
-      "shipping_fiable": "Livraison fiable",
-      "secure_payment": "Paiement sécurisé",
-      "satisfait_refund": "Satisfait ou remboursé",
-      "securite_garanties": "Sécurité & garanties",
-      "tracking_shipping_soignee": "Suivi et livraison soignée",
       "view_all_accessories": "Voir tous les accessoires",
-      "view_all_creations": "Voir toutes les créations"
+      "view_all_creations": "Voir toutes les créations",
+      "_source": "app/src/sections/CartPage.tsx"
     },
     "app.sections.checkout_page": {
-      "_source": "app/src/sections/CheckoutPage.tsx",
       "cart": "1. Panier",
       "shipping_payment": "2. Livraison et paiement",
       "confirmation_step": "3. Confirmation",
@@ -732,57 +699,15 @@
       "address_billing": "Adresse de facturation",
       "address_shipping": "Adresse de livraison",
       "none_pickup_point": "Aucun point relais trouvé pour cette zone. Vérifiez le pays et le code postal puis relancez la recherche.",
-      "belgium": "Belgique",
       "code_postal_country": "Code postal et pays requis pour rechercher un point relais.",
       "continue_payment": "Continuer vers le paiement",
       "coordonnees_destinataire": "Coordonnées du destinataire",
+      "guest_email_title": "Email de contact",
+      "guest_email_description": "Nous l'utiliserons pour votre reçu de paiement et le suivi de commande.",
+      "guest_email_placeholder": "vous@exemple.com",
       "country_required_for": "Le pays de {{label}} est requis.",
       "city_required_for": "La ville de {{label}} est requise.",
       "city_optional": "Ville (optionnel)",
-      "country_albania": "Albanie",
-      "country_andorra": "Andorre",
-      "country_armenia": "Arménie",
-      "country_austria": "Autriche",
-      "country_azerbaijan": "Azerbaïdjan",
-      "country_bosnia_and_herzegovina": "Bosnie-Herzégovine",
-      "country_bulgaria": "Bulgarie",
-      "country_croatia": "Croatie",
-      "country_cyprus": "Chypre",
-      "country_czechia": "Tchéquie",
-      "country_denmark": "Danemark",
-      "country_estonia": "Estonie",
-      "country_finland": "Finlande",
-      "country_georgia": "Géorgie",
-      "country_germany": "Allemagne",
-      "country_greece": "Grèce",
-      "country_hungary": "Hongrie",
-      "country_iceland": "Islande",
-      "country_ireland": "Irlande",
-      "country_italy": "Italie",
-      "country_latvia": "Lettonie",
-      "country_liechtenstein": "Liechtenstein",
-      "country_lithuania": "Lituanie",
-      "country_luxembourg": "Luxembourg",
-      "country_malta": "Malte",
-      "country_moldova": "Moldavie",
-      "country_monaco": "Monaco",
-      "country_montenegro": "Monténégro",
-      "country_netherlands": "Pays-Bas",
-      "country_norway": "Norvège",
-      "country_poland": "Pologne",
-      "country_portugal": "Portugal",
-      "country_romania": "Roumanie",
-      "country_san_marino": "Saint-Marin",
-      "country_serbia": "Serbie",
-      "country_slovakia": "Slovaquie",
-      "country_slovenia": "Slovénie",
-      "country_spain": "Espagne",
-      "country_sweden": "Suède",
-      "country_switzerland": "Suisse",
-      "country_turkiye": "Turquie",
-      "country_ukraine": "Ukraine",
-      "country_united_kingdom": "Royaume-Uni",
-      "country_vatican_city": "Vatican",
       "day_friday": "Vendredi",
       "day_monday": "Lundi",
       "day_saturday": "Samedi",
@@ -797,8 +722,7 @@
       "ferme": "Fermé",
       "first_name_required_for": "Le prénom de {{label}} est requis.",
       "free": "Gratuite",
-      "formulaire_home_meme": "Formulaire domicile : même structure que votre carnet d'adresses.",
-      "france": "France",
+      "formulaire_home_meme": "Renseignez votre adresse de domicile.",
       "failed_load_points": "Impossible de charger les points relais.",
       "failed_load_stripe": "Impossible de charger Stripe.",
       "failed_preparer_payment": "Impossible de préparer le paiement.",
@@ -820,15 +744,12 @@
       "relay_point_with_label": "Point relais {{label}}",
       "search_pickup_point": "Rechercher un point relais",
       "searching": "Recherche...",
-      "shipping": "livraison",
       "shipping_2": "Livraison",
       "shipping_payment_2": "Livraison et paiement",
-      "macedoine_nord": "Macedoine du Nord",
       "mode_shipping": "Mode de livraison",
       "edit_my_informations": "Modifier mes informations",
       "payment_cours": "Paiement en cours...",
       "secure_payment_by": "Paiement sécurisé par",
-      "secure_payment": "Paiement sécurisé",
       "pay_my_order": "Payer ma commande",
       "country_code_postal": "Pays, code postal et ville sont dérivés de votre recherche de point relais.",
       "pickup_point_selected_2": "Point relais sélectionné :",
@@ -838,56 +759,76 @@
       "summary": "Récapitulatif",
       "subscription_items_title": "Abonnements",
       "other_items_title": "Articles",
-      "search_villes_code": "Recherche des villes pour ce code postal...",
       "renseignez_addresses_then": "Renseignez vos adresses puis finalisez le paiement.",
-      "select_country": "Sélectionnez un pays",
       "select_country_europe": "Sélectionnez un pays d'Europe *",
       "stripe_cours_loading": "Stripe est en cours de chargement.",
       "total_incl_tax": "Total TTC",
       "express_payments_unavailable": "Les paiements express (Apple Pay / Google Pay) ne sont pas disponibles dans cet environnement. Ils nécessitent un domaine HTTPS vérifié sur Stripe et un navigateur/appareil compatible.",
-      "phone": "Téléphone (+336...) *",
       "utiliser_meme_address": "Utiliser la même adresse pour la facturation",
-      "please_select_pickup": "Veuillez sélectionner un point relais."
+      "please_select_pickup": "Veuillez sélectionner un point relais.",
+      "_source": "app/src/sections/CheckoutPage.tsx"
     },
     "app.sections.conditions_generales_page": {
-      "_source": "app/src/sections/ConditionsGeneralesPage.tsx",
-      "terms_encadrent_usage": "Ces conditions encadrent l’utilisation de la boutique My Own Tea, la passation de commande et les obligations réciproques entre le client et la boutique.",
+      "intro": "Ces conditions générales encadrent les ventes réalisées sur la boutique en ligne My Own Tea et précisent les règles applicables à la commande, au paiement, à la livraison, aux abonnements et aux réclamations.",
       "terms_general": "Conditions générales",
-      "droit_retractation": "Droit de rétractation",
-      "email_contact_myowntea": "Email: {{contactEmail}}",
-      "case_issue_shipping": "En cas d’anomalie de livraison, le client doit signaler le problème rapidement au support.",
-      "order_remise_carrier": "La commande est remise au transporteur une fois préparée. Le client reçoit un lien de suivi.",
-      "customer_verifie_informations": "Le client vérifie les informations de livraison et de facturation avant paiement",
-      "droit_retractation_applique": "Le droit de rétractation s’applique aux produits standards selon la réglementation en vigueur.",
-      "payment_secure_stripe": "Le paiement est sécurisé via Stripe.",
-      "tracking_statuses_available": "Le suivi des statuts est disponible dans l’espace Mon compte",
-      "blends_personnalisees_realisees": "Les créations personnalisées sont réalisées à partir des ingrédients choisis par le client dans l’atelier de création.",
-      "price_affiches_euros": "Les prix sont affichés en euros TTC. Les frais de livraison sont calculés au checkout selon les paramètres boutique et la zone de livraison.",
-      "products_personnalises_confectionnes": "Les produits personnalisés confectionnés à la demande peuvent être exclus, sauf défaut ou non-conformité.",
-      "shipping_transfert_responsabilite": "Livraison et transfert de responsabilité",
+      "scope_title": "Boutique, produits et champ d'application",
+      "scope_p1": "Les présentes conditions générales s'appliquent aux ventes conclues sur la boutique My Own Tea avec des clients consommateurs.",
+      "scope_p2": "La boutique propose notamment des créations personnalisées, des accessoires et, selon les cas, des abonnements liés aux créations My Own Tea.",
+      "scope_b1": "Email : {{contactEmail}}",
+      "scope_b2": "Adresse : {{shopAddress}}",
+      "scope_b3": "Téléphone : {{shopPhone}}",
+      "order_title": "Commande",
+      "order_p1": "Le client sélectionne ses produits, vérifie son panier, renseigne ses informations de livraison et de facturation puis valide sa commande avec obligation de paiement.",
+      "order_p2": "La commande n'est considérée comme acceptée qu'après confirmation du paiement et envoi d'un récapitulatif par email.",
+      "order_b1": "Le client doit vérifier l'exactitude des informations saisies avant validation.",
+      "order_b2": "Les visuels, compositions et conseils affichés sur le site ont une valeur informative et peuvent présenter des variations mineures liées aux matières naturelles ou à la personnalisation.",
+      "order_b3": "My Own Tea se réserve la possibilité de refuser ou d'annuler une commande en cas d'anomalie manifeste, d'impayé ou d'indisponibilité exceptionnelle.",
+      "personalized_title": "Créations personnalisées",
+      "personalized_p1": "Les créations My Own Tea sont assemblées à partir des choix réalisés dans l'atelier : ingrédients, format et, le cas échéant, paramètres de personnalisation.",
+      "personalized_p2": "Les indications de goût, de préparation ou de bienfaits sont fournies à titre indicatif et ne constituent ni une promesse contractuelle de résultat ni un avis médical.",
+      "personalized_b1": "Le client reste responsable de la cohérence de ses choix avant validation.",
+      "personalized_b2": "Une création personnalisée ne peut pas être modifiée une fois la préparation engagée.",
       "price_payment": "Prix et paiement",
-      "reclamation_preciser_numero": "Réclamation: préciser numéro de commande et motif",
-      "tracking_order_my": "Suivi commande: Mon compte > Commandes",
-      "email_confirmation_envoye": "Un email de confirmation est envoyé après validation",
-      "order_validee_apres": "Une commande est validée après confirmation du paiement."
+      "price_payment_p1": "Les prix sont affichés en euros TTC. Les frais de livraison applicables sont indiqués avant la confirmation de la commande.",
+      "price_payment_p2": "Le paiement est sécurisé via Stripe. Selon l'appareil, le navigateur et la configuration du domaine, Apple Pay ou Google Pay peuvent également être proposés.",
+      "price_payment_b1": "Aucun frais supplémentaire n'est appliqué pour le moyen de paiement utilisé.",
+      "price_payment_b2": "Le débit intervient selon le parcours de paiement choisi et la validation effective de la transaction.",
+      "shipping_transfert_responsabilite": "Livraison et transfert des risques",
+      "shipping_p1": "La livraison est actuellement proposée en France et en Belgique, à domicile ou en point relais selon l'adresse et les offres transport disponibles.",
+      "shipping_p2": "La commande est préparée après confirmation du paiement, puis remise au transporteur avec un lien de suivi lorsque celui-ci est disponible.",
+      "shipping_b1": "Les délais de préparation et de transport sont indicatifs.",
+      "shipping_b2": "Le client peut retrouver le suivi dans Mon compte > Commandes lorsqu'il utilise un compte client.",
+      "shipping_b3": "Le transfert des risques intervient lors de la réception physique du colis par le client ou par un tiers désigné.",
+      "subscription_title": "Abonnements",
+      "subscription_p1": "Les abonnements sont réservés aux créations My Own Tea éligibles. Ils supposent un compte client actif et une adresse de livraison utilisable.",
+      "subscription_p2": "La gestion de l'abonnement, de la carte bancaire, des échéances et des factures s'effectue depuis l'espace client sécurisé.",
+      "subscription_b1": "Les abonnements sont distincts des accessoires.",
+      "subscription_b2": "Les conditions tarifaires affichées au moment de la souscription s'appliquent à l'offre choisie.",
+      "subscription_b3": "La livraison standard abonnement est calculée à partir de l'adresse active au moment de la souscription.",
+      "droit_retractation": "Droit de rétractation et exceptions",
+      "withdrawal_p1": "Conformément aux règles applicables à la vente à distance, un accessoire standard non personnalisé peut relever du droit de rétractation lorsqu'il est éligible.",
+      "withdrawal_p2": "En revanche, les créations My Own Tea confectionnées, assemblées ou personnalisées à la demande ne peuvent pas être reprises pour simple changement d'avis.",
+      "withdrawal_b1": "Avant tout renvoi, contactez le support afin d'obtenir la procédure applicable.",
+      "withdrawal_b2": "Les garanties légales applicables en cas de défaut, d'erreur ou de non-conformité restent réservées.",
+      "support_title": "Support client et réclamations",
+      "support_p1": "Pour toute question relative à une commande, un paiement, une livraison, un abonnement ou une réclamation, le support client doit être contacté en priorité.",
+      "support_b1": "Email : {{contactEmail}}",
+      "support_b2": "Suivi commande : Mon compte > Commandes",
+      "support_b3": "Merci de préciser votre numéro de commande et l'objet de votre demande.",
+      "support_b4": "En cas de difficulté persistante, les droits légaux du consommateur demeurent applicables.",
+      "_source": "app/src/sections/ConditionsGeneralesPage.tsx"
     },
     "app.sections.contact_page": {
-      "_source": "app/src/sections/ContactPage.tsx",
       "address": "Adresse",
-      "avant_nous_contacter": "Avant de nous contacter",
       "before_contact_body": "Avant d'écrire, consultez la FAQ ou le suivi de commande pour gagner du temps sur les demandes les plus fréquentes.",
       "before_contact_title": "Besoin d'une réponse rapide ?",
       "consult_faq_cta": "Consulter la FAQ",
-      "consultez_faq_reponses": "Consultez la FAQ pour les réponses immédiates",
       "email": "Email",
       "email_body": "Pour toute demande produit, commande, compte ou partenariat, notre équipe vous répond à cette adresse.",
       "email_placeholder": "vous@exemple.com",
       "email_title": "Nous écrire directement",
       "lundi_vendredi_heure": "Du lundi au vendredi, de 9h à 18h (heure de Paris).",
-      "email_principal_contact": "Email principal: {{contactEmail}}",
-      "horaires_reponse": "Horaires de réponse",
       "form_intro": "Choisissez l'objet de votre demande, renseignez vos informations et préparez un email clair en quelques secondes.",
-      "form_note": "Votre message est envoyé directement à notre équipe depuis le formulaire, sans quitter la boutique.",
       "form_title": "Formulaire de contact",
       "full_name": "Nom complet",
       "full_name_placeholder": "Votre prénom et nom",
@@ -897,14 +838,11 @@
       "equipe_vous_accompagne": "Notre équipe vous accompagne sur vos commandes, vos créations personnalisées et la gestion de votre compte.",
       "message": "Message",
       "message_placeholder": "Décrivez votre demande avec le plus de contexte utile possible.",
-      "nous_ecrire": "Nous écrire",
       "order_help_body": "Pour une commande, ajoutez si possible votre numéro de commande afin que nous puissions vous répondre plus vite.",
       "order_help_title": "Commande et suivi",
       "order_number": "Numéro de commande",
       "order_number_placeholder": "ORD-123456",
       "page_title": "Contact",
-      "prefilled_subject_label": "Objet prérempli :",
-      "product_help_body": "Question sur un accessoire, une création, un abonnement ou une préparation ? Nous sommes là pour vous orienter.",
       "response_time_title": "Temps de réponse",
       "error_message": "Impossible d'envoyer votre message pour le moment.",
       "send_email_cta": "Envoyer un email",
@@ -917,17 +855,11 @@
       "subject_order": "Commande / livraison",
       "subject_partnership": "Partenariat / presse",
       "subject_product": "Produit / accessoire",
-      "subject_recommended_shipping": "Objet recommandé: Livraison / Paiement / Produit / Compte",
-      "question_rgpd_precisez": "Pour une question RGPD, précisez “Données personnelles” dans l’objet",
-      "support_intro": "Retrouvez ici le meilleur point d'entrée selon votre besoin : commande, produit, compte ou demande spécifique.",
       "support_title": "Informations utiles",
-      "support_orders_inclure": "Support commandes: inclure votre numéro de commande (ORD-...)",
-      "verifiez_tracking_my": "Vérifiez le suivi dans Mon compte > Commandes"
+      "_source": "app/src/sections/ContactPage.tsx"
     },
     "app.sections.creation_detail_page": {
-      "_source": "app/src/sections/CreationDetailPage.tsx",
       "affini_tea": "Affini-thé",
-      "add_cart": "Ajouter au panier",
       "none_ingredient": "Aucun ingrédient.",
       "choisissez_format": "Choisissez votre format",
       "blend_artisanale": "Création artisanale",
@@ -938,10 +870,10 @@
       "moments_daytime": "Moments de la journée",
       "personnaliser_melange": "Personnaliser ce mélange",
       "preparation": "Préparation",
-      "temperature": "Température"
+      "temperature": "Température",
+      "_source": "app/src/sections/CreationDetailPage.tsx"
     },
     "app.sections.creations_page": {
-      "_source": "app/src/sections/CreationsPage.tsx",
       "add_cart": "Ajouter au panier",
       "none_blend_available": "Aucune création disponible pour le moment.",
       "loading_blends": "Chargement des créations...",
@@ -952,14 +884,13 @@
       "ingredient": "Ingrédient",
       "ingredient_2": "Ingrédient",
       "edit_atelier": "Modifier dans l'atelier",
-      "view_details": "Voir détails"
+      "view_details": "Voir détails",
+      "_source": "app/src/sections/CreationsPage.tsx"
     },
     "app.sections.creator": {
-      "_source": "app/src/sections/Creator.tsx",
       "creator_label": "12 g/L (≈ 3 g pour 25 cl)",
       "affini_tea": "Affini-thé",
       "add_my_wishlist": "Ajouter à ma wishlist",
-      "add_cart": "Ajouter au Panier",
       "add_blend_wishlist": "Ajouter la création à la wishlist",
       "add_ingredient_hors": "Ajoutez au moins un ingrédient hors arôme",
       "apercu_tasse": "Aperçu de la tasse",
@@ -1012,29 +943,37 @@
       "utiliser_my_blend": "Utiliser dans ma création",
       "view_details": "Voir détails",
       "blend": "Votre Création",
-      "recipe": "Votre Recette"
+      "recipe": "Votre Recette",
+      "_source": "app/src/sections/Creator.tsx"
     },
     "app.sections.faq_page": {
-      "_source": "app/src/sections/FaqPage.tsx",
-      "comment_create_my": "Comment créer mon infusion personnalisée ?",
-      "comment_gerer_my": "Comment gérer mes emails marketing ?",
-      "contactez_nous_numero": "Contactez-nous avec votre numéro de commande. Nous vous répondons avec une solution adaptée (correction, renvoi, remboursement selon le cas).",
-      "desinscription_footer_link": "Désinscription depuis le footer ou le lien en bas des emails",
-      "management_complete_preferences": "Gestion complète des préférences dans Mon compte > Informations",
-      "signup_footer_consentement": "Inscription depuis le footer avec consentement explicite",
-      "rencontre_probleme_my": "Je rencontre un problème sur ma commande",
-      "mode_infusion_base": "Le mode “infusion sans base” est pris en charge avec une formule tarifaire dédiée pour garantir une composition concentrée et cohérente.",
-      "payment_online_secure": "Le paiement en ligne est sécurisé via Stripe.",
-      "oui_que_parcel": "Oui. Dès que le colis est expédié, un numéro de suivi et un lien transporteur sont disponibles dans votre espace Mon compte.",
-      "then_suivre_my": "Puis-je suivre ma commande ?",
-      "quels_payments_acceptez": "Quels paiements acceptez-vous ?",
-      "reponses_rapides_questions": "Réponses rapides aux questions les plus fréquentes sur la création de mélange, la commande, la livraison et le compte client.",
-      "utilisez_atelier_blend": "Utilisez l’atelier de création pour choisir vos ingrédients. Le prix se met à jour automatiquement selon la composition."
+      "intro": "Réponses rapides aux questions les plus fréquentes sur la création de mélange, la commande, la livraison, les abonnements, le compte client et les données personnelles.",
+      "q1_title": "Comment créer une composition personnalisée ?",
+      "q1_p1": "Utilisez l'atelier My Own Tea pour sélectionner vos ingrédients, votre format et affiner votre recette. Le prix se met à jour automatiquement selon la composition.",
+      "q1_p2": "Le mode infusion sans base est pris en charge avec une formule dédiée pour conserver une composition cohérente.",
+      "q2_title": "Ai-je besoin d'un compte client ?",
+      "q2_p1": "Un compte n'est pas indispensable pour une commande ponctuelle, mais il est vivement conseillé pour retrouver vos commandes, suivre vos colis, enregistrer vos adresses et gérer vos préférences. Il est nécessaire pour piloter un abonnement.",
+      "q3_title": "Quels moyens de paiement acceptez-vous ?",
+      "q3_p1": "Le paiement est sécurisé via Stripe. Le règlement par carte bancaire est pris en charge et Apple Pay / Google Pay peuvent être proposés selon l'appareil, le navigateur et la configuration du domaine.",
+      "q4_title": "Où livrez-vous ?",
+      "q4_p1": "La boutique livre actuellement en France et en Belgique. Les options affichées au checkout dépendent du pays, du code postal et des offres transport disponibles en temps réel.",
+      "q5_title": "Puis-je choisir un point relais ?",
+      "q5_p1": "Oui, lorsqu'une offre point relais est disponible pour votre adresse. Le choix du relais se fait directement pendant le checkout ; sinon seule la livraison a domicile est proposee.",
+      "q6_title": "Comment suivre ma commande ?",
+      "q6_p1": "Dès que le colis est expédié, un email de confirmation d'expédition est envoyé. Le suivi est également visible dans Mon compte > Commandes lorsque vous utilisez un compte client.",
+      "q7_title": "Puis-je modifier une commande déjà payée ?",
+      "q7_p1": "Contactez le support dès que possible. Si la préparation n'a pas encore commencé, certaines corrections peuvent parfois être étudiées. Une fois la préparation engagée ou l'expédition lancée, la modification n'est plus garantie.",
+      "q8_title": "Puis-je retourner ma commande ?",
+      "q8_p1": "Les créations et produits My Own Tea ne sont pas repris pour simple changement d'avis. En cas de produit endommagé, d'erreur de préparation ou de non-conformité, contactez-nous rapidement avec votre numéro de commande et, si possible, des photos. Pour un accessoire standard, le support vous précisera la procédure applicable avant tout renvoi.",
+      "q9_title": "Comment fonctionnent les abonnements ?",
+      "q9_p1": "Les abonnements sont réservés aux créations My Own Tea éligibles. Ils se gèrent depuis l'espace client : carte bancaire, échéances, annulation à échéance, réactivation et factures.",
+      "q10_title": "Comment gérer mes emails et mes données ?",
+      "q10_p1": "Depuis Mon compte > Informations, vous pouvez mettre à jour vos informations personnelles, vos adresses et vos préférences email. Vous pouvez aussi utiliser le lien de désinscription présent dans chaque email marketing ou écrire à {{contactEmail}} pour une demande relative à vos données.",
+      "q11_title": "Que faire si j'ai un probleme avec ma commande ou ma livraison ?",
+      "q11_p1": "Écrivez-nous à {{contactEmail}} en indiquant votre numéro de commande, le problème constaté et, si besoin, des photos. Nous étudions chaque dossier au cas par cas afin de proposer la solution la plus adaptée.",
+      "_source": "app/src/sections/FaqPage.tsx"
     },
     "app.sections.footer": {
-      "_source": "app/src/sections/Footer.tsx",
-      "rue_aromes": "{{shopAddress}}",
-      "paris_france": "75011 Paris, France",
       "address_email_invalid": "Adresse email invalide.",
       "choisir_locale_country": "Choisir la langue et le pays",
       "terms_general": "Conditions générales",
@@ -1056,16 +995,16 @@
       "politique_privacy_2": "Politique de confidentialité",
       "recevez_recipes_exclusives": "Recevez nos recettes exclusives et offres spéciales",
       "rejoignez_community": "Rejoignez Notre Communauté",
-      "email_2": "Votre email"
+      "email_2": "Votre email",
+      "_source": "app/src/sections/Footer.tsx"
     },
     "app.shared.store_settings": {
-      "_source": "app/src/context/StoreSettingsContext.tsx",
       "default_contact_email": "contact@myowntea.fr",
       "default_shop_address": "34 Place du Général de Gaulle, 59800 Lille, France",
-      "default_shop_phone": "+33 642 80 08 27"
+      "default_shop_phone": "+33 642 80 08 27",
+      "_source": "app/src/context/StoreSettingsContext.tsx"
     },
     "app.sections.forgot_password_page": {
-      "_source": "app/src/sections/ForgotPasswordPage.tsx",
       "login": "connexion",
       "email": "email",
       "email_2": "Email",
@@ -1075,10 +1014,10 @@
       "password_oublie": "Mot de passe oublié",
       "back": "Retour à la",
       "saisissez_email_recevoir": "Saisissez votre email pour recevoir un lien de réinitialisation.",
-      "account_existe_email": "Si un compte existe, un email vous a été envoyé."
+      "account_existe_email": "Si un compte existe, un email vous a été envoyé.",
+      "_source": "app/src/sections/ForgotPasswordPage.tsx"
     },
     "app.sections.hero": {
-      "_source": "app/src/sections/Hero.tsx",
       "commencer_my_blend": "Commencer Ma Création",
       "composez": "Composez Votre",
       "devenez_architecte_flavors": "Devenez l'architecte de vos saveurs. Sélectionnez les meilleurs ingrédients parmi nos trésors botaniques et créez un mélange qui vous ressemble.",
@@ -1087,10 +1026,10 @@
       "art_melange": "L'Art du Mélange",
       "shipping_offerte": "Livraison offerte dès",
       "secure_payment": "Paiement sécurisé",
-      "tea_unique": "Thé Unique"
+      "tea_unique": "Thé Unique",
+      "_source": "app/src/sections/Hero.tsx"
     },
     "app.sections.how_it_works": {
-      "_source": "app/src/sections/HowItWorks.tsx",
       "commencer_my_blend": "Commencer Ma Création",
       "comment_marche": "Comment Ça Marche",
       "create_melange": "Créez Votre Mélange",
@@ -1103,49 +1042,59 @@
       "quatre_etapes_simples": "Quatre étapes simples pour créer le thé de vos rêves, préparé avec soin et expédié directement chez vous.",
       "recevez_blend": "Recevez Votre Création",
       "select_ingredients": "Sélectionnez Vos Ingrédients",
-      "tasse": "Votre Tasse"
+      "tasse": "Votre Tasse",
+      "_source": "app/src/sections/HowItWorks.tsx"
     },
     "app.sections.info_page_layout": {
-      "_source": "app/src/sections/InfoPageLayout.tsx",
-      "last_update_day": "Dernière mise à jour :"
+      "last_update_day": "Dernière mise à jour :",
+      "_source": "app/src/sections/InfoPageLayout.tsx"
     },
     "app.sections.livraison_retours_page": {
-      "_source": "app/src/sections/LivraisonRetoursPage.tsx",
-      "confirmation_shipment_envoyee": "Confirmation d’expédition envoyée par email après création du bordereau",
-      "contactez_nous_page": "Contactez-nous via la page Contact avec votre numéro de commande",
-      "delais_indicatifs": "Délais indicatifs",
-      "remboursement_declenche_apres": "Le remboursement est déclenché après réception et validation du retour",
-      "tracking_peut_consulte": "Le suivi peut être consulté depuis Mon compte > Commandes",
-      "options_affichees_checkout": "Les options affichées au checkout dépendent du pays, du code postal et des offres transport disponibles en temps réel.",
       "shipping_retours": "Livraison & retours",
-      "modes_shipping": "Modes de livraison",
-      "equipe_vous_confirme": "Notre équipe vous confirme l’éligibilité et la marche à suivre",
-      "nous_proposons_shipping": "Nous proposons la livraison à domicile et la livraison en point relais via Mondial Relay (intégration Boxtal).",
-      "pickup_point_choice": "Point relais: choix du relais sur carte depuis le checkout",
-      "home_delivery_tracking": "Domicile: suivi transporteur en ligne",
-      "accessoires_products_standards": "Pour les accessoires et produits standards: vous disposez de 14 jours après réception pour demander un retour.",
-      "blends_personnalisees_melanges": "Pour les créations personnalisées (mélanges composés à la demande): les retours ne sont possibles qu’en cas de défaut qualité ou d’erreur de préparation.",
-      "preparation_atelier_jours": "Préparation atelier: 1 à 2 jours ouvrés",
-      "retours_reclamations": "Retours et réclamations",
-      "retrouvez_ici_modalites": "Retrouvez ici les modalités de livraison de My Own Tea, les délais estimés et la procédure de retour. Les coûts appliqués au checkout sont pilotés depuis les paramètres boutique.",
-      "transit_france_metropolitan": "Transit France métropolitaine: 2 à 4 jours ouvrés"
+      "intro": "Retrouvez ici les informations utiles sur les zones livrées, les modes de livraison, les délais indicatifs, le suivi des colis et la gestion des réclamations chez My Own Tea.",
+      "delivery_zones_title": "Zones desservies et modes de livraison",
+      "delivery_zones_p1": "La boutique My Own Tea livre actuellement en France et en Belgique.",
+      "delivery_zones_p2": "Au moment du checkout, les options affichées dépendent du pays, du code postal, du mode choisi (domicile ou point relais) et des offres transport disponibles en temps réel.",
+      "delivery_zones_b1": "Livraison à domicile lorsque l'adresse est éligible.",
+      "delivery_zones_b2": "Livraison en point relais lorsque l'offre est proposée, avec sélection du relais depuis le checkout.",
+      "delivery_zones_b3": "Les frais de livraison et l'éventuelle gratuité sont affichés avant validation du paiement.",
+      "lead_times_title": "Préparation et délais indicatifs",
+      "lead_times_p1": "La préparation commence après confirmation du paiement. Les délais ci-dessous sont indicatifs et peuvent varier selon l'activité de l'atelier et du transporteur.",
+      "lead_times_b1": "Préparation atelier : en général 1 à 2 jours ouvrés.",
+      "lead_times_b2": "France métropolitaine : en général 2 à 4 jours ouvrés après expédition.",
+      "lead_times_b3": "Belgique : délai variable selon l'offre retenue et la remise au transporteur.",
+      "lead_times_b4": "En période de forte activité ou en cas d'aléa transport, le délai peut être prolongé.",
+      "tracking_title": "Suivi et réception",
+      "tracking_p1": "Dès qu'un colis est pris en charge, un email de confirmation d'expédition est envoyé. Le suivi reste également accessible dans Mon compte > Commandes lorsqu'un compte client est utilisé.",
+      "tracking_b1": "Vérifiez soigneusement votre adresse, votre code postal et votre numéro de téléphone avant paiement.",
+      "tracking_b2": "Pour un point relais, le retrait doit être effectué dans le délai indiqué par le transporteur.",
+      "tracking_b3": "Si vous constatez une anomalie de suivi ou de livraison, contactez rapidement le support.",
+      "returns_title": "Retours",
+      "returns_p1": "My Own Tea n'accepte pas les retours de convenance sur ses créations, mélanges, infusions et produits confectionnés ou assemblés à la demande.",
+      "returns_p2": "Aucun retour spontané n'est pris en charge sans validation préalable du service client. Pour un accessoire non personnalisé, le support vous confirmera au préalable si une procédure de retour peut s'appliquer.",
+      "returns_b1": "Le simple changement d'avis n'ouvre pas automatiquement droit à retour sur les produits My Own Tea.",
+      "returns_b2": "Ne renvoyez aucun article sans accord écrit préalable.",
+      "claims_title": "Réclamations et non-conformité",
+      "claims_p1": "En cas de produit endommagé, d'erreur de préparation, d'article manquant ou de non-conformité, écrivez-nous à {{contactEmail}} avec votre numéro de commande.",
+      "claims_b1": "Précisez le numéro de commande, le problème constaté et, si possible, ajoutez des photos utiles.",
+      "claims_b2": "Chaque demande est analysée au cas par cas afin de proposer la solution la plus adaptée : correction, renvoi ou remboursement selon la situation.",
+      "claims_b3": "Une prise de contact rapide facilite le traitement du dossier.",
+      "_source": "app/src/sections/LivraisonRetoursPage.tsx"
     },
     "app.sections.login_page": {
-      "_source": "app/src/sections/LoginPage.tsx",
       "accedez_espace_customer": "Accédez à votre espace client.",
       "login": "Connexion",
       "login_cta": "Se connecter",
       "login_2": "Connexion...",
       "continue_with_google": "Continuer avec Google",
       "create_account": "Créer un compte",
-      "email": "email",
       "email_2": "Email",
       "password": "Mot de passe",
       "password_oublie": "Mot de passe oublié ?",
-      "pas_encore_account": "Pas encore de compte ?"
+      "pas_encore_account": "Pas encore de compte ?",
+      "_source": "app/src/sections/LoginPage.tsx"
     },
     "app.sections.login_error_page": {
-      "_source": "app/src/sections/LoginErrorPage.tsx",
       "kicker": "Connexion Google",
       "title": "La connexion n’a pas pu aboutir",
       "default_message": "Nous n’avons pas pu finaliser votre connexion avec Google. Vous pouvez réessayer ou revenir à la connexion classique.",
@@ -1157,23 +1106,23 @@
       "oauth_failed": "Une erreur inattendue est survenue pendant la connexion Google.",
       "back_to_login": "Retour à la connexion",
       "contact_us": "Contacter le support",
-      "error_code": "Code d’erreur : {{code}}"
+      "error_code": "Code d’erreur : {{code}}",
+      "_source": "app/src/sections/LoginErrorPage.tsx"
     },
     "app.sections.logout_page": {
-      "_source": "app/src/sections/LogoutPage.tsx",
       "revenir_apos_home": "Revenir à l'accueil maintenant",
       "session_terminee": "Session terminée",
       "vous_allez_redirige": "Vous allez être redirigé(e) vers l'accueil dans",
-      "vous_etes_deconnecte": "Vous êtes déconnecté(e)"
+      "vous_etes_deconnecte": "Vous êtes déconnecté(e)",
+      "_source": "app/src/sections/LogoutPage.tsx"
     },
     "app.sections.maintenance_page": {
-      "_source": "app/src/sections/MaintenancePage.tsx",
       "contacter_support": "Contacter le support",
       "nous_effectuons_update": "Nous effectuons une mise à jour pour améliorer votre expérience. Le checkout est temporairement indisponible et reviendra très vite.",
-      "back_apos_home": "Retour à l'accueil"
+      "back_apos_home": "Retour à l'accueil",
+      "_source": "app/src/sections/MaintenancePage.tsx"
     },
     "app.sections.navigation": {
-      "_source": "app/src/sections/Navigation.tsx",
       "account": "Compte",
       "login": "Connexion",
       "create_my_tea": "Créer Mon Thé",
@@ -1181,17 +1130,17 @@
       "create_melange": "Créer un mélange",
       "cart": "Votre panier",
       "see": "Voir",
-      "subscriptions": "Abonnement (-10%)"
+      "subscriptions": "Abonnement (-10%)",
+      "_source": "app/src/sections/Navigation.tsx"
     },
     "app.sections.not_found_page": {
-      "_source": "app/src/sections/NotFoundPage.tsx",
       "create_my_melange": "Créer mon mélange",
       "contenu_demande_apos": "Le contenu demandé n'existe pas ou a été déplacé.",
       "back_apos_home": "Retour à l'accueil",
-      "verification_redirect": "Vérification de la redirection..."
+      "verification_redirect": "Vérification de la redirection...",
+      "_source": "app/src/sections/NotFoundPage.tsx"
     },
     "app.sections.order_confirmation": {
-      "_source": "app/src/sections/OrderConfirmation.tsx",
       "cart": "1. Panier",
       "confirmation_step": "3. Confirmation",
       "shipping_payment": "2. Livraison et paiement",
@@ -1214,34 +1163,61 @@
       "subtotal": "Sous-total",
       "discount": "Réduction",
       "back_home": "Retour à l'accueil",
-      "create_new_blend_cta": "Créer un nouveau mélange"
+      "create_new_blend_cta": "Créer un nouveau mélange",
+      "_source": "app/src/sections/OrderConfirmation.tsx"
     },
     "app.sections.politique_confidentialite_page": {
-      "_source": "app/src/sections/PolitiqueConfidentialitePage.tsx",
-      "acces_rectification_suppression": "Accès, rectification et suppression de vos données",
-      "order_contenu_cart": "Commande: contenu panier, paiements, statuts et suivi livraison",
-      "account_customer_identite": "Compte client: identité, email, téléphone, adresses",
-      "consentement_rgpd_newsletter": "Consentement RGPD et newsletter",
-      "donnees_collectees": "Données collectées",
-      "envoi_newsletters_emails": "Envoi de newsletters et d’emails marketing uniquement avec consentement",
-      "execution_orders_service": "Exécution des commandes et service après-vente",
-      "finalites": "Finalités",
-      "management_account_customer": "Gestion du compte client et des préférences email",
-      "signup_newsletter_footer": "L’inscription newsletter depuis le footer nécessite un consentement explicite.",
-      "limitation_opposition_traitement": "Limitation ou opposition au traitement marketing",
-      "edit_possible_tout": "Modification possible à tout moment depuis Mon compte > Informations",
-      "newsletter_email_consentement": "Newsletter: email, consentement marketing, statut d’opt-in/out",
-      "nous_stockons_status": "Nous stockons l’état d’abonnement (opt-in/out) et un journal des événements de consentement (date, source, données techniques associées).",
-      "nous_traitons_donnees": "Nous traitons vos données personnelles uniquement pour opérer la boutique, exécuter vos commandes et, avec consentement, vous envoyer des communications marketing.",
-      "opt_signup_newsletter": "Opt-in: inscription newsletter",
-      "opt_out_desinscription": "Opt-out: désinscription footer, préférences compte ou lien de désinscription email",
       "politique_privacy": "Politique de confidentialité",
-      "exercer_droits_contactez": "Pour exercer vos droits, contactez-nous à {{contactEmail}}.",
-      "retrait_consentement_tout": "Retrait du consentement à tout moment",
-      "droits": "Vos droits"
+      "intro": "Cette page explique quelles données personnelles sont utilisées sur My Own Tea, pour quelles finalités, avec quels prestataires et quels sont vos droits.",
+      "controller_title": "Responsable du traitement",
+      "controller_p1": "Les données personnelles traitées dans le cadre de la boutique My Own Tea sont utilisées pour faire fonctionner le site, gérer les comptes clients, préparer les commandes, assurer la livraison et répondre aux demandes de support.",
+      "controller_p2": "Pour toute question relative à vos données, vous pouvez nous contacter aux coordonnées ci-dessous.",
+      "controller_b1": "Email : {{contactEmail}}",
+      "controller_b2": "Adresse : {{shopAddress}}",
+      "controller_b3": "Téléphone : {{shopPhone}}",
+      "donnees_collectees": "Données traitées",
+      "data_b1": "Compte client : civilité, prénom, nom, email, téléphone, date de naissance si renseignée, adresses.",
+      "data_b2": "Commande et livraison : panier, articles, format, abonnement éventuel, adresse de livraison, choix du point relais, statuts de commande et suivi transport.",
+      "data_b3": "Paiement : identifiants de transaction, état de paiement et références utiles au rapprochement comptable. Les données complètes de carte bancaire sont saisies directement auprès de Stripe.",
+      "data_b4": "Relation client : messages envoyés via le contact, demandes support, numéro de commande et contenu des échanges.",
+      "data_b5": "Marketing et consentement : email, préférences de communication, statut d'inscription newsletter et journal des événements de consentement.",
+      "data_b6": "Données techniques : cookies de session, cookies temporaires de connexion Google et stockages locaux nécessaires au panier, à la livraison et à la préférence de langue.",
+      "finalites": "Finalités et bases principales",
+      "purposes_p1": "Selon le contexte, le traitement repose sur l'exécution du contrat, le respect d'obligations légales, votre consentement ou l'intérêt légitime lié à la sécurité et au bon fonctionnement du service.",
+      "purposes_b1": "Créer et administrer le compte client.",
+      "purposes_b2": "Traiter les commandes, paiements, abonnements, expéditions et demandes après-vente.",
+      "purposes_b3": "Gérer les préférences email et envoyer des communications marketing uniquement avec consentement.",
+      "purposes_b4": "Sécuriser l'authentification, les sessions et le parcours de commande.",
+      "recipients_title": "Destinataires et prestataires",
+      "recipients_p1": "L'accès aux données est limité aux personnes et prestataires qui en ont besoin pour exécuter le service.",
+      "recipients_p2": "Selon les fonctionnalités utilisées, certaines données peuvent être traitées par des prestataires techniques, de paiement, d'envoi d'emails ou de transport.",
+      "recipients_b1": "Équipe interne en charge du support, des commandes et de l'administration de la boutique.",
+      "recipients_b2": "Stripe pour le paiement et la gestion de certains éléments liés aux abonnements.",
+      "recipients_b3": "Prestataires de transport et partenaires point relais via l'intégration logistique utilisée sur le site.",
+      "recipients_b4": "Prestataire SMTP / email transactionnel pour les emails de contact, confirmation et suivi.",
+      "retention_title": "Durées de conservation",
+      "retention_p1": "Les données ne sont pas conservées indéfiniment. Elles le sont pendant la durée nécessaire à la finalité poursuivie, puis, lorsque la loi l'impose, pendant la durée d'archivage applicable.",
+      "retention_b1": "Données de compte : tant que le compte reste actif, puis pendant la durée nécessaire au suivi administratif ou à l'exercice des droits.",
+      "retention_b2": "Commandes et facturation : pendant les durées légales et comptables applicables.",
+      "retention_b3": "Newsletter et consentement marketing : jusqu'au retrait du consentement, à la désinscription ou à la durée nécessaire à la preuve et à la gestion des préférences.",
+      "retention_b4": "Cookie de session : jusqu'à 30 jours ; cookies temporaires de connexion Google : jusqu'à environ 10 minutes.",
+      "retention_b5": "Stockages locaux navigateur (panier, livraison, préférence de langue) : jusqu'à suppression par l'utilisateur, vidage du navigateur ou remise à zéro du parcours.",
+      "droits": "Vos droits",
+      "rights_p1": "Conformément à la réglementation applicable, vous disposez notamment de droits d'accès, de rectification, d'effacement, de limitation, d'opposition et, selon les cas, de portabilité.",
+      "rights_p2": "Vous pouvez également retirer votre consentement aux emails marketing à tout moment sans affecter la licéité des traitements antérieurs.",
+      "rights_b1": "Depuis votre espace client, vous pouvez mettre à jour vos informations, adresses et préférences email.",
+      "rights_b2": "Vous pouvez utiliser le lien de désinscription présent dans les emails marketing.",
+      "rights_b3": "Pour exercer vos droits ou poser une question sur vos données, écrivez-nous à {{contactEmail}}.",
+      "rights_b4": "Si nécessaire, vous pouvez également introduire une réclamation auprès de la CNIL.",
+      "cookies_title": "Cookies et stockages techniques",
+      "cookies_p1": "Le site utilise principalement des cookies et stockages techniques nécessaires à la connexion, à la session, au panier, au choix de livraison et à la préférence de langue.",
+      "cookies_p2": "À ce jour, le parcours client n'intègre pas d'outil publicitaire ou de mesure d'audience active sans information complémentaire et, lorsque cela serait requis, sans consentement préalable.",
+      "cookies_b1": "Cookie de session serveur pour l'authentification.",
+      "cookies_b2": "Cookies temporaires pour sécuriser la connexion Google lorsqu'elle est utilisée.",
+      "cookies_b3": "Stockage local du navigateur pour le panier invite, la livraison et la langue/pays.",
+      "_source": "app/src/sections/PolitiqueConfidentialitePage.tsx"
     },
     "app.sections.register_page": {
-      "_source": "app/src/sections/RegisterPage.tsx",
       "title": "Civilité *",
       "continue_with_google": "Continuer avec Google",
       "blend": "Création...",
@@ -1263,10 +1239,9 @@
       "please_select_title": "Merci de sélectionner une civilité.",
       "password": "Mot de passe",
       "first_name": "Prénom",
-      "phone": "Téléphone (+33...)"
+      "_source": "app/src/sections/RegisterPage.tsx"
     },
     "app.sections.reset_password_page": {
-      "_source": "app/src/sections/ResetPasswordPage.tsx",
       "link_reinitialisation_invalid": "Ce lien de réinitialisation est invalide ou expiré.",
       "choisissez_new_password": "Choisissez un nouveau mot de passe sécurisé.",
       "confirmer_password": "Confirmer le mot de passe",
@@ -1280,10 +1255,10 @@
       "new_password": "Nouveau mot de passe",
       "back": "Retour à la",
       "verification_link": "Vérification du lien...",
-      "password_summer_reinitialise": "Votre mot de passe a été réinitialisé. Vous pouvez maintenant vous connecter."
+      "password_summer_reinitialise": "Votre mot de passe a été réinitialisé. Vous pouvez maintenant vous connecter.",
+      "_source": "app/src/sections/ResetPasswordPage.tsx"
     },
     "app.sections.subscriptions_page": {
-      "_source": "app/src/sections/SubscriptionsLandingPage.tsx",
       "none_abonnement_available": "Aucun abonnement disponible pour le moment.",
       "loading_abonnements": "Chargement des abonnements...",
       "billing_all": "Facturation tous les",
@@ -1325,10 +1300,10 @@
       "faq_two_title": "Que faut-il pour souscrire ?",
       "faq_two_body": "Un compte client connecté, ainsi qu’une adresse de livraison par défaut dans votre espace client.",
       "faq_three_title": "Comment gère-t-on la carte bancaire ou l’annulation ?",
-      "faq_three_body": "Depuis votre espace client : mise à jour de la carte, annulation à échéance, réactivation et consultation des factures."
+      "faq_three_body": "Depuis votre espace client : mise à jour de la carte, annulation à échéance, réactivation et consultation des factures.",
+      "_source": "app/src/sections/SubscriptionsLandingPage.tsx"
     },
     "app.sections.testimonials": {
-      "_source": "app/src/sections/Testimonials.tsx",
       "amatrice_tea": "Amatrice de thé",
       "energie_collective": "Énergie Collective",
       "epices_orient": "Épices d'Orient",
@@ -1348,10 +1323,10 @@
       "serenite": "Sérénité",
       "concentration_max": "Concentration Max",
       "temoignages": "Témoignages",
-      "experience_unique_created": "Une expérience unique ! J'ai créé mon mélange \"Réveil en Provence\" avec de la lavande et du thé vert. C'est devenu mon rituel matinal indispensable."
+      "experience_unique_created": "Une expérience unique ! J'ai créé mon mélange \"Réveil en Provence\" avec de la lavande et du thé vert. C'est devenu mon rituel matinal indispensable.",
+      "_source": "app/src/sections/Testimonials.tsx"
     },
     "app.sections.top_creations": {
-      "_source": "app/src/sections/TopCreations.tsx",
       "created_by": "Blend créé par {{name}}",
       "add_cart": "Ajouter au panier",
       "none_blend_classee": "Aucune création classée disponible pour le moment.",
@@ -1366,7 +1341,8 @@
       "edit_atelier": "Modifier dans l'atelier",
       "selection_community_myowntea": "Sélection de la communauté #myowntea",
       "view_blends": "Voir + de créations",
-      "view_details": "Voir détails"
+      "view_details": "Voir détails",
+      "_source": "app/src/sections/TopCreations.tsx"
     }
   }
 }

@@ -48,7 +48,7 @@ const formatRecurringCadenceLabel = (item: {
 };
 export function Cart() {
     const { cartItems, removeFromCart, updateCartItemQuantity, cartSubtotal, appliedDiscountCode, applyDiscountCode, removeDiscountCode, cartSummary, cartMessages, isCartSummaryLoading, pendingItemIds, } = useBlend();
-    const { customer, isLoading: isAuthLoading } = useAuth();
+    const { customer, isLoading: isAuthLoading, ensureGuestSession } = useAuth();
     const [codeInput, setCodeInput] = useState(appliedDiscountCode || '');
     const [isDiscountCodeOpen, setIsDiscountCodeOpen] = useState(false);
     const [checkoutError, setCheckoutError] = useState<string | null>(null);
@@ -323,19 +323,19 @@ export function Cart() {
                 setCheckoutErrorFeedback(t("app.sections.cart.please_separer_abonnements"));
                 return;
             }
-            if ((!customer?.email && hasBlendSubscription) ||
-                (!customer?.id && cartItems.some((item) => item.itemType === 'VARIANT' || item.itemType === 'PACK' || item.itemType === 'SUBSCRIPTION'))) {
+            if (!customer?.email && (hasBlendSubscription || hasLegacySubscription)) {
                 setCheckoutErrorFeedback(t("app.sections.cart.please_vous_connecter"), { needsLogin: true });
                 return;
             }
+            setIsCheckoutSubmitting(true);
             if (hasLegacySubscription && !hasBlendSubscription) {
                 const planId = cartItems.find((item) => item.itemType === 'SUBSCRIPTION')?.subscriptionPlanId;
                 if (!planId) {
+                    setIsCheckoutSubmitting(false);
                     setCheckoutErrorFeedback("Plan d'abonnement introuvable.");
                     return;
                 }
                 try {
-                    setIsCheckoutSubmitting(true);
                     const session = await api.checkoutSubscription({ planId });
                     if (session?.url) {
                         window.location.href = session.url;
@@ -351,7 +351,16 @@ export function Cart() {
                 }
                 return;
             }
-            window.location.href = '/checkout';
+            try {
+                if (!customer?.id && hasOneTime) {
+                    await ensureGuestSession();
+                }
+                window.location.href = '/checkout';
+            }
+            catch (e: any) {
+                setCheckoutErrorFeedback(e?.message || t("app.lib.api_errors.generic_error"));
+                setIsCheckoutSubmitting(false);
+            }
         }} className="w-full btn-primary mb-5" disabled={isCheckoutSubmitting}>
                 {t("app.sections.cart.checkout_cta")}
               </button>

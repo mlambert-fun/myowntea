@@ -278,6 +278,16 @@ const validateAddress = (address: CheckoutAddress, label: 'livraison' | 'factura
         return t("app.sections.checkout_page.phone_must_format");
     return null;
 };
+const validateCheckoutEmail = (value: string) => {
+    const normalized = value.trim();
+    if (!normalized) {
+        return t("app.lib.api_errors.email_required");
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalized)) {
+        return t("app.lib.api_errors.invalid_email_format");
+    }
+    return null;
+};
 const toAccountAddressPayload = (address: CheckoutAddress, defaults?: {
     isDefaultBilling?: boolean;
     isDefaultShipping?: boolean;
@@ -667,9 +677,10 @@ const CheckoutAddressForm = ({ title, description, value, onFieldChange, onValue
     </div>);
 };
 export default function CheckoutPage() {
-    const { customer, isLoading: isAuthLoading } = useAuth();
+    const { customer, isLoading: isAuthLoading, ensureGuestSession } = useAuth();
     const { cartItems, cartSubtotal, cartSummary, cartMessages } = useBlend();
     const blendSubscriptionItems = useMemo(() => cartItems.filter((item) => item.itemType === 'BLEND' && item.purchaseMode === 'SUBSCRIPTION'), [cartItems]);
+    const [guestEmail, setGuestEmail] = useState('');
     const [shippingAddress, setShippingAddress] = useState<CheckoutAddress>(defaultAddress);
     const [billingAddress, setBillingAddress] = useState<CheckoutAddress>(defaultAddress);
     const [useSameBilling, setUseSameBilling] = useState(true);
@@ -750,6 +761,7 @@ export default function CheckoutPage() {
         quantity: Math.max(1, item.quantity || 1),
         totalCents: Math.max(0, Math.round(item.price * 100)) * Math.max(1, item.quantity || 1),
     })), [cartItems]);
+    const hasOneTimeCheckoutItems = otherItemsSummary.length > 0;
     const recurringOverviewLabel = useMemo(() => blendSubscriptionSummary
         .map((item) => `${item.title} · ${item.cadence}`)
         .join(' • '), [blendSubscriptionSummary]);
@@ -1301,6 +1313,17 @@ export default function CheckoutPage() {
             ? buildRelayShippingAddress(shippingAddress, selectedRelay)
             : shippingAddress;
         const checkoutBillingAddress = shouldUseSameBilling ? checkoutShippingAddress : billingAddress;
+        if (!customer?.email && blendSubscriptionItems.length > 0) {
+            setError(t("app.sections.cart.please_vous_connecter"));
+            return;
+        }
+        if (!customer?.email) {
+            const guestEmailError = validateCheckoutEmail(guestEmail);
+            if (guestEmailError) {
+                setError(guestEmailError);
+                return;
+            }
+        }
         const shippingValidationError = validateAddress(checkoutShippingAddress, 'livraison');
         if (shippingValidationError) {
             setError(shippingValidationError);
@@ -1316,6 +1339,9 @@ export default function CheckoutPage() {
         setError(null);
         setIsPreparingPayment(true);
         try {
+            if (!customer?.id && hasOneTimeCheckoutItems) {
+                await ensureGuestSession();
+            }
             if (customer?.email) {
                 try {
                     if (shippingMode === 'HOME' && saveHomeShippingAddress) {
@@ -1354,6 +1380,7 @@ export default function CheckoutPage() {
             const response = await api.createCheckoutPaymentIntent({
                 appliedDiscountCode: cartSummary?.appliedCode || undefined,
                 comment: comment.trim() || undefined,
+                guestEmail: customer?.email ? undefined : guestEmail.trim(),
                 shippingSelection: {
                     mode: shippingMode,
                     offerId: selectedOffer?.id || undefined,
@@ -1440,6 +1467,15 @@ export default function CheckoutPage() {
 
           <div className="grid lg:grid-cols-3 gap-8">
             <section className="lg:col-span-2 space-y-5">
+              {!customer?.email && (<div className="bg-white rounded-2xl p-5 shadow space-y-3">
+                  <h3 className="font-medium text-[var(--sage-deep)]">{t("app.sections.checkout_page.guest_email_title")}</h3>
+                  <p className="text-sm text-[var(--sage-deep)]/70">{t("app.sections.checkout_page.guest_email_description")}</p>
+                  <input type="email" autoComplete="email" className="input-elegant w-full" placeholder={t("app.sections.checkout_page.guest_email_placeholder")} value={guestEmail} onChange={(e) => {
+                    setGuestEmail(e.target.value);
+                    resetPayment();
+                }}/>
+                </div>)}
+
               <div className="bg-white rounded-2xl p-5 shadow space-y-4">
                 <h3 className="font-medium text-[var(--sage-deep)]">{t("app.sections.checkout_page.mode_shipping")}</h3>
                 <div className="flex gap-4">

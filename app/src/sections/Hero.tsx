@@ -8,7 +8,7 @@ const formatThresholdEuros = (cents: number) => {
         return String(euros);
     return euros.toFixed(2).replace('.', ',');
 };
-export function Hero({ ingredientCountLabel = '40+' }: { ingredientCountLabel?: string }) {
+export function Hero({ ingredientCountLabel = '100+' }: { ingredientCountLabel?: string }) {
     const heroRef = useRef<HTMLDivElement>(null);
     const { settings } = useStoreSettings();
     useEffect(() => {
@@ -68,7 +68,7 @@ export function Hero({ ingredientCountLabel = '40+' }: { ingredientCountLabel?: 
 
         {/* Cinnamon */}
         <div className="parallax absolute top-[80%] left-[20%] animation-float-slow opacity-50">
-          <div className="w-8 h-16 rounded-full bg-gradient-to-b from-[#8B4513] to-[#654321] rotate-45"/>
+          <div className="w-8 h-8 rounded-full bg-gradient-to-b from-[#8B4513] to-[#654321] rotate-45"/>
         </div>
 
         {/* Small decorative dots */}
@@ -115,7 +115,7 @@ export function Hero({ ingredientCountLabel = '40+' }: { ingredientCountLabel?: 
                 </div>
                 <div className="text-center">
                   <div className="font-display text-3xl md:text-4xl text-[var(--gold-antique)] font-medium">100%</div>
-                  <div className="text-sm text-[var(--sage-deep)]/60 mt-1">Bio</div>
+                  <div className="text-sm text-[var(--sage-deep)]/60 mt-1">Bio & naturels</div>
                 </div>
               </div>
               <div className="mt-6 pt-6 border-t border-[var(--sage-deep)]/15">

@@ -25,7 +25,6 @@ interface PackItem {
     };
 }
 export default function Packs() {
-    const token = localStorage.getItem('adminToken') || '';
     const [packProducts, setPackProducts] = useState<Product[]>([]);
     const [allProducts, setAllProducts] = useState<Product[]>([]);
     const [selectedPackId, setSelectedPackId] = useState<string>('');
@@ -85,7 +84,7 @@ export default function Packs() {
         if (!selectedPackId || !componentVariantId)
             return;
         try {
-            await api.createPackItem(selectedPackId, { componentVariantId, qty: Math.max(1, Number(qty)) }, token);
+            await api.createPackItem(selectedPackId, { componentVariantId, qty: Math.max(1, Number(qty)) });
             await loadPackItems(selectedPackId);
         }
         catch (error) {
@@ -94,7 +93,7 @@ export default function Packs() {
     }
     async function updatePackItem(id: string, nextQty: number) {
         try {
-            await api.updatePackItem(id, { qty: Math.max(1, nextQty) }, token);
+            await api.updatePackItem(id, { qty: Math.max(1, nextQty) });
             await loadPackItems(selectedPackId);
         }
         catch (error) {
@@ -105,7 +104,7 @@ export default function Packs() {
         if (!window.confirm(t("admin.pages.packs.delete_element")))
             return;
         try {
-            await api.deletePackItem(id, token);
+            await api.deletePackItem(id);
             await loadPackItems(selectedPackId);
         }
         catch (error) {

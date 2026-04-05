@@ -20,7 +20,6 @@ export default function Discounts() {
     const [discounts, setDiscounts] = useState<Discount[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const token = localStorage.getItem('adminToken') || '';
     const fetchDiscounts = async () => {
         try {
             setLoading(true);
@@ -41,7 +40,7 @@ export default function Discounts() {
     const toggleStatus = async (discount: Discount) => {
         const nextStatus = discount.status === 'ACTIVE' ? 'DRAFT' : 'ACTIVE';
         try {
-            await api.updateDiscountStatus(discount.id, nextStatus, token);
+            await api.updateDiscountStatus(discount.id, nextStatus);
             await fetchDiscounts();
         }
         catch (e) {

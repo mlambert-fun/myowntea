@@ -9,21 +9,14 @@
     "grouping": "by_file_page_or_section",
     "keyStyle": "readable_english_1_to_3_words",
     "totalGroups": 25,
-    "totalStrings": 476,
+    "totalStrings": 561,
     "note": "Generated from locales/fr.json with machine translation (Google Translate endpoint).",
     "language": "en",
     "sourceLocale": "fr",
     "runtimeScope": "admin"
   },
   "sections": {
-    "admin.api.client": {
-      "_source": "admin/src/api/client.ts",
-      "failed_envoyer_email": "Unable to send test email",
-      "failed_recuperer_metrics": "Unable to retrieve email metrics",
-      "failed_renvoyer_email": "Unable to resend email"
-    },
     "admin.components.layout": {
-      "_source": "admin/src/components/Layout.tsx",
       "blends": "Creations",
       "expand_menu": "Expand menu",
       "shipments": "Expeditions",
@@ -41,10 +34,10 @@
       "packs": "Packs",
       "subscriptions": "Subscriptions",
       "redirections": "Redirect rules",
-      "translations": "Business translations"
+      "translations": "Business translations",
+      "_source": "admin/src/components/Layout.tsx"
     },
     "admin.pages.automation_jobs": {
-      "_source": "admin/src/pages/AutomationJobs.tsx",
       "none_job_automatique": "No automatic jobs configured.",
       "configuration_job_update": "Updated job configuration",
       "last_execution": "Last execution",
@@ -58,10 +51,10 @@
       "run_job": "Start the job",
       "update_day_failed": "Unable to update",
       "next_execution": "Next execution",
-      "monitoring_setup_tasks": "Monitoring and configuring backend tasks"
+      "monitoring_setup_tasks": "Monitoring and configuring backend tasks",
+      "_source": "admin/src/pages/AutomationJobs.tsx"
     },
     "admin.pages.blend_listings": {
-      "_source": "admin/src/pages/BlendListings.tsx",
       "add_ingredient_blend": "Add at least one ingredient to the blend.",
       "cancel_edit": "Undo change",
       "none_blend_available": "No creations available.",
@@ -77,7 +70,6 @@
       "failed_create_blend": "Unable to create this blend/listing.",
       "failed_delete_blend": "Unable to delete this blend.",
       "ingredient_ids": "Ingredient identifiers",
-      "ingredient": "ingredients)",
       "file_csv_empty": "The CSV file is empty.",
       "last_name_blend_obligatoire": "The name of the blend is mandatory.",
       "template_import_utilisent": "The template and the import use the same columns.",
@@ -89,41 +81,66 @@
       "or": "Or",
       "select_file_csv": "Select a CSV file.",
       "delete": "DELETE",
-      "download_modele_csv": "Download CSV template"
+      "download_modele_csv": "Download CSV template",
+      "_source": "admin/src/pages/BlendListings.tsx"
     },
     "admin.pages.carts": {
-      "_source": "admin/src/pages/Carts.tsx",
       "account": "Account",
+      "actions": "Actions",
+      "content": "Content",
+      "customer": "Customer",
       "last_update": "Last update",
       "email": "E-mail",
       "guest": "Guest",
+      "items": "Items",
+      "item": "Item",
+      "refresh": "Refresh",
+      "status": "Status",
       "tracking_carts_customers": "Tracking customer baskets",
-      "total_estime": "Total (estimated)"
+      "title": "Active carts",
+      "total_estime": "Total (estimated)",
+      "type": "Type",
+      "_source": "admin/src/pages/Carts.tsx"
     },
     "admin.pages.customer_detail": {
-      "_source": "admin/src/pages/CustomerDetail.tsx",
+      "addresses": "Addresses",
       "none_address_enregistree": "No address registered.",
       "account": "Account",
+      "auth_provider": "Authentication provider",
+      "billing_default": "Default billing",
+      "carts": "Carts",
       "created_at": "Created on",
       "date_naissance": "Date of birth",
       "email": "E-mail",
       "failed_load_customer": "Failed to load client.",
+      "guest": "Guest",
+      "name": "Name",
+      "orders": "Orders",
+      "personal_information": "Personal information",
+      "phone": "Phone",
       "shipping_default": "Default delivery",
+      "title": "Customer file",
       "back_customers": "Return to customers",
       "all_informations_personnelles": "All personal information and addresses",
-      "type_account": "Account type"
+      "type_account": "Account type",
+      "wishlists": "Wishlists",
+      "_source": "admin/src/pages/CustomerDetail.tsx"
     },
     "admin.pages.customers": {
-      "_source": "admin/src/pages/Customers.tsx",
+      "actions": "Actions",
       "display_filters": "Show filters",
       "none_customer_trouve": "No customers found.",
       "action_irreversible_delete": "This action is irreversible and will delete baskets, orders, creations, wishlists, addresses, sessions and linked data in cascade.",
       "account": "Account",
       "accounts_hors_guests": "Accounts (excluding guests)",
       "created_at": "Created on",
+      "cancel": "Cancel",
+      "carts": "Carts",
       "date_blend": "blend date: from",
+      "deleting": "Deleting...",
       "email": "E-mail",
       "etes_vous_vouloir": "Are you sure you want to delete",
+      "filters": "Filters",
       "manage_accounts_customers": "Manage customer accounts",
       "failed_delete_customer": "Unable to delete this client.",
       "guest": "Guest",
@@ -132,22 +149,33 @@
       "delete": "DELETE",
       "delete_definitivement": "Permanently delete",
       "delete_customer": "Delete customer",
-      "all_types": "All types"
+      "all_types": "All types",
+      "name": "Name",
+      "orders": "Orders",
+      "search_by_name": "Search by name...",
+      "title": "Customers",
+      "to": "to",
+      "type": "Type",
+      "_source": "admin/src/pages/Customers.tsx"
     },
     "admin.pages.customer_wishlists": {
-      "_source": "admin/src/pages/CustomerWishlists.tsx",
-      "none_wishlist_customer": "No wishlist for this customer.",
-      "blend": "blend",
       "created_at": "Created on",
+      "creation": "Creation",
+      "customer": "Customer",
+      "none_wishlist_customer": "No wishlist for this customer.",
       "failed_load_wishlists": "Unable to load customer wishlists.",
+      "ingredients": "Ingredients",
       "list_wishlists": "List of wishlists",
-      "my_blend": "my blend",
       "back_record_customer": "Return to customer file",
-      "back_customers": "Return to customers"
+      "back_customers": "Return to customers",
+      "my_creation": "My creation",
+      "price": "Price",
+      "title": "Customer wishlists",
+      "wishlist": "wishlist",
+      "wishlists": "wishlists",
+      "_source": "admin/src/pages/CustomerWishlists.tsx"
     },
     "admin.pages.dashboard": {
-      "_source": "admin/src/pages/Dashboard.tsx",
-      "email_failure_followup": "| failure/retry email:",
       "to_process": "To be treated",
       "activite_latest_jours": "Activity of the last 7 days",
       "alerts_operational": "Operational alerts",
@@ -183,26 +211,22 @@
       "view_emails": "View emails",
       "view_shipments": "View shipments",
       "view_jobs": "View jobs",
-      "vue_pilotage_orders": "Management view: orders, shipments, customer communication and blocking points."
+      "vue_pilotage_orders": "Management view: orders, shipments, customer communication and blocking points.",
+      "_source": "admin/src/pages/Dashboard.tsx"
     },
     "admin.pages.discount_form": {
-      "_source": "admin/src/pages/DiscountForm.tsx",
       "activer_limits": "Enable limits",
-      "autoriser_combinaison_autres": "Allow combination with other discounts",
       "configuration_json_requise": "JSON configuration required for this type",
-      "configure_rules_discount": "Configure discount rules.",
       "failed_save_discount": "Unable to save discount",
       "failed_load_discount": "Unable to load discount",
-      "configuration_must_subject": "Configuration must be a JSON object",
       "shipping_free": "Free delivery",
       "edit_discount": "Edit discount",
       "new_discount": "New discount",
-      "period_validity": "Validity period",
       "first_order_only": "First order only",
-      "back": "Back"
+      "back": "Back",
+      "_source": "admin/src/pages/DiscountForm.tsx"
     },
     "admin.pages.discounts": {
-      "_source": "admin/src/pages/Discounts.tsx",
       "bogo_achete_offert": "BOGO / 1 purchased = 1 free",
       "code_method": "Code/Method",
       "disable": "Disable",
@@ -215,15 +239,13 @@
       "period": "Period",
       "first_order_only": "First order only",
       "price_barre_promotionnel": "Crossed out price (promotional price)",
-      "discounts": "Discounts"
+      "discounts": "Discounts",
+      "_source": "admin/src/pages/Discounts.tsx"
     },
     "admin.pages.emails": {
-      "_source": "admin/src/pages/Emails.tsx",
       "none_email_trouve": "No emails found",
       "order": "Order",
       "failure_envoi_test": "Test send failed",
-      "email_test_envoye": "Test email sent",
-      "email_test_envoye_2": "Test email sent from the back office.",
       "email_followup_succes": "Follow-up email sent successfully",
       "followup_failed": "Unable to resend email",
       "email_domaine_com": "email@domaine.com",
@@ -233,10 +255,10 @@
       "renseigne_email_test": "Enter a test email",
       "test_email_own": "My Own Tea email test",
       "all_statuses": "All statuses",
-      "all_types": "All types"
+      "all_types": "All types",
+      "_source": "admin/src/pages/Emails.tsx"
     },
     "admin.pages.ingredients": {
-      "_source": "admin/src/pages/Ingredients.tsx",
       "resultat": "0 results",
       "disparait_vite": "1 - disappears quickly",
       "light_fluide": "1 - light, fluid",
@@ -282,8 +304,6 @@
       "fruite": "Fruity",
       "herbace": "Herbaceous",
       "immunite": "Immunity",
-      "failed_save_ingredient": "Unable to save ingredient",
-      "failed_delete_ingredient": "Unable to delete ingredient",
       "ingredients": "Ingredients",
       "intensity": "Intensity (1-5)",
       "light": "Light",
@@ -323,46 +343,76 @@
       "ingredient": "an ingredient",
       "upload_failed_reessayez": "Unable to upload. Try again or change files.",
       "url_image": "Image URL",
-      "herbal": "Vegetal"
+      "herbal": "Vegetal",
+      "temperature_placeholder": "90?C - 194?F",
+      "infusion_time": "Infusion time",
+      "infusion_time_placeholder": "3-4'",
+      "dosage": "Dosage",
+      "dosage_placeholder": "2-3g / cup (25cl)",
+      "origin": "Origin",
+      "origin_placeholder": "India",
+      "_source": "admin/src/pages/Ingredients.tsx"
     },
     "admin.pages.options": {
-      "_source": "admin/src/pages/Options.tsx",
       "add": "Add",
-      "create_option": "Create an option",
-      "manage_options_values": "Manage product options and values",
       "delete": "DELETE",
       "delete_option": "Remove this option?",
-      "delete_value": "Delete this value?"
+      "delete_value": "Delete this value?",
+      "_source": "admin/src/pages/Options.tsx"
     },
     "admin.pages.order_detail": {
-      "_source": "admin/src/pages/OrderDetail.tsx",
+      "addresses": "Addresses",
+      "applied_discounts": "Applied discounts",
+      "billing": "Billing",
+      "carrier": "Carrier",
+      "customer": "Customer",
       "order": "Order",
       "details_order": "Order details",
       "failed_load_order": "Unable to load order",
+      "guest": "Guest",
+      "items": "Items",
+      "method": "Method: ",
+      "mode": "Mode",
+      "offer": "Offer",
+      "open": "Open",
+      "price": "Price",
+      "product": "Product",
+      "quantity": "Quantity",
+      "summary": "Summary",
+      "subtotal": "Subtotal",
+      "discount": "Discount",
+      "status": "Status",
       "shipping": "Delivery",
       "payment": "Payment:",
+      "total": "Total",
+      "tracking": "Tracking",
       "tracking_link": "Followed link",
-      "discount": "discount",
-      "discounts_applied": "discounts applied",
-      "back": "Back"
+      "back": "Back",
+      "_source": "admin/src/pages/OrderDetail.tsx"
     },
     "admin.pages.orders": {
-      "_source": "admin/src/pages/Orders.tsx",
+      "actions": "Actions",
+      "amount": "Amount",
       "canceled": "Canceled",
       "confirmed": "Confirmed",
+      "customer": "Customer",
+      "date": "Date",
       "preparation": "In preparation",
       "shipped": "Shipped",
       "guest": "Guest",
       "delivered": "Livery",
+      "pending": "Pending",
+      "status": "Status",
+      "title": "Orders",
       "update_day_status": "Unable to update status",
       "order": "Order No.",
       "payment": "Payment",
       "refunded": "Refunded",
       "status_order_mis": "Order status updated",
-      "tracking_management_orders": "Monitoring and management of customer orders"
+      "tracking_management_orders": "Monitoring and management of customer orders",
+      "_source": "admin/src/pages/Orders.tsx"
     },
     "admin.pages.packs": {
-      "_source": "admin/src/pages/Packs.tsx",
       "add_pack": "Add to pack",
       "none_composant_pack": "No components for this pack. Add a variation from the form above.",
       "composants_pack": "Pack components",
@@ -375,15 +425,15 @@
       "select_variant": "Select a variant",
       "delete": "DELETE",
       "delete_element": "Delete this item?",
-      "unites_totales": "Total units"
+      "unites_totales": "Total units",
+      "_source": "admin/src/pages/Packs.tsx"
     },
     "admin.pages.product_form": {
-      "_source": "admin/src/pages/ProductForm.tsx",
       "add": "Add",
       "additional_details": "Additional details",
       "add_option": "Add an option",
       "add_variant": "Add a variation",
-      "add_options_values": "Add options/values â€‹â€‹to create variations.",
+      "add_options_values": "Add options/values to create variations.",
       "certaines_options_ont": "Some options do not yet have values:",
       "combinaisons_incompletes": "Incomplete combinations:",
       "create": "Create",
@@ -403,17 +453,17 @@
       "delete_value": "Delete this value?",
       "delete_variant": "Remove this variant?",
       "upload_failed_reessayez": "Unable to upload. Try again or change files.",
-      "variants_created": "variants created."
+      "variants_created": "variants created.",
+      "_source": "admin/src/pages/ProductForm.tsx"
     },
     "admin.pages.products": {
-      "_source": "admin/src/pages/Products.tsx",
       "add_product": "Add a product",
       "manage_products_leur": "Manage products and their content",
       "list_products": "Product List",
-      "delete_product": "Remove this product?"
+      "delete_product": "Remove this product?",
+      "_source": "admin/src/pages/Products.tsx"
     },
     "admin.pages.redirect_rules": {
-      "_source": "admin/src/pages/RedirectRules.tsx",
       "none_redirect_trouvee": "No redirects found",
       "none_rule_configuree": "No rules configured.",
       "chemin_test_required": "Path to test required",
@@ -446,16 +496,16 @@
       "delete_rule_redirect": "Remove this redirect rule?",
       "test_resolution": "Resolution test",
       "test_rule_appliquee": "Test the applied rule",
-      "type_matching": "Matching type"
+      "type_matching": "Matching type",
+      "_source": "admin/src/pages/RedirectRules.tsx"
     },
     "admin.pages.settings": {
-      "_source": "admin/src/pages/Settings.tsx",
       "contact_email": "Store contact email",
       "global_settings": "Global settings",
       "global_settings_help": "These contact details feed the footer, contact page and legal pages.",
       "home": "at home,",
       "apercu": "Preview",
-      "values_alimentent_front": "These values â€‹â€‹feed the front and backend. No amount is hardcoded at checkout anymore.",
+      "values_alimentent_front": "These values feed the front and backend. No amount is hardcoded at checkout anymore.",
       "france": "In France.",
       "pickup_point_shipping": "at a relay point. Free delivery from",
       "europe_dom_tom": "Europe and DOM-TOM (cents)",
@@ -472,24 +522,30 @@
       "shop_phone": "Store phone number",
       "seuil_shipping_offerte": "Free delivery threshold (FR)",
       "seuil_shipping_offerte_2": "Threshold free delivery France (cents)",
-      "value_repli_backend": "Backend fallback value:"
+      "value_repli_backend": "Backend fallback value:",
+      "_source": "admin/src/pages/Settings.tsx"
     },
     "admin.pages.shipments": {
-      "_source": "admin/src/pages/Shipments.tsx",
+      "actions": "Actions",
+      "customer": "Customer",
       "none_shipment_moment": "No shipping at this time.",
       "shipment": "this expedition",
       "order": "Order",
       "label": "Label",
+      "offer": "Offer",
+      "refresh": "Refresh",
       "shipments": "Expeditions",
       "management_envois_etiquettes": "Management of Boxtal shipments and labels",
       "failed_load_shipments": "Unable to load shipments",
       "guest": "Guest",
       "rafraichir_label": "Refresh label",
       "rafraichir_tracking": "Refresh tracking",
-      "download": "Download"
+      "status": "Status",
+      "tracking": "Tracking",
+      "download": "Download",
+      "_source": "admin/src/pages/Shipments.tsx"
     },
     "admin.pages.subscription_plans": {
-      "_source": "admin/src/pages/SubscriptionPlans.tsx",
       "annee": "year",
       "none_plan_configure": "No plans configured yet.",
       "create_plan": "Create the plan",
@@ -501,19 +557,17 @@
       "reliez_products_abonnables": "Connect your subscriberable products to Stripe to enable a clear and reliable recurring journey.",
       "select_product": "Select a product",
       "delete_plan": "Delete this plan?",
-      "all_number": "All (number)"
+      "all_number": "All (number)",
+      "_source": "admin/src/pages/SubscriptionPlans.tsx"
     },
     "admin.pages.variants": {
-      "_source": "admin/src/pages/Variants.tsx",
-      "create": "Create",
-      "manage_variants_products": "Manage product variants",
       "edit": "To modify",
       "edit_variant": "Change variant",
       "delete": "DELETE",
-      "delete_variant": "Remove this variant?"
+      "delete_variant": "Remove this variant?",
+      "_source": "admin/src/pages/Variants.tsx"
     },
     "admin.pages.translations": {
-      "_source": "admin/src/pages/Translations.tsx",
       "setup_business_translations": "Business translations setup",
       "manage_multilingual_values": "Manage translated values stored in database per entity and field.",
       "refresh": "Refresh",
@@ -565,7 +619,38 @@
       "failed_save_translation": "Failed to save translation",
       "confirm_delete_translation": "Delete this translation?",
       "translation_deleted": "Translation deleted",
-      "failed_delete_translation": "Failed to delete translation"
+      "failed_delete_translation": "Failed to delete translation",
+      "_source": "admin/src/pages/Translations.tsx"
+    },
+    "admin.pages.login": {
+      "loading_session_title": "Verifying session...",
+      "loading_session_subtitle": "We are validating the secure administrator session.",
+      "secure_access_title": "Secure admin access",
+      "secure_access_subtitle": "Enter your email and password to continue to My Own Tea Admin",
+      "setup_scan_instruction": "Scan the configuration below in Google Authenticator, then enter the 6-digit code to finish activation.",
+      "totp_instruction": "Enter the 6-digit code generated by Google Authenticator.",
+      "login_failed": "Admin login failed",
+      "code_invalid": "Invalid authentication code",
+      "password": "Password",
+      "password_placeholder": "Your administrator password",
+      "checking": "Checking...",
+      "continue": "Continue",
+      "setup_title": "Set up Google Authenticator",
+      "issuer_label": "Issuer",
+      "manual_key": "Manual key",
+      "copy_secret": "Copy key",
+      "copy_secret_success": "The manual key was copied to the clipboard.",
+      "copy_secret_failed": "Unable to copy the manual key.",
+      "otpauth_uri": "otpauth URI",
+      "copy_uri": "Copy URI",
+      "copy_uri_success": "The otpauth URI was copied to the clipboard.",
+      "copy_uri_failed": "Unable to copy the otpauth URI.",
+      "scan_helper": "You can scan the URI with a compatible tool or enter the manual key directly in Google Authenticator.",
+      "code_label": "6-digit code",
+      "validating": "Validating...",
+      "validate_code": "Validate code",
+      "start_over": "Start over",
+      "_source": "admin/src/pages/Login.tsx"
     }
   }
 }

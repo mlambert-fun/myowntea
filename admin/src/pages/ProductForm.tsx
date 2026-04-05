@@ -91,7 +91,6 @@ const parseTagsInput = (value: string) => Array.from(new Set(value
 export default function ProductForm() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const token = localStorage.getItem('adminToken') || '';
     const [loading, setLoading] = useState(true);
     const [product, setProduct] = useState<Product | null>(null);
     const [formData, setFormData] = useState(emptyForm);
@@ -199,11 +198,11 @@ export default function ProductForm() {
                 stockQty: formData.stockQty ? Number(formData.stockQty) : null,
             };
             if (isNew) {
-                const created = await api.createProduct(payload, token);
+                const created = await api.createProduct(payload);
                 navigate(`/products/${created.id}`);
             }
             else if (product?.id) {
-                await api.updateProduct(product.id, payload, token);
+                await api.updateProduct(product.id, payload);
                 await loadProduct(product.id);
             }
         }
@@ -223,13 +222,13 @@ export default function ProductForm() {
         const folder = `products/${formData.slug || product?.slug || 'new'}`;
         try {
             const optimized = await optimizeImageFile(file);
-            const response = await api.uploadImage(optimized, folder, token);
+            const response = await api.uploadImage(optimized, folder);
             setProductImages((prev) => [...prev, response.url]);
         }
         catch (error) {
             console.error('Product image upload failed', error);
             try {
-                const response = await api.uploadImage(file, folder, token);
+                const response = await api.uploadImage(file, folder);
                 setProductImages((prev) => [...prev, response.url]);
             }
             catch (uploadError) {
@@ -246,7 +245,7 @@ export default function ProductForm() {
         if (!product?.id)
             return;
         try {
-            await api.createOption(product.id, { name: newOptionName, position: Number(newOptionPosition) }, token);
+            await api.createOption(product.id, { name: newOptionName, position: Number(newOptionPosition) });
             setNewOptionName('');
             setNewOptionPosition('0');
             setShowOptionForm(false);
@@ -260,7 +259,7 @@ export default function ProductForm() {
         if (!window.confirm(t("admin.pages.product_form.delete_option")))
             return;
         try {
-            await api.deleteOption(optionId, token);
+            await api.deleteOption(optionId);
             if (product?.id)
                 await loadOptions(product.id);
         }
@@ -273,7 +272,7 @@ export default function ProductForm() {
         if (!value)
             return;
         try {
-            await api.createOptionValue(optionId, { value, position: 0 }, token);
+            await api.createOptionValue(optionId, { value, position: 0 });
             setValueDrafts((prev) => ({ ...prev, [optionId]: '' }));
             if (product?.id)
                 await loadOptions(product.id);
@@ -286,7 +285,7 @@ export default function ProductForm() {
         if (!window.confirm(t("admin.pages.product_form.delete_value")))
             return;
         try {
-            await api.deleteOptionValue(valueId, token);
+            await api.deleteOptionValue(valueId);
             if (product?.id)
                 await loadOptions(product.id);
         }
@@ -325,10 +324,10 @@ export default function ProductForm() {
                 optionValueIds: variantForm.optionValueIds,
             };
             if (editingVariantId) {
-                await api.updateVariant(editingVariantId, payload, token);
+                await api.updateVariant(editingVariantId, payload);
             }
             else {
-                await api.createVariant(product.id, payload, token);
+                await api.createVariant(product.id, payload);
             }
             resetVariantForm();
             setShowVariantForm(false);
@@ -379,7 +378,7 @@ export default function ProductForm() {
         if (!window.confirm(t("admin.pages.product_form.delete_variant")))
             return;
         try {
-            await api.deleteVariant(variantId, token);
+            await api.deleteVariant(variantId);
             if (product?.id)
                 await loadVariants(product.id);
         }
@@ -399,13 +398,13 @@ export default function ProductForm() {
         const folder = `products/${formData.slug || product?.slug || 'new'}/variants`;
         try {
             const optimized = await optimizeImageFile(file);
-            const response = await api.uploadImage(optimized, folder, token);
+            const response = await api.uploadImage(optimized, folder);
             setVariantForm((prev) => ({ ...prev, images: [...prev.images, response.url] }));
         }
         catch (error) {
             console.error('Variant image upload failed', error);
             try {
-                const response = await api.uploadImage(file, folder, token);
+                const response = await api.uploadImage(file, folder);
                 setVariantForm((prev) => ({ ...prev, images: [...prev.images, response.url] }));
             }
             catch (uploadError) {

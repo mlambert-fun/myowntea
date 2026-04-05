@@ -61,6 +61,7 @@ export default function CustomerWishlists() {
         }
     }
     const customerName = [customer?.firstName, customer?.lastName].filter(Boolean).join(' ').trim();
+    const wishlistCountLabel = wishlists.length > 1 ? t("admin.pages.customer_wishlists.wishlists") : t("admin.pages.customer_wishlists.wishlist");
     return (<Layout>
       <div className="admin-page admin-page-premium-lite">
         <div className="admin-header" style={{ alignItems: 'flex-start' }}>
@@ -69,11 +70,9 @@ export default function CustomerWishlists() {
               <Link to="/customers" className="admin-link-inline">{t("admin.pages.customer_wishlists.back_customers")}</Link>
               {id ? (<Link to={`/customers/${id}`} className="admin-link-inline">{t("admin.pages.customer_wishlists.back_record_customer")}</Link>) : null}
             </div>
-            <h1 className="admin-title" style={{ marginTop: '0.5rem' }}>
-              Wishlists client
-            </h1>
+            <h1 className="admin-title" style={{ marginTop: '0.5rem' }}>{t("admin.pages.customer_wishlists.title")}</h1>
             <p className="admin-subtitle">
-              {customerName || customer?.email || 'Client'} - {wishlists.length} wishlist{wishlists.length > 1 ? 's' : ''}
+              {customerName || customer?.email || t("admin.pages.customer_wishlists.customer")} - {wishlists.length} {wishlistCountLabel}
             </p>
           </div>
         </div>
@@ -87,22 +86,22 @@ export default function CustomerWishlists() {
                 <table className="admin-table">
                   <thead>
                     <tr>
-                      <th>Cr?ation</th>
-                      <th>Ingredients</th>
-                      <th>Prix</th>
-                      <th>Cr?? le</th>
+                      <th>{t("admin.pages.customer_wishlists.creation")}</th>
+                      <th>{t("admin.pages.customer_wishlists.ingredients")}</th>
+                      <th>{t("admin.pages.customer_wishlists.price")}</th>
+                      <th>{t("admin.pages.customer_wishlists.created_at")}</th>
                     </tr>
                   </thead>
                   <tbody>
                     {wishlists.map((wishlist) => (<tr key={wishlist.id}>
-                        <td>{wishlist.name || 'Ma cr?ation'}</td>
+                        <td>{wishlist.name || t("admin.pages.customer_wishlists.my_creation")}</td>
                         <td>
                           {wishlist.ingredients?.length
                         ? wishlist.ingredients.map((ingredient) => ingredient.name).join(', ')
-                        : '?'}
+                        : '-'}
                         </td>
-                        <td>{(wishlist.priceCents / 100).toFixed(2)} ?</td>
-                        <td>{wishlist.createdAt ? new Date(wishlist.createdAt).toLocaleString('fr-FR') : '?'}</td>
+                        <td>{(wishlist.priceCents / 100).toFixed(2)} €</td>
+                        <td>{wishlist.createdAt ? new Date(wishlist.createdAt).toLocaleString('fr-FR') : '-'}</td>
                       </tr>))}
                   </tbody>
                 </table>

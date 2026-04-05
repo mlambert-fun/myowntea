@@ -1,8 +1,41 @@
-const API_URL = 'http://localhost:5000';
+import { API_URL } from '../lib/api-base';
 
-interface AuthResponse {
-  user: { id: string; email: string; role: string };
-  token: string;
+function createJsonHeaders(_token?: string): HeadersInit {
+  return { 'Content-Type': 'application/json' };
+}
+
+function createAuthHeaders(_token?: string): HeadersInit {
+  return {};
+}
+
+export interface AdminSessionUser {
+  id: string;
+  email: string;
+  role: string;
+  mfaEnabled: boolean;
+}
+
+export interface AdminLoginChallengeResponse {
+  step: 'totp' | 'setup_totp';
+  challengeId: string;
+  expiresAt: string;
+  user: AdminSessionUser;
+  setup?: {
+    issuer: string;
+    secret: string;
+    manualEntryKey: string;
+    otpauthUrl: string;
+    digits: number;
+    periodSeconds: number;
+  };
+}
+
+export interface AdminSessionResponse {
+  user: AdminSessionUser;
+  session: {
+    id: string;
+    expiresAt: string;
+  };
 }
 
 export interface AutomationJobConfig {
@@ -155,26 +188,52 @@ export interface EntityTranslationsResponse {
 
 export const api = {
   // Auth
-  async login(email: string, password: string): Promise<AuthResponse> {
-    const res = await fetch(`${API_URL}/api/auth/login`, {
+  async adminLogin(email: string, password: string): Promise<AdminLoginChallengeResponse> {
+    const res = await fetch(`${API_URL}/api/admin/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     });
-    if (!res.ok) throw new Error('Login failed');
-    return res.json();
+    const body = await res.json().catch(() => null);
+    if (!res.ok) throw new Error(body?.error || 'Admin login failed');
+    return body as AdminLoginChallengeResponse;
   },
 
-  async uploadImage(file: File, folder: string, token: string) {
+  async verifyAdminCode(challengeId: string, code: string): Promise<{ user: AdminSessionUser; expiresAt: string }> {
+    const res = await fetch(`${API_URL}/api/admin/auth/verify`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ challengeId, code }),
+    });
+    const body = await res.json().catch(() => null);
+    if (!res.ok) throw new Error(body?.error || 'Invalid authentication code');
+    return body as { user: AdminSessionUser; expiresAt: string };
+  },
+
+  async getAdminSession(): Promise<AdminSessionResponse> {
+    const res = await fetch(`${API_URL}/api/admin/auth/me`);
+    const body = await res.json().catch(() => null);
+    if (!res.ok) throw new Error(body?.error || 'Admin authentication required');
+    return body as AdminSessionResponse;
+  },
+
+  async logoutAdmin(): Promise<{ success: boolean }> {
+    const res = await fetch(`${API_URL}/api/admin/auth/logout`, {
+      method: 'POST',
+    });
+    const body = await res.json().catch(() => null);
+    if (!res.ok) throw new Error(body?.error || 'Admin logout failed');
+    return body as { success: boolean };
+  },
+
+  async uploadImage(file: File, folder: string, token?: string) {
     const formData = new FormData();
     formData.append('folder', folder);
     formData.append('file', file);
 
     const res = await fetch(`${API_URL}/api/admin/uploads`, {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createAuthHeaders(token),
       body: formData,
     });
     if (!res.ok) {
@@ -196,34 +255,28 @@ export const api = {
     return res.json();
   },
 
-  async createIngredient(data: any, token: string) {
+  async createIngredient(data: any, token?: string) {
     const res = await fetch(`${API_URL}/api/ingredients`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     return res.json();
   },
 
-  async updateIngredient(id: string, data: any, token: string) {
+  async updateIngredient(id: string, data: any, token?: string) {
     const res = await fetch(`${API_URL}/api/ingredients/${id}`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     return res.json();
   },
 
-  async deleteIngredient(id: string, token: string) {
+  async deleteIngredient(id: string, token?: string) {
     const res = await fetch(`${API_URL}/api/ingredients/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     if (!res.ok) {
       let message = 'Delete failed';
@@ -240,16 +293,16 @@ export const api = {
   },
 
   // Orders
-  async getOrders(token: string) {
+  async getOrders(token?: string) {
     const res = await fetch(`${API_URL}/api/orders`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     return res.json();
   },
 
-  async getOrder(id: string, token: string) {
+  async getOrder(id: string, token?: string) {
     const res = await fetch(`${API_URL}/api/orders/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     return res.json();
   },
@@ -264,17 +317,13 @@ export const api = {
           trackingNumber?: string | null;
           trackingUrl?: string | null;
           shippingProvider?: string | null;
-        },
-    token: string
+        }, token?: string
   ) {
     const payload =
       typeof statusOrPayload === 'string' ? { status: statusOrPayload } : statusOrPayload;
     const res = await fetch(`${API_URL}/api/orders/${id}/status`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(payload),
     });
     if (!res.ok) {
@@ -285,32 +334,32 @@ export const api = {
   },
 
   // Shipments
-  async getShipments(token: string) {
+  async getShipments(token?: string) {
     const res = await fetch(`${API_URL}/api/shipments`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     return res.json();
   },
 
-  async getShipment(id: string, token: string) {
+  async getShipment(id: string, token?: string) {
     const res = await fetch(`${API_URL}/api/shipments/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     return res.json();
   },
 
-  async refreshShipmentLabel(id: string, token: string) {
+  async refreshShipmentLabel(id: string, token?: string) {
     const res = await fetch(`${API_URL}/api/shipments/${id}/refresh-label`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     return res.json();
   },
 
-  async refreshShipmentTracking(id: string, token: string) {
+  async refreshShipmentTracking(id: string, token?: string) {
     const res = await fetch(`${API_URL}/api/shipments/${id}/refresh-tracking`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     return res.json();
   },
@@ -326,37 +375,28 @@ export const api = {
     return res.json();
   },
 
-  async createDiscount(data: any, token: string) {
+  async createDiscount(data: any, token?: string) {
     const res = await fetch(`${API_URL}/api/discounts`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     return res.json();
   },
 
-  async updateDiscount(id: string, data: any, token: string) {
+  async updateDiscount(id: string, data: any, token?: string) {
     const res = await fetch(`${API_URL}/api/discounts/${id}`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     return res.json();
   },
 
-  async updateDiscountStatus(id: string, status: string, token: string) {
+  async updateDiscountStatus(id: string, status: string, token?: string) {
     const res = await fetch(`${API_URL}/api/discounts/${id}/status`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify({ status }),
     });
     return res.json();
@@ -373,35 +413,29 @@ export const api = {
     return res.json();
   },
 
-  async createProduct(data: any, token: string) {
+  async createProduct(data: any, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/products`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     return res.json();
   },
 
-  async updateProduct(id: string, data: any, token: string) {
+  async updateProduct(id: string, data: any, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/products/${id}`,
       {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
+        headers: createJsonHeaders(token),
         body: JSON.stringify(data),
       }
     );
     return res.json();
   },
 
-  async deleteProduct(id: string, token: string) {
+  async deleteProduct(id: string, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/products/${id}`,
-      { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } }
+      { method: 'DELETE', headers: createAuthHeaders(token) }
     );
     if (res.status === 204) return null;
     return res.json();
@@ -418,34 +452,28 @@ export const api = {
     return res.json();
   },
 
-  async createPackItem(packProductId: string, data: { componentVariantId: string; qty: number }, token: string) {
+  async createPackItem(packProductId: string, data: { componentVariantId: string; qty: number }, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/packs/${packProductId}/items`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     return res.json();
   },
 
-  async updatePackItem(id: string, data: { qty: number }, token: string) {
+  async updatePackItem(id: string, data: { qty: number }, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/pack-items/${id}`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     return res.json();
   },
 
-  async deletePackItem(id: string, token: string) {
+  async deletePackItem(id: string, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/pack-items/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     if (res.status === 204) return null;
     return res.json();
@@ -457,34 +485,28 @@ export const api = {
     return res.json();
   },
 
-  async createBlendListing(data: any, token: string) {
+  async createBlendListing(data: any, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/blend-listings`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     return res.json();
   },
 
-  async updateBlendListing(id: string, data: any, token: string) {
+  async updateBlendListing(id: string, data: any, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/blend-listings/${id}`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     return res.json();
   },
 
-  async deleteBlendListing(id: string, token: string) {
+  async deleteBlendListing(id: string, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/blend-listings/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     if (!res.ok && res.status !== 204) {
       let message = 'Delete failed';
@@ -506,34 +528,28 @@ export const api = {
     return res.json();
   },
 
-  async createSubscriptionPlan(data: any, token: string) {
+  async createSubscriptionPlan(data: any, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/subscription-plans`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     return res.json();
   },
 
-  async updateSubscriptionPlan(id: string, data: any, token: string) {
+  async updateSubscriptionPlan(id: string, data: any, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/subscription-plans/${id}`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     return res.json();
   },
 
-  async deleteSubscriptionPlan(id: string, token: string) {
+  async deleteSubscriptionPlan(id: string, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/subscription-plans/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     if (res.status === 204) return null;
     return res.json();
@@ -544,67 +560,55 @@ export const api = {
     return res.json();
   },
 
-  async createOption(productId: string, data: any, token: string) {
+  async createOption(productId: string, data: any, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/products/${productId}/options`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     return res.json();
   },
 
-  async updateOption(id: string, data: any, token: string) {
+  async updateOption(id: string, data: any, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/options/${id}`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     return res.json();
   },
 
-  async deleteOption(id: string, token: string) {
+  async deleteOption(id: string, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/options/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     if (res.status === 204) return null;
     return res.json();
   },
 
-  async createOptionValue(optionId: string, data: any, token: string) {
+  async createOptionValue(optionId: string, data: any, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/options/${optionId}/values`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     return res.json();
   },
 
-  async updateOptionValue(id: string, data: any, token: string) {
+  async updateOptionValue(id: string, data: any, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/option-values/${id}`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     return res.json();
   },
 
-  async deleteOptionValue(id: string, token: string) {
+  async deleteOptionValue(id: string, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/option-values/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     if (res.status === 204) return null;
     return res.json();
@@ -615,34 +619,28 @@ export const api = {
     return res.json();
   },
 
-  async createVariant(productId: string, data: any, token: string) {
+  async createVariant(productId: string, data: any, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/products/${productId}/variants`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     return res.json();
   },
 
-  async updateVariant(id: string, data: any, token: string) {
+  async updateVariant(id: string, data: any, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/variants/${id}`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     return res.json();
   },
 
-  async deleteVariant(id: string, token: string) {
+  async deleteVariant(id: string, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/variants/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     if (res.status === 204) return null;
     return res.json();
@@ -664,10 +662,10 @@ export const api = {
     return res.json();
   },
 
-  async deleteCustomer(id: string, token: string) {
+  async deleteCustomer(id: string, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/customers/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     if (!res.ok) {
       const body = await res.json().catch(() => null);
@@ -691,22 +689,19 @@ export const api = {
     return res.json();
   },
 
-  async updateStoreSettings(data: any, token: string) {
+  async updateStoreSettings(data: any, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/store-settings`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     return res.json();
   },
 
   // Redirect rules (admin)
-  async getRedirectRules(token: string): Promise<RedirectRule[]> {
+  async getRedirectRules(token?: string): Promise<RedirectRule[]> {
     const res = await fetch(`${API_URL}/api/admin/redirect-rules`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     const body = await res.json().catch(() => null);
     if (!res.ok) {
@@ -715,13 +710,10 @@ export const api = {
     return Array.isArray(body) ? (body as RedirectRule[]) : [];
   },
 
-  async createRedirectRule(data: Partial<RedirectRule>, token: string): Promise<RedirectRule> {
+  async createRedirectRule(data: Partial<RedirectRule>, token?: string): Promise<RedirectRule> {
     const res = await fetch(`${API_URL}/api/admin/redirect-rules`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     const body = await res.json().catch(() => null);
@@ -731,13 +723,10 @@ export const api = {
     return body as RedirectRule;
   },
 
-  async updateRedirectRule(id: string, data: Partial<RedirectRule>, token: string): Promise<RedirectRule> {
+  async updateRedirectRule(id: string, data: Partial<RedirectRule>, token?: string): Promise<RedirectRule> {
     const res = await fetch(`${API_URL}/api/admin/redirect-rules/${id}`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     const body = await res.json().catch(() => null);
@@ -747,10 +736,10 @@ export const api = {
     return body as RedirectRule;
   },
 
-  async deleteRedirectRule(id: string, token: string): Promise<void> {
+  async deleteRedirectRule(id: string, token?: string): Promise<void> {
     const res = await fetch(`${API_URL}/api/admin/redirect-rules/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     if (!res.ok && res.status !== 204) {
       const body = await res.json().catch(() => null);
@@ -778,9 +767,9 @@ export const api = {
   },
 
   // Business translations (admin)
-  async getTranslationsConfig(token: string): Promise<TranslationConfigResponse> {
+  async getTranslationsConfig(token?: string): Promise<TranslationConfigResponse> {
     const res = await fetch(`${API_URL}/api/admin/translations/config`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     const body = await res.json().catch(() => null);
     if (!res.ok) {
@@ -797,8 +786,7 @@ export const api = {
       field?: string;
       page?: number;
       pageSize?: number;
-    },
-    token: string
+    }, token?: string
   ): Promise<EntityTranslationsResponse> {
     const query = new URLSearchParams();
     if (params.entityType) query.set('entityType', params.entityType);
@@ -809,7 +797,7 @@ export const api = {
     if (params.pageSize) query.set('pageSize', String(params.pageSize));
     const suffix = query.toString() ? `?${query.toString()}` : '';
     const res = await fetch(`${API_URL}/api/admin/translations${suffix}`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     const body = await res.json().catch(() => null);
     if (!res.ok) {
@@ -824,15 +812,11 @@ export const api = {
       entityId: string;
       locale: string;
       values: Record<string, unknown>;
-    },
-    token: string
+    }, token?: string
   ): Promise<{ ok: boolean; count: number; items: EntityTranslationRow[] }> {
     const res = await fetch(`${API_URL}/api/admin/translations/upsert`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(payload),
     });
     const body = await res.json().catch(() => null);
@@ -842,10 +826,10 @@ export const api = {
     return body as { ok: boolean; count: number; items: EntityTranslationRow[] };
   },
 
-  async deleteTranslation(id: string, token: string): Promise<void> {
+  async deleteTranslation(id: string, token?: string): Promise<void> {
     const res = await fetch(`${API_URL}/api/admin/translations/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     if (!res.ok && res.status !== 204) {
       const body = await res.json().catch(() => null);
@@ -854,9 +838,9 @@ export const api = {
   },
 
   // Automation jobs (admin)
-  async getAutomationJobs(token: string): Promise<AutomationJobConfig[]> {
+  async getAutomationJobs(token?: string): Promise<AutomationJobConfig[]> {
     const res = await fetch(`${API_URL}/api/admin/automation/jobs`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     if (!res.ok) {
       const body = await res.json().catch(() => null);
@@ -867,15 +851,11 @@ export const api = {
 
   async updateAutomationJob(
     id: string,
-    data: { enabled?: boolean; intervalMs?: number; intervalMinutes?: number },
-    token: string
+    data: { enabled?: boolean; intervalMs?: number; intervalMinutes?: number }, token?: string
   ): Promise<AutomationJobConfig> {
     const res = await fetch(`${API_URL}/api/admin/automation/jobs/${id}`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(data),
     });
     if (!res.ok) {
@@ -886,12 +866,11 @@ export const api = {
   },
 
   async runAutomationJob(
-    id: string,
-    token: string
+    id: string, token?: string
   ): Promise<{ job: AutomationJobConfig | null; result: AutomationJobRunResult }> {
     const res = await fetch(`${API_URL}/api/admin/automation/jobs/${id}/run`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     const payload = await res.json().catch(() => null);
     if (!res.ok) {
@@ -901,8 +880,7 @@ export const api = {
   },
 
   async getEmailDeliveries(
-    params: { page?: number; pageSize?: number; status?: string; type?: string; recipient?: string },
-    token: string
+    params: { page?: number; pageSize?: number; status?: string; type?: string; recipient?: string }, token?: string
   ): Promise<EmailDeliveriesResponse> {
     const query = new URLSearchParams();
     if (params.page) query.set('page', String(params.page));
@@ -912,7 +890,7 @@ export const api = {
     if (params.recipient) query.set('recipient', params.recipient);
     const suffix = query.toString() ? `?${query.toString()}` : '';
     const res = await fetch(`${API_URL}/api/admin/emails${suffix}`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     const body = await res.json().catch(() => null);
     if (!res.ok) {
@@ -921,10 +899,10 @@ export const api = {
     return body as EmailDeliveriesResponse;
   },
 
-  async resendEmailDelivery(id: string, token: string): Promise<{ row: EmailDeliveryRow | null; metrics: Record<string, number> }> {
+  async resendEmailDelivery(id: string, token?: string): Promise<{ row: EmailDeliveryRow | null; metrics: Record<string, number> }> {
     const res = await fetch(`${API_URL}/api/admin/emails/${id}/resend`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     const body = await res.json().catch(() => null);
     if (!res.ok) {
@@ -933,13 +911,10 @@ export const api = {
     return body as { row: EmailDeliveryRow | null; metrics: Record<string, number> };
   },
 
-  async sendAdminTestEmail(payload: { to: string; subject?: string; text?: string; html?: string }, token: string) {
+  async sendAdminTestEmail(payload: { to: string; subject?: string; text?: string; html?: string }, token?: string) {
     const res = await fetch(`${API_URL}/api/admin/emails/test`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers: createJsonHeaders(token),
       body: JSON.stringify(payload),
     });
     const body = await res.json().catch(() => null);
@@ -949,9 +924,9 @@ export const api = {
     return body;
   },
 
-  async getEmailMetrics(days = 30, token: string): Promise<EmailMetricsResponse> {
+  async getEmailMetrics(days = 30, token?: string): Promise<EmailMetricsResponse> {
     const res = await fetch(`${API_URL}/api/admin/emails/metrics?days=${encodeURIComponent(String(days))}`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: createAuthHeaders(token),
     });
     const body = await res.json().catch(() => null);
     if (!res.ok) {

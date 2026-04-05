@@ -38,7 +38,6 @@ const formatEuro = (valueCents: number) => {
     return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format((valueCents || 0) / 100);
 };
 export default function Emails() {
-    const token = localStorage.getItem('adminToken') || '';
     const [loading, setLoading] = useState(false);
     const [metrics, setMetrics] = useState<EmailMetricsResponse | null>(null);
     const [rows, setRows] = useState<EmailDeliveryRow[]>([]);
@@ -88,8 +87,8 @@ export default function Emails() {
                     status: statusFilter || undefined,
                     type: typeFilter || undefined,
                     recipient: recipientFilter || undefined,
-                }, token),
-                api.getEmailMetrics(30, token),
+                }),
+                api.getEmailMetrics(30),
             ]);
             setRows(Array.isArray(deliveries.items) ? deliveries.items : []);
             setTotalPages(Math.max(1, deliveries.totalPages || 1));
@@ -108,7 +107,7 @@ export default function Emails() {
     async function handleResend(id: string) {
         try {
             setResendingId(id);
-            await api.resendEmailDelivery(id, token);
+            await api.resendEmailDelivery(id);
             showToast(t("admin.pages.emails.email_followup_succes"), 'success');
             await loadAll();
         }
@@ -131,7 +130,7 @@ export default function Emails() {
                 subject: t("admin.pages.emails.test_email_own"),
                 text: 'Email de test envoye depuis le back-office.',
                 html: '<p>Email de test envoye depuis le back-office.</p>',
-            }, token);
+            });
             showToast('Email de test envoye', 'success');
             await loadAll();
         }

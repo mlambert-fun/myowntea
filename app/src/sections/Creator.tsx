@@ -8,6 +8,7 @@ import { sortIngredientsByCategoryOrder } from '@/lib/ingredient-order';
 import { DEFAULT_BLEND_FORMAT, normalizeBlendFormat, type BlendFormatCode, } from '@/lib/blend-format';
 import { MAX_BLEND_AROMAS, computeBlendUnitPrice, evaluateBlendSelection, normalizeBlendIngredientCategory, } from '@/lib/blend-pricing';
 import { CreationIngredientsList } from '@/components/creation/CreationIngredientsList';
+import { CreationCupLogo } from '@/components/creation/CreationCupLogo';
 import { CreatorSummaryModal } from '@/components/creation/CreatorSummaryModal';
 import { DataLoadingState } from '@/components/ui/loading-state';
 import { Leaf, Flower, Apple, Sprout, Sparkles, Check, Minus, Plus, Info, X, Heart, Eye, ShoppingBag, RotateCcw, Thermometer, Timer, Scale, Sun, MessageCircle, ChevronDown } from 'lucide-react';
@@ -462,16 +463,16 @@ export function Creator() {
         ? `${selectedIngredientDescription.slice(0, 150)}...`
         : selectedIngredientDescription;
     const dotPositions = [
-        { top: '1%', left: '41%' },
-        { top: '13%', left: '68%' },
+        { top: '24%', left: '52%' },
+        { top: '22%', left: '31%' },
+        { top: '1%', left: '36%' },
+        { top: '25%', left: '66%' },
+        { top: '6%', left: '59%' },
         { top: '13%', left: '19%' },
-        { top: '24%', left: '95%' },
-        { top: '30%', left: '-9%' },
-        { top: '54%', left: '107%' },
-        { top: '53%', left: '5%' },
-        { top: '85%', left: '79%' },
-        { top: '79%', left: '8%' },
-        { top: '96%', left: '56%' },
+        { top: '12%', left: '45%' },
+        { top: '0%', left: '25%' },
+        { top: '1%', left: '77%' },
+        { top: '6%', left: '72%' },
     ];
     const currentWishlistIngredientSignature = selectedIngredients
         .map((ingredient) => ingredient.id)
@@ -655,16 +656,7 @@ export function Creator() {
                   
                   {/* Cup */}
                   <div className="relative w-full h-full">
-                    <svg viewBox="0 0 200 200" className="w-full h-full">
-                      {/* Cup body */}
-                      <path d="M40,60 Q40,160 100,160 Q160,160 160,60" fill="none" stroke="#D4C4A8" strokeWidth="3"/>
-                      {/* Cup rim */}
-                      <ellipse cx="100" cy="60" rx="60" ry="15" fill="none" stroke="#D4C4A8" strokeWidth="3"/>
-                      {/* Tea liquid */}
-                      <ellipse cx="100" cy="65" rx={50 + selectedIngredients.length * 2} ry={12 + selectedIngredients.length * 0.5} fill={getBlendColor()} opacity="0.8"/>
-                      {/* Handle */}
-                      <path d="M160,80 Q190,80 190,110 Q190,140 160,140" fill="none" stroke="#D4C4A8" strokeWidth="3"/>
-                    </svg>
+                    <CreationCupLogo fillColor={getBlendColor()} ingredientCount={selectedIngredients.length} className="w-full h-full"/>
                     
                     {/* Floating ingredients around cup */}
                     {selectedIngredients.slice(0, 10).map((ing, i) => (<div key={ing.id} className="absolute w-5 h-5 rounded-full animation-float" style={{
@@ -874,11 +866,11 @@ export function Creator() {
       </div>
 
       {/* Ingredient Detail Modal */}
-      {selectedIngredientDetails && (<div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={() => setSelectedIngredientDetails(null)}>
-          <div className="bg-white rounded-3xl max-w-[80rem] w-full max-h-[100vh] overflow-y-auto" style={{ overflowY: 'auto', maxHeight: '100vh' }} onClick={(e) => e.stopPropagation()}>
+      {selectedIngredientDetails && (<div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm cursor-close-cross" onClick={() => setSelectedIngredientDetails(null)}>
+          <div className="bg-white rounded-3xl max-w-[80rem] w-full max-h-[100vh] overflow-y-auto cursor-default" style={{ overflowY: 'auto', maxHeight: '100vh' }} onClick={(e) => e.stopPropagation()}>
             <div className="grid md:grid-cols-2">
-              <div className="aspect-square md:aspect-auto" style={{ backgroundColor: selectedIngredientDetails.color + '20' }}>
-                <img src={selectedIngredientDetails.image} alt={selectedIngredientDetails.name} className="w-full h-full object-cover"/>
+              <div className="aspect-square overflow-hidden md:aspect-auto md:self-start" style={{ backgroundColor: selectedIngredientDetails.color + '20' }}>
+                <img src={selectedIngredientDetails.image} alt={selectedIngredientDetails.name} className="w-full h-full object-cover md:h-auto"/>
               </div>
 
               <div className="p-8">

@@ -164,7 +164,6 @@ const parseIngredientIds = (value: string) => value
     .map((id) => id.trim())
     .filter(Boolean);
 export default function BlendListings() {
-    const token = localStorage.getItem('adminToken') || '';
     const [listings, setListings] = useState<BlendListing[]>([]);
     const [ingredients, setIngredients] = useState<IngredientOption[]>([]);
     const [orders, setOrders] = useState<OrderOption[]>([]);
@@ -194,7 +193,7 @@ export default function BlendListings() {
             const [listingData, ingredientData, orderData] = await Promise.all([
                 api.getAdminBlendListings(),
                 api.getIngredients(),
-                api.getOrders(token),
+                api.getOrders(),
             ]);
             setListings(Array.isArray(listingData) ? listingData : []);
             setIngredients(Array.isArray(ingredientData)
@@ -284,7 +283,7 @@ export default function BlendListings() {
             return;
         try {
             setSavingId(editingId);
-            await api.updateBlendListing(editingId, buildListingPayload(createDraft), token);
+            await api.updateBlendListing(editingId, buildListingPayload(createDraft));
             closeEditor();
             await loadData();
         }
@@ -305,7 +304,7 @@ export default function BlendListings() {
             return;
         try {
             setSavingId('create');
-            await api.createBlendListing(buildListingPayload(createDraft), token);
+            await api.createBlendListing(buildListingPayload(createDraft));
             closeEditor();
             await loadData();
         }
@@ -325,7 +324,7 @@ export default function BlendListings() {
             return;
         try {
             setSavingId(listing.id);
-            await api.deleteBlendListing(listing.id, token);
+            await api.deleteBlendListing(listing.id);
             if (editingId === listing.id) {
                 closeEditor();
             }
@@ -446,7 +445,7 @@ export default function BlendListings() {
                     continue;
                 }
                 try {
-                    const response = await api.createBlendListing(buildListingPayload(draft), token);
+                    const response = await api.createBlendListing(buildListingPayload(draft));
                     if (response?.error) {
                         throw new Error(String(response.error));
                     }

@@ -2,24 +2,27 @@
   "name": "myowntea-backend",
   "version": "1.0.0",
   "description": "My Own Tea - Backend API with PostgreSQL & Prisma",
-  "main": "dist/index.js",
+  "main": "dist/server.js",
   "type": "module",
   "scripts": {
     "db:restore:local": "node scripts/restore_local.mjs",
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx watch src/server.ts",
     "build": "npm run i18n:check && tsc",
     "i18n:check": "node ../scripts/check_no_hardcoded_i18n.mjs backend",
     "db:backup:local": "node scripts/backup_local.mjs",
-    "start": "node dist/index.js",
+    "start": "node dist/server.js",
     "db:backup:railway": "node scripts/backup_railway.mjs",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
-    "prisma:seed": "tsx prisma/seed.ts",
-    "lint": "eslint src --ext .ts"
+    "prisma:seed": "node prisma/seed-safe.mjs",
+    "prisma:seed:catalog": "node prisma/seed-safe.mjs --catalog",
+    "lint": "node ../scripts/check_no_hardcoded_i18n.mjs backend && node ../scripts/check_ts_nocheck_allowlist.mjs backend",
+    "test": "npm run build && node scripts/run-tests.mjs",
+    "test:dist": "node scripts/run-tests.mjs"
   },
   "prisma": {
-    "seed": "tsx prisma/seed.ts"
+    "seed": "node prisma/seed-safe.mjs"
   },
   "keywords": [
     "ecommerce",

@@ -494,8 +494,8 @@ export default function AccessoryDetailPage() {
       </main>
       <Footer />
 
-      {isLightboxOpen && (<div className="fixed inset-0 z-[501] flex items-center justify-center bg-black/60 backdrop-blur" onClick={() => setIsLightboxOpen(false)}>
-          <div className="relative max-w-5xl w-[90vw] max-h-[85vh]" onClick={(event) => event.stopPropagation()}>
+      {isLightboxOpen && (<div className="fixed inset-0 z-[501] flex items-center justify-center bg-black/60 backdrop-blur cursor-close-cross" onClick={() => setIsLightboxOpen(false)}>
+          <div className="relative max-w-5xl w-[90vw] max-h-[85vh] cursor-default" onClick={(event) => event.stopPropagation()}>
             <img src={productImages[lightboxIndex]} alt={item?.title || t("app.sections.accessory_detail_page.product")} className="w-full h-full max-h-[85vh] object-contain rounded-2xl shadow-2xl"/>
             <button type="button" className="absolute -top-4 -right-4 w-10 h-10 rounded-full bg-white text-[var(--sage-deep)] shadow flex items-center justify-center" onClick={() => setIsLightboxOpen(false)} aria-label={t("app.sections.accessory_detail_page.close")}>
               ×

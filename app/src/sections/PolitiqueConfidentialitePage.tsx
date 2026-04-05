@@ -3,43 +3,88 @@ import { useStoreSettings } from '@/context/StoreSettingsContext';
 import { t } from "@/lib/i18n";
 export default function PolitiqueConfidentialitePage() {
     const { settings } = useStoreSettings();
-    return (<InfoPageLayout title={t("app.sections.politique_confidentialite_page.politique_privacy")} intro={t("app.sections.politique_confidentialite_page.nous_traitons_donnees")} updatedAt="03/03/2026" sections={[
+    return (<InfoPageLayout title={t("app.sections.politique_confidentialite_page.politique_privacy")} intro={t("app.sections.politique_confidentialite_page.intro")} updatedAt="01/04/2026" sections={[
+            {
+                title: t("app.sections.politique_confidentialite_page.controller_title"),
+                paragraphs: [
+                    t("app.sections.politique_confidentialite_page.controller_p1"),
+                    t("app.sections.politique_confidentialite_page.controller_p2"),
+                ],
+                bullets: [
+                    t("app.sections.politique_confidentialite_page.controller_b1", undefined, { contactEmail: settings.contactEmail }),
+                    t("app.sections.politique_confidentialite_page.controller_b2", undefined, { shopAddress: settings.shopAddress }),
+                    t("app.sections.politique_confidentialite_page.controller_b3", undefined, { shopPhone: settings.shopPhone }),
+                ],
+            },
             {
                 title: t("app.sections.politique_confidentialite_page.donnees_collectees"),
                 bullets: [
-                    t("app.sections.politique_confidentialite_page.account_customer_identite"),
-                    t("app.sections.politique_confidentialite_page.order_contenu_cart"),
-                    t("app.sections.politique_confidentialite_page.newsletter_email_consentement"),
+                    t("app.sections.politique_confidentialite_page.data_b1"),
+                    t("app.sections.politique_confidentialite_page.data_b2"),
+                    t("app.sections.politique_confidentialite_page.data_b3"),
+                    t("app.sections.politique_confidentialite_page.data_b4"),
+                    t("app.sections.politique_confidentialite_page.data_b5"),
+                    t("app.sections.politique_confidentialite_page.data_b6"),
                 ],
             },
             {
                 title: t("app.sections.politique_confidentialite_page.finalites"),
+                paragraphs: [t("app.sections.politique_confidentialite_page.purposes_p1")],
                 bullets: [
-                    t("app.sections.politique_confidentialite_page.execution_orders_service"),
-                    t("app.sections.politique_confidentialite_page.management_account_customer"),
-                    t("app.sections.politique_confidentialite_page.envoi_newsletters_emails"),
+                    t("app.sections.politique_confidentialite_page.purposes_b1"),
+                    t("app.sections.politique_confidentialite_page.purposes_b2"),
+                    t("app.sections.politique_confidentialite_page.purposes_b3"),
+                    t("app.sections.politique_confidentialite_page.purposes_b4"),
                 ],
             },
             {
-                title: t("app.sections.politique_confidentialite_page.consentement_rgpd_newsletter"),
+                title: t("app.sections.politique_confidentialite_page.recipients_title"),
                 paragraphs: [
-                    t("app.sections.politique_confidentialite_page.signup_newsletter_footer"),
-                    t("app.sections.politique_confidentialite_page.nous_stockons_status"),
+                    t("app.sections.politique_confidentialite_page.recipients_p1"),
+                    t("app.sections.politique_confidentialite_page.recipients_p2"),
                 ],
                 bullets: [
-                    t("app.sections.politique_confidentialite_page.opt_signup_newsletter"),
-                    t("app.sections.politique_confidentialite_page.opt_out_desinscription"),
-                    t("app.sections.politique_confidentialite_page.edit_possible_tout"),
+                    t("app.sections.politique_confidentialite_page.recipients_b1"),
+                    t("app.sections.politique_confidentialite_page.recipients_b2"),
+                    t("app.sections.politique_confidentialite_page.recipients_b3"),
+                    t("app.sections.politique_confidentialite_page.recipients_b4"),
+                ],
+            },
+            {
+                title: t("app.sections.politique_confidentialite_page.retention_title"),
+                paragraphs: [t("app.sections.politique_confidentialite_page.retention_p1")],
+                bullets: [
+                    t("app.sections.politique_confidentialite_page.retention_b1"),
+                    t("app.sections.politique_confidentialite_page.retention_b2"),
+                    t("app.sections.politique_confidentialite_page.retention_b3"),
+                    t("app.sections.politique_confidentialite_page.retention_b4"),
+                    t("app.sections.politique_confidentialite_page.retention_b5"),
                 ],
             },
             {
                 title: t("app.sections.politique_confidentialite_page.droits"),
-                bullets: [
-                    t("app.sections.politique_confidentialite_page.acces_rectification_suppression"),
-                    t("app.sections.politique_confidentialite_page.limitation_opposition_traitement"),
-                    t("app.sections.politique_confidentialite_page.retrait_consentement_tout"),
+                paragraphs: [
+                    t("app.sections.politique_confidentialite_page.rights_p1"),
+                    t("app.sections.politique_confidentialite_page.rights_p2"),
                 ],
-                paragraphs: [t("app.sections.politique_confidentialite_page.exercer_droits_contactez", undefined, { contactEmail: settings.contactEmail })],
+                bullets: [
+                    t("app.sections.politique_confidentialite_page.rights_b1"),
+                    t("app.sections.politique_confidentialite_page.rights_b2"),
+                    t("app.sections.politique_confidentialite_page.rights_b3", undefined, { contactEmail: settings.contactEmail }),
+                    t("app.sections.politique_confidentialite_page.rights_b4"),
+                ],
+            },
+            {
+                title: t("app.sections.politique_confidentialite_page.cookies_title"),
+                paragraphs: [
+                    t("app.sections.politique_confidentialite_page.cookies_p1"),
+                    t("app.sections.politique_confidentialite_page.cookies_p2"),
+                ],
+                bullets: [
+                    t("app.sections.politique_confidentialite_page.cookies_b1"),
+                    t("app.sections.politique_confidentialite_page.cookies_b2"),
+                    t("app.sections.politique_confidentialite_page.cookies_b3"),
+                ],
             },
         ]}/>);
 }

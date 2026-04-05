@@ -63,7 +63,7 @@ const testimonials: Testimonial[] = [
         avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop'
     }
 ];
-export function Testimonials({ ingredientCountLabel = '40+' }: { ingredientCountLabel?: string }) {
+export function Testimonials({ ingredientCountLabel = '100+' }: { ingredientCountLabel?: string }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isAutoPlaying, setIsAutoPlaying] = useState(true);
     useEffect(() => {

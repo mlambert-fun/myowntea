@@ -364,7 +364,7 @@ function QuickviewModal({ product, onClose, onAddToCart }: {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur cursor-close-cross" onClick={onClose}>
             <div
-                className="relative w-[90vw] max-w-4xl max-h-[85vh] overflow-y-auto bg-white rounded-2xl p-6 shadow-2xl"
+                className="relative w-[90vw] max-w-4xl max-h-[85vh] overflow-y-auto bg-white rounded-2xl p-6 shadow-2xl cursor-default"
                 onClick={(event) => event.stopPropagation()}
             >
                 <button

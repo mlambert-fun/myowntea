@@ -40,7 +40,6 @@ export default function Variants() {
         isActive: true,
         optionValueIds: [] as string[],
     });
-    const token = localStorage.getItem('adminToken') || '';
     useEffect(() => {
         loadProducts();
     }, []);
@@ -98,10 +97,10 @@ export default function Variants() {
                 optionValueIds: formData.optionValueIds,
             };
             if (editingId) {
-                await api.updateVariant(editingId, payload, token);
+                await api.updateVariant(editingId, payload);
             }
             else {
-                await api.createVariant(productId, payload, token);
+                await api.createVariant(productId, payload);
             }
             resetForm();
             loadVariants(productId);
@@ -129,7 +128,7 @@ export default function Variants() {
         if (!window.confirm(t("admin.pages.variants.delete_variant")))
             return;
         try {
-            await api.deleteVariant(variantId, token);
+            await api.deleteVariant(variantId);
             setVariants((prev) => prev.filter((item) => item.id !== variantId));
         }
         catch (error) {

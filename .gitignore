@@ -150,3 +150,7 @@ backend/.postgres/
 .tmp_boxtal_*
 
 .tmp_validate.json
+
+# Local backup artifacts
+*.bak
+backend/tmp/

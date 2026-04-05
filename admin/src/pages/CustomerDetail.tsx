@@ -77,7 +77,7 @@ export default function CustomerDetail() {
         <div className="admin-header" style={{ alignItems: 'flex-start' }}>
           <div>
             <Link to="/customers" className="admin-link-inline">{t("admin.pages.customer_detail.back_customers")}</Link>
-            <h1 className="admin-title" style={{ marginTop: '0.5rem' }}>Dossier client</h1>
+            <h1 className="admin-title" style={{ marginTop: '0.5rem' }}>{t("admin.pages.customer_detail.title")}</h1>
             <p className="admin-subtitle">{t("admin.pages.customer_detail.all_informations_personnelles")}</p>
           </div>
         </div>
@@ -86,18 +86,18 @@ export default function CustomerDetail() {
         {!loading && error && <p>{error}</p>}
 
         {!loading && !error && customer && (<div className="admin-card">
-            <h2 className="admin-card-title">Informations personnelles</h2>
+            <h2 className="admin-card-title">{t("admin.pages.customer_detail.personal_information")}</h2>
             <div className="admin-grid" style={{ display: 'grid', gap: '0.75rem', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
               <div>
                 <div className="admin-muted">{t("admin.pages.customer_detail.type_account")}</div>
-                <div>{customer.email ? t("admin.pages.customer_detail.account") : 'Invit?'}</div>
+                <div>{customer.email ? t("admin.pages.customer_detail.account") : t("admin.pages.customer_detail.guest")}</div>
               </div>
               <div>
                 <div className="admin-muted">{t("admin.pages.customer_detail.email")}</div>
                 <div>{customer.email || '-'}</div>
               </div>
               <div>
-                <div className="admin-muted">Nom</div>
+                <div className="admin-muted">{t("admin.pages.customer_detail.name")}</div>
                 <div>
                   {formatSalutation(customer.salutation)} {customer.firstName || ''} {customer.lastName || ''}
                 </div>
@@ -107,27 +107,27 @@ export default function CustomerDetail() {
                 <div>{customer.birthDate ? new Date(customer.birthDate).toLocaleDateString('fr-FR') : '-'}</div>
               </div>
               <div>
-                <div className="admin-muted">T?l?phone</div>
+                <div className="admin-muted">{t("admin.pages.customer_detail.phone")}</div>
                 <div>{customer.phoneE164 || '-'}</div>
               </div>
               <div>
-                <div className="admin-muted">Cr?? le</div>
+                <div className="admin-muted">{t("admin.pages.customer_detail.created_at")}</div>
                 <div>{customer.createdAt ? new Date(customer.createdAt).toLocaleDateString('fr-FR') : '-'}</div>
               </div>
               <div>
-                <div className="admin-muted">Auth provider</div>
+                <div className="admin-muted">{t("admin.pages.customer_detail.auth_provider")}</div>
                 <div>{customer.authProvider || '-'}</div>
               </div>
               <div>
-                <div className="admin-muted">Commandes</div>
+                <div className="admin-muted">{t("admin.pages.customer_detail.orders")}</div>
                 <div>{customer.orders?.length ?? 0}</div>
               </div>
               <div>
-                <div className="admin-muted">Paniers</div>
+                <div className="admin-muted">{t("admin.pages.customer_detail.carts")}</div>
                 <div>{customer.carts?.length ?? 0}</div>
               </div>
               <div>
-                <div className="admin-muted">Wishlists</div>
+                <div className="admin-muted">{t("admin.pages.customer_detail.wishlists")}</div>
                 <div>
                   <Link to={`/customers/${customer.id}/wishlists`} className="admin-link-inline">
                     {customer.wishlistsCount ?? 0}
@@ -136,15 +136,15 @@ export default function CustomerDetail() {
               </div>
             </div>
 
-            <h2 className="admin-card-title" style={{ marginTop: '1.5rem' }}>Adresses</h2>
+            <h2 className="admin-card-title" style={{ marginTop: '1.5rem' }}>{t("admin.pages.customer_detail.addresses")}</h2>
             {customer.addresses && customer.addresses.length > 0 ? (<div style={{ display: 'grid', gap: '0.75rem' }}>
                 {customer.addresses.map((address) => (<div key={address.id} className="admin-card" style={{ margin: 0 }}>
                     <div>{formatAddress(address)}</div>
                     <div className="admin-muted" style={{ marginTop: '0.25rem' }}>
-                      {address.phoneE164 ? `Tel: ${address.phoneE164}` : 'Tel: -'}
+                      {address.phoneE164 ? `${t("admin.pages.customer_detail.phone")}: ${address.phoneE164}` : `${t("admin.pages.customer_detail.phone")}: -`}
                     </div>
                     <div className="admin-muted" style={{ marginTop: '0.25rem' }}>
-                      {address.isDefaultBilling && 'Facturation par defaut'}
+                      {address.isDefaultBilling && t("admin.pages.customer_detail.billing_default")}
                       {address.isDefaultBilling && address.isDefaultShipping && ' · '}
                       {address.isDefaultShipping && t("admin.pages.customer_detail.shipping_default")}
                     </div>

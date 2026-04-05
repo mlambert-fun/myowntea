@@ -65,7 +65,6 @@ const formatDate = (value?: string | null) => {
     return date.toLocaleString('fr-FR');
 };
 export default function RedirectRules() {
-    const token = localStorage.getItem('adminToken') || '';
     const [rules, setRules] = useState<RedirectRule[]>([]);
     const [loading, setLoading] = useState(false);
     const [saving, setSaving] = useState(false);
@@ -86,7 +85,7 @@ export default function RedirectRules() {
     async function loadRules() {
         try {
             setLoading(true);
-            const data = await api.getRedirectRules(token);
+            const data = await api.getRedirectRules();
             setRules(Array.isArray(data) ? data : []);
         }
         catch (error) {
@@ -143,11 +142,11 @@ export default function RedirectRules() {
         try {
             setSaving(true);
             if (editingId) {
-                await api.updateRedirectRule(editingId, payload, token);
+                await api.updateRedirectRule(editingId, payload);
                 showToast(t("admin.pages.redirect_rules.rule_update_day"), 'success');
             }
             else {
-                await api.createRedirectRule(payload, token);
+                await api.createRedirectRule(payload);
                 showToast(t("admin.pages.redirect_rules.rule_created"), 'success');
             }
             resetForm();
@@ -165,7 +164,7 @@ export default function RedirectRules() {
             return;
         try {
             setDeletingId(id);
-            await api.deleteRedirectRule(id, token);
+            await api.deleteRedirectRule(id);
             showToast(t("admin.pages.redirect_rules.rule_supprimee"), 'success');
             if (editingId === id)
                 resetForm();

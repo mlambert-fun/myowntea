@@ -24,7 +24,7 @@ interface Cart {
 }
 const resolveItemLabel = (item: CartItem) => {
     const snapshot = item.snapshot || {};
-    return snapshot.title || snapshot.name || snapshot.productTitle || item.itemType || 'Article';
+    return snapshot.title || snapshot.name || snapshot.productTitle || item.itemType || t("admin.pages.carts.item");
 };
 export default function Carts() {
     const [carts, setCarts] = useState<Cart[]>([]);
@@ -48,7 +48,7 @@ export default function Carts() {
       <div className="admin-page admin-page-premium-lite">
         <div className="admin-header">
           <div>
-            <h1 className="admin-title">Paniers actifs</h1>
+            <h1 className="admin-title">{t("admin.pages.carts.title")}</h1>
             <p className="admin-subtitle">{t("admin.pages.carts.tracking_carts_customers")}</p>
           </div>
           <button className="admin-btn admin-btn-secondary" onClick={loadCarts} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -56,7 +56,7 @@ export default function Carts() {
               <path d="M20 12a8 8 0 1 1-2.34-5.66" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               <path d="M20 4v5h-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            Actualiser
+            {t("admin.pages.carts.refresh")}
           </button>
         </div>
 
@@ -65,12 +65,12 @@ export default function Carts() {
             <table className="admin-table">
             <thead>
               <tr>
-                <th>Client</th>
-                <th>Type</th>
+                <th>{t("admin.pages.carts.customer")}</th>
+                <th>{t("admin.pages.carts.type")}</th>
                 <th>{t("admin.pages.carts.email")}</th>
-                <th>Statut</th>
-                <th>Articles</th>
-                <th>Contenu</th>
+                <th>{t("admin.pages.carts.status")}</th>
+                <th>{t("admin.pages.carts.items")}</th>
+                <th>{t("admin.pages.carts.content")}</th>
                 <th>{t("admin.pages.carts.total_estime")}</th>
                 <th>{t("admin.pages.carts.last_update")}</th>
               </tr>
@@ -105,4 +105,3 @@ export default function Carts() {
       </div>
     </Layout>);
 }
-

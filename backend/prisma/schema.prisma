@@ -307,6 +307,7 @@ model Order {
   id              String   @id @default(cuid())
   customerId      String
   userId          String?
+  customerEmailSnapshot String?
   orderNumber     String   @unique // Human-readable order ID
   status          OrderStatus @default(PENDING)
   subtotal        Float    // Sum of items

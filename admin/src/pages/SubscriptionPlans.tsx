@@ -19,7 +19,6 @@ interface SubscriptionPlan {
 }
 const formatEuro = (cents: number) => new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format((cents || 0) / 100);
 export default function SubscriptionPlans() {
-    const token = localStorage.getItem('adminToken') || '';
     const [plans, setPlans] = useState<SubscriptionPlan[]>([]);
     const [products, setProducts] = useState<Product[]>([]);
     const [formData, setFormData] = useState({
@@ -61,7 +60,7 @@ export default function SubscriptionPlans() {
                 intervalCount: Number(formData.intervalCount) || 1,
                 stripePriceId: formData.stripePriceId,
                 isActive: formData.isActive,
-            }, token);
+            });
             setFormData({
                 productId: '',
                 interval: 'month',
@@ -82,7 +81,7 @@ export default function SubscriptionPlans() {
                 intervalCount: plan.intervalCount,
                 stripePriceId: plan.stripePriceId,
                 isActive: plan.isActive,
-            }, token);
+            });
             await loadPlans();
         }
         catch (error) {
@@ -93,7 +92,7 @@ export default function SubscriptionPlans() {
         if (!window.confirm(t("admin.pages.subscription_plans.delete_plan")))
             return;
         try {
-            await api.deleteSubscriptionPlan(id, token);
+            await api.deleteSubscriptionPlan(id);
             await loadPlans();
         }
         catch (error) {

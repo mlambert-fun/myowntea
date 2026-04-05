@@ -1,17 +1,16 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { t } from "../lib/i18n";
+import { useAdminAuth } from '../auth';
 interface LayoutProps {
-    children: React.ReactNode;
+    children: ReactNode;
 }
 export default function Layout({ children }: LayoutProps) {
     const location = useLocation();
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const { user, logout } = useAdminAuth();
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-    const handleLogout = () => {
-        localStorage.removeItem('adminToken');
-        localStorage.removeItem('user');
-        window.location.href = 'http://localhost:5000/';
+    const handleLogout = async () => {
+        await logout();
     };
     const navigation = [
         { name: 'Dashboard', href: '/' },
@@ -47,8 +46,8 @@ export default function Layout({ children }: LayoutProps) {
           </nav>
         </div>
         <div className="admin-sidebar-footer">
-          <p className="admin-sidebar-welcome">Bienvenue, {user.email || 'Admin'}</p>
-          <button onClick={handleLogout} className="admin-btn admin-btn-danger admin-sidebar-logout" type="button">
+          <p className="admin-sidebar-welcome">Bienvenue, {user?.email || 'Admin'}</p>
+          <button onClick={() => void handleLogout()} className="admin-btn admin-btn-danger admin-sidebar-logout" type="button">
             <span className="admin-sidebar-logout-content">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M15 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

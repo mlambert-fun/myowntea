@@ -190,6 +190,7 @@ const defaultApiErrorMessageByStatus = (status: number) => {
 const API_ERROR_MESSAGE_TO_KEY: Record<string, string> = {
   'email and password required': 'app.lib.api_errors.email_password_required',
   'invalid credentials': 'app.lib.api_errors.invalid_credentials',
+  'invalid email address': 'app.lib.api_errors.invalid_email_format',
   'login failed': 'app.lib.api_errors.login_failed',
   'missing required fields': 'app.lib.api_errors.missing_required_fields',
   'password too short': 'app.lib.api_errors.password_too_short',
@@ -835,6 +836,7 @@ export const api = {
   async createCheckoutPaymentIntent(payload: {
     appliedDiscountCode?: string | null;
     comment?: string;
+    guestEmail?: string | null;
     shippingSelection?: ShippingSelection | null;
     shippingAddress: CheckoutAddressInput;
     billingAddress?: CheckoutAddressInput | null;

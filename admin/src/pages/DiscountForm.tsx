@@ -172,7 +172,6 @@ export default function DiscountFormPage() {
     const [loading, setLoading] = useState(Boolean(id));
     const [saving, setSaving] = useState(false);
     const [apiError, setApiError] = useState<string | null>(null);
-    const token = localStorage.getItem('adminToken') || '';
     useEffect(() => {
         const load = async () => {
             if (!id)
@@ -261,10 +260,10 @@ export default function DiscountFormPage() {
         try {
             setSaving(true);
             if (id) {
-                await api.updateDiscount(id, payload, token);
+                await api.updateDiscount(id, payload);
             }
             else {
-                await api.createDiscount(payload, token);
+                await api.createDiscount(payload);
             }
             navigate('/discounts');
         }

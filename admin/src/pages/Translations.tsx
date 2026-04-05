@@ -94,7 +94,6 @@ const makeDefaultEditor = (
 };
 
 export default function Translations() {
-  const token = localStorage.getItem('adminToken') || '';
   const [loadingConfig, setLoadingConfig] = useState(false);
   const [loadingRows, setLoadingRows] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -160,7 +159,7 @@ export default function Translations() {
   const loadConfig = async () => {
     try {
       setLoadingConfig(true);
-      const payload = await api.getTranslationsConfig(token);
+      const payload = await api.getTranslationsConfig();
       const entities = Array.isArray(payload.entities) ? payload.entities : [];
       setConfig(entities);
       if (entities.length > 0) {
@@ -195,8 +194,7 @@ export default function Translations() {
           field: filters.field.trim() || undefined,
           page: nextPage,
           pageSize,
-        },
-        token,
+        }
       );
       setRows(Array.isArray(payload.items) ? payload.items : []);
       setPage(payload.page || nextPage);
@@ -285,8 +283,7 @@ export default function Translations() {
           entityId,
           locale,
           values: { [field]: valuePayload },
-        },
-        token,
+        }
       );
       showToast(t('admin.pages.translations.translation_saved'), 'success');
       await loadRows(page);
@@ -306,7 +303,7 @@ export default function Translations() {
     if (!confirmation) return;
     try {
       setDeletingId(row.id);
-      await api.deleteTranslation(row.id, token);
+      await api.deleteTranslation(row.id);
       showToast(t('admin.pages.translations.translation_deleted'), 'success');
       if (editingId === row.id) {
         resetEditor();

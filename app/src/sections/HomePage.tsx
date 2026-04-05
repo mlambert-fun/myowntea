@@ -54,7 +54,7 @@ function HomeSectionPlaceholder({
 
 export default function HomePage() {
   const location = useLocation();
-  const [ingredientCountLabel, setIngredientCountLabel] = useState('40+');
+  const [ingredientCountLabel, setIngredientCountLabel] = useState('100+');
   const [pendingScrollTarget, setPendingScrollTarget] = useState<string | null>(null);
   const forceRenderedSections = useMemo(
     () => getDeferredSectionIdsToRender(pendingScrollTarget),
@@ -77,7 +77,7 @@ export default function HomePage() {
         setIngredientCountLabel(`${displayCount}+`);
       } catch {
         if (!cancelled) {
-          setIngredientCountLabel('40+');
+          setIngredientCountLabel('100+');
         }
       }
     };

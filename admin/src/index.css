@@ -871,6 +871,154 @@ input, textarea, select {
   font-weight: 600;
 }
 
+.admin-auth-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background:
+    radial-gradient(circle at top left, rgba(201, 169, 98, 0.18), transparent 38%),
+    linear-gradient(160deg, #f8f3e8 0%, #efe7d6 100%);
+}
+
+.admin-auth-card {
+  width: 100%;
+  max-width: 560px;
+  background: rgba(250, 248, 243, 0.94);
+  border: 1px solid rgba(65, 76, 22, 0.1);
+  border-radius: 1.5rem;
+  box-shadow: 0 18px 50px rgba(45, 62, 54, 0.12);
+  padding: 2rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.admin-auth-card-loading {
+  max-width: 460px;
+  text-align: center;
+}
+
+.admin-auth-intro {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.admin-auth-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8b6b2e;
+}
+
+.admin-auth-title {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+}
+
+.admin-auth-subtitle {
+  color: var(--green-moss);
+  line-height: 1.6;
+}
+
+.admin-auth-form,
+.admin-auth-step,
+.admin-auth-setup {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-auth-field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.admin-auth-field label,
+.admin-auth-secret-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--sage-deep);
+}
+
+.admin-auth-field input,
+.admin-auth-secret-block textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: 0.9rem;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--sage-deep);
+  font-size: 0.95rem;
+}
+
+.admin-auth-field input:focus,
+.admin-auth-secret-block textarea:focus {
+  outline: none;
+  border-color: var(--gold-antique);
+  box-shadow: 0 0 0 3px rgba(201, 169, 98, 0.18);
+}
+
+.admin-auth-submit {
+  width: 100%;
+}
+
+.admin-auth-alert {
+  padding: 0.9rem 1rem;
+  border-radius: 0.95rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.admin-auth-alert-error {
+  background: #fbe9e7;
+  color: var(--danger);
+  border: 1px solid rgba(168, 92, 75, 0.24);
+}
+
+.admin-auth-alert-info {
+  background: rgba(201, 169, 98, 0.16);
+  color: var(--sage-deep);
+  border: 1px solid rgba(201, 169, 98, 0.28);
+}
+
+.admin-auth-setup-header {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.admin-auth-secret-block {
+  display: grid;
+  gap: 0.6rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.admin-auth-secret-block code {
+  display: block;
+  padding: 0.8rem 0.95rem;
+  border-radius: 0.8rem;
+  background: #fff;
+  border: 1px dashed rgba(65, 76, 22, 0.18);
+  font-size: 1rem;
+  color: var(--sage-deep);
+  word-break: break-word;
+}
+
+.admin-auth-helper {
+  color: var(--green-moss);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.admin-auth-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
 @media (max-width: 1080px) {
   .dashboard-grid,
   .dashboard-grid-large {
@@ -881,5 +1029,17 @@ input, textarea, select {
 @media (max-width: 640px) {
   .dashboard-kpi-grid {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-auth-screen {
+    padding: 1rem;
+  }
+
+  .admin-auth-card {
+    padding: 1.35rem;
+  }
+
+  .admin-auth-actions {
+    flex-direction: column;
   }
 }

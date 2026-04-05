@@ -179,7 +179,6 @@ export default function Ingredients() {
         origin: '',
         isActive: true,
     });
-    const token = localStorage.getItem('adminToken') || '';
     const inputClass = 'admin-input';
     const labelClass = 'admin-label';
     useEffect(() => {
@@ -271,14 +270,14 @@ export default function Ingredients() {
             const optimizedFile = new File([optimizedBlob], file.name.replace(/\.[^/.]+$/, '.webp'), {
                 type: 'image/webp',
             });
-            const response = await api.uploadImage(optimizedFile, folder, token);
+            const response = await api.uploadImage(optimizedFile, folder);
             setImagePreview(response.url);
             setFormData({ ...formData, image: response.url });
         }
         catch (error) {
             console.error('Image optimization failed', error);
             try {
-                const response = await api.uploadImage(file, folder, token);
+                const response = await api.uploadImage(file, folder);
                 setImagePreview(response.url);
                 setFormData({ ...formData, image: response.url });
             }
@@ -323,10 +322,10 @@ export default function Ingredients() {
                 flavors: formData.flavors || [],
             };
             if (editingId) {
-                await api.updateIngredient(editingId, payload, token);
+                await api.updateIngredient(editingId, payload);
             }
             else {
-                await api.createIngredient(payload, token);
+                await api.createIngredient(payload);
             }
             setShowModal(false);
             setEditingId(null);
@@ -377,7 +376,7 @@ export default function Ingredients() {
         setDeleteTarget(null);
         setIngredients((prev) => prev.filter((ing) => ing.id !== targetId));
         try {
-            await api.deleteIngredient(targetId, token);
+            await api.deleteIngredient(targetId);
         }
         catch (error) {
             console.error('Failed to delete ingredient', error);
@@ -787,20 +786,20 @@ export default function Ingredients() {
 
               {formData.category === 'base' && (<div className="admin-grid-2" style={{ marginTop: '1rem' }}>
                   <div>
-                    <label className={labelClass}>Temps d'infusion</label>
-                    <input type="text" className={inputClass} value={formData.infusionTime} onChange={(e) => setFormData({ ...formData, infusionTime: e.target.value })} placeholder="3-4'"/>
+                    <label className={labelClass}>{t("admin.pages.ingredients.infusion_time")}</label>
+                    <input type="text" className={inputClass} value={formData.infusionTime} onChange={(e) => setFormData({ ...formData, infusionTime: e.target.value })} placeholder={t("admin.pages.ingredients.infusion_time_placeholder")}/>
                   </div>
                   <div>
-                    <label className={labelClass}>Dosage</label>
-                    <input type="text" className={inputClass} value={formData.dosage} onChange={(e) => setFormData({ ...formData, dosage: e.target.value })} placeholder="2-3g / tasse (25cl)"/>
+                    <label className={labelClass}>{t("admin.pages.ingredients.dosage")}</label>
+                    <input type="text" className={inputClass} value={formData.dosage} onChange={(e) => setFormData({ ...formData, dosage: e.target.value })} placeholder={t("admin.pages.ingredients.dosage_placeholder")}/>
                   </div>
                   <div>
                     <label className={labelClass}>{t("admin.pages.ingredients.temperature")}</label>
-                    <input type="text" className={inputClass} value={formData.temperature} onChange={(e) => setFormData({ ...formData, temperature: e.target.value })} placeholder="90°C - 194°F"/>
+                    <input type="text" className={inputClass} value={formData.temperature} onChange={(e) => setFormData({ ...formData, temperature: e.target.value })} placeholder={t("admin.pages.ingredients.temperature_placeholder")}/>
                   </div>
                   <div>
-                    <label className={labelClass}>Origine</label>
-                    <input type="text" className={inputClass} value={formData.origin} onChange={(e) => setFormData({ ...formData, origin: e.target.value })} placeholder="Inde"/>
+                    <label className={labelClass}>{t("admin.pages.ingredients.origin")}</label>
+                    <input type="text" className={inputClass} value={formData.origin} onChange={(e) => setFormData({ ...formData, origin: e.target.value })} placeholder={t("admin.pages.ingredients.origin_placeholder")}/>
                   </div>
                 </div>)}
 
@@ -893,4 +892,3 @@ export default function Ingredients() {
       </div>
     </Layout>);
 }
-

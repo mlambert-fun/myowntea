@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Leaf, Beaker, Package, Truck } from 'lucide-react';
 import { t } from "@/lib/i18n";
-export function HowItWorks({ ingredientCountLabel = '40+' }: { ingredientCountLabel?: string }) {
+export function HowItWorks({ ingredientCountLabel = '100+' }: { ingredientCountLabel?: string }) {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [visibleSteps, setVisibleSteps] = useState<Set<number>>(new Set());
     const steps = [

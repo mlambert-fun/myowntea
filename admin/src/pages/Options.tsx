@@ -24,7 +24,6 @@ export default function Options() {
     const [newOptionName, setNewOptionName] = useState('');
     const [newOptionPosition, setNewOptionPosition] = useState('0');
     const [valueDrafts, setValueDrafts] = useState<Record<string, string>>({});
-    const token = localStorage.getItem('adminToken') || '';
     useEffect(() => {
         loadProducts();
     }, []);
@@ -62,7 +61,7 @@ export default function Options() {
         if (!productId)
             return;
         try {
-            await api.createOption(productId, { name: newOptionName, position: Number(newOptionPosition) }, token);
+            await api.createOption(productId, { name: newOptionName, position: Number(newOptionPosition) });
             setNewOptionName('');
             setNewOptionPosition('0');
             loadOptions(productId);
@@ -75,7 +74,7 @@ export default function Options() {
         if (!window.confirm(t("admin.pages.options.delete_option")))
             return;
         try {
-            await api.deleteOption(optionId, token);
+            await api.deleteOption(optionId);
             loadOptions(productId);
         }
         catch (error) {
@@ -87,7 +86,7 @@ export default function Options() {
         if (!value)
             return;
         try {
-            await api.createOptionValue(optionId, { value, position: 0 }, token);
+            await api.createOptionValue(optionId, { value, position: 0 });
             setValueDrafts((prev) => ({ ...prev, [optionId]: '' }));
             loadOptions(productId);
         }
@@ -99,7 +98,7 @@ export default function Options() {
         if (!window.confirm(t("admin.pages.options.delete_value")))
             return;
         try {
-            await api.deleteOptionValue(valueId, token);
+            await api.deleteOptionValue(valueId);
             loadOptions(productId);
         }
         catch (error) {

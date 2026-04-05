@@ -37,6 +37,7 @@ import { FrontendRedirectResolver } from '@/components/routing/FrontendRedirectR
 import { Toast } from '@/components/Toast';
 import MaintenancePage from '@/sections/MaintenancePage';
 import { StoreSettingsProvider } from '@/context/StoreSettingsContext';
+import { CloseCrossCursor } from '@/components/CloseCrossCursor';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
       <StoreSettingsProvider>
         <BlendProvider>
           <div className="min-h-screen bg-[var(--cream-apothecary)]">
+            <CloseCrossCursor />
             <CartDrawer />
             <WishlistDrawer />
             <Toast />

@@ -40,7 +40,6 @@ export default function Customers() {
         createdFrom: '',
         createdTo: '',
     });
-    const token = localStorage.getItem('adminToken') || '';
     useEffect(() => {
         loadCustomers();
     }, []);
@@ -67,7 +66,7 @@ export default function Customers() {
         try {
             setDeleteError(null);
             setIsDeleting(true);
-            await api.deleteCustomer(deleteTarget.id, token);
+            await api.deleteCustomer(deleteTarget.id);
             setCustomers((prev) => prev.filter((customer) => customer.id !== deleteTarget.id));
             setDeleteTarget(null);
         }
@@ -103,7 +102,7 @@ export default function Customers() {
       <div className="admin-page admin-page-premium-lite">
         <div className="admin-header">
           <div>
-            <h1 className="admin-title">Clients</h1>
+            <h1 className="admin-title">{t("admin.pages.customers.title")}</h1>
             <p className="admin-subtitle">{t("admin.pages.customers.manage_accounts_customers")}</p>
           </div>
         </div>
@@ -115,7 +114,7 @@ export default function Customers() {
 
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
           <div style={{ flex: 1, minWidth: '220px' }}>
-            <input type="text" className="admin-input" placeholder="Rechercher par nom..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}/>
+            <input type="text" className="admin-input" placeholder={t("admin.pages.customers.search_by_name")} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}/>
           </div>
           <button type="button" onClick={() => setShowFilters((prev) => !prev)} className="admin-btn admin-btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }} title={showFilters ? t("admin.pages.customers.hide_filters") : t("admin.pages.customers.display_filters")} aria-label={showFilters ? t("admin.pages.customers.hide_filters") : t("admin.pages.customers.display_filters")}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -123,13 +122,13 @@ export default function Customers() {
               <path d="M7 12H17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               <path d="M10 18H14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
-            Filtres
+            {t("admin.pages.customers.filters")}
           </button>
         </div>
 
         {showFilters && (<div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '0.75rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', whiteSpace: 'nowrap' }}>
-              <span className="admin-muted">Type :</span>
+              <span className="admin-muted">{t("admin.pages.customers.type")} :</span>
               <select className="admin-input" value={filters.accountType} onChange={(e) => setFilters({ ...filters, accountType: e.target.value })} style={{ width: '245px' }}>
                 <option value="account">{t("admin.pages.customers.accounts_hors_guests")}</option>
                 <option value="guest">{t("admin.pages.customers.guests_only")}</option>
@@ -147,7 +146,7 @@ export default function Customers() {
             }}>
               <span className="admin-muted">{t("admin.pages.customers.date_blend")}</span>
               <input type="date" className="admin-input" value={filters.createdFrom} onChange={(e) => setFilters({ ...filters, createdFrom: e.target.value })} style={{ width: '140px' }}/>
-              <span className="admin-muted">au</span>
+              <span className="admin-muted">{t("admin.pages.customers.to")}</span>
               <input type="date" className="admin-input" value={filters.createdTo} onChange={(e) => setFilters({ ...filters, createdTo: e.target.value })} style={{ width: '140px' }}/>
             </div>
           </div>)}
@@ -156,13 +155,13 @@ export default function Customers() {
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Type</th>
+                <th>{t("admin.pages.customers.type")}</th>
                 <th>{t("admin.pages.customers.email")}</th>
-                <th>Nom</th>
-                <th>Commandes</th>
-                <th>Paniers</th>
+                <th>{t("admin.pages.customers.name")}</th>
+                <th>{t("admin.pages.customers.orders")}</th>
+                <th>{t("admin.pages.customers.carts")}</th>
                 <th>{t("admin.pages.customers.created_at")}</th>
-                <th aria-label="Actions"/>
+                <th aria-label={t("admin.pages.customers.actions")}/>
               </tr>
             </thead>
             <tbody>
@@ -186,7 +185,7 @@ export default function Customers() {
                     <td>{customer.createdAt ? new Date(customer.createdAt).toLocaleDateString('fr-FR') : '-'}</td>
                     <td>
                       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <button type="button" onClick={() => setDeleteTarget(customer)} className="admin-icon-button admin-icon-button-danger" aria-label={`Supprimer ${getCustomerLabel(customer)}`} title={t("admin.pages.customers.delete")}>
+                        <button type="button" onClick={() => setDeleteTarget(customer)} className="admin-icon-button admin-icon-button-danger" aria-label={`${t("admin.pages.customers.delete")} ${getCustomerLabel(customer)}`} title={t("admin.pages.customers.delete")}>
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                             <path d="M3 6h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                             <path d="M8 6V4h8v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -214,10 +213,10 @@ export default function Customers() {
             </p>
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
               <button type="button" className="admin-btn admin-btn-secondary" onClick={() => setDeleteTarget(null)} disabled={isDeleting}>
-                Annuler
+                {t("admin.pages.customers.cancel")}
               </button>
               <button type="button" className="admin-btn admin-btn-danger" onClick={confirmDeleteCustomer} disabled={isDeleting}>
-                {isDeleting ? 'Suppression...' : t("admin.pages.customers.delete_definitivement")}
+                {isDeleting ? t("admin.pages.customers.deleting") : t("admin.pages.customers.delete_definitivement")}
               </button>
             </div>
             </div>

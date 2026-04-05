@@ -141,7 +141,7 @@
   }
 
   .cursor-close-cross {
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'><rect width='24' height='24' rx='12' fill='%23F3F1EE'/><line x1='8' y1='8' x2='16' y2='16' stroke='%23414C16' stroke-width='2' stroke-linecap='round'/><line x1='16' y1='8' x2='8' y2='16' stroke='%23414C16' stroke-width='2' stroke-linecap='round'/></svg>") 12 12, pointer;
+    cursor: none;
   }
 
   .animation-float {
@@ -166,6 +166,62 @@
   
   .transition-400 {
     transition-duration: 400ms;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cursor-close-cross :is(button, a, input, textarea, select, label, summary, [role='button'], [role='link'], [contenteditable='true']) {
+    cursor: auto;
+  }
+
+  .background-cursor-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2147483647;
+    display: flex;
+    pointer-events: none;
+    transform: translate3d(calc(var(--translate-x, 0) * 1px - 50%), calc(var(--translate-y, 0) * 1px - 50%), 0);
+    transition: none;
+    will-change: transform, opacity;
+  }
+
+  .background-cursor-wrapper_outer {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.1);
+    transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.16s ease-out;
+  }
+
+  .background-cursor-wrapper_inner {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #232323;
+    opacity: 0;
+    transform: scale(0.1);
+    transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.16s ease-out;
+  }
+
+  .background-cursor-wrapper_inner svg {
+    width: 15px;
+    height: 15px;
+    stroke: currentColor;
+  }
+
+  .background-cursor-wrapper.enlarge-cursor .background-cursor-wrapper_outer,
+  .background-cursor-wrapper.enlarge-cursor .background-cursor-wrapper_inner {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
